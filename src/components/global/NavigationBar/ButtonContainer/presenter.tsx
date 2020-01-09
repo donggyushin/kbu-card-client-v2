@@ -4,8 +4,7 @@ import NavigationButton from './Button'
 
 const Container = styled.div`
     display:flex;
-    width: 75%;
-    justify-content: space-around;
+    width: 1032px;
 `
 
 

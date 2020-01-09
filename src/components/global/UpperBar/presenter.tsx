@@ -4,7 +4,7 @@ import KbuCardText from './Kbucard'
 import Profile from './Profile'
 
 const Container = styled.div`
-    width:80%;
+    width:1072px;
     display:flex;
     justify-content:space-between;
     height:90px;

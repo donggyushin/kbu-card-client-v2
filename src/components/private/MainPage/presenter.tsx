@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import NavigationBar from '../../global/NavigationBar'
 import UpperBar from '../../global/UpperBar'
-import CafeteriaLinkCard from './FirstLow'
+import BodyPresenter from './Body'
+import Copyright from '../../global/Copyright'
 
 const Container = styled.div`
     display:flex;
@@ -14,7 +15,8 @@ const MainPagePresenter: React.FC = () => {
     return <Container>
         <UpperBar />
         <NavigationBar />
-        <CafeteriaLinkCard />
+        <BodyPresenter />
+        <Copyright />
     </Container>
 }
 

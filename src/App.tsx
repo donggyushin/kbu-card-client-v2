@@ -22,7 +22,6 @@ const App: React.FC = () => {
   const themeReducerState = useSelector((state: ReducerStateType) => state.theme)
   const isLoggedIn: boolean = userReducerState.isLoggedIn
   const theme = themeReducerState.lightTheme
-  console.log(`theme:${theme}`)
   return (
     <Container
       lightMode={theme}

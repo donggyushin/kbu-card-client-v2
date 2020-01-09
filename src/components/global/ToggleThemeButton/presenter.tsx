@@ -13,6 +13,8 @@ const Container = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    background:transparent;
+    position:absolute;
 `
 
 const ToggleThemeButtonPresenter: React.FC = () => {

@@ -5,14 +5,15 @@ import PrivateRouter from './components/private/routes';
 import PublicRouter from './components/public/routes';
 import ToggleThemeButton from './components/global/ToggleThemeButton';
 import styled from 'styled-components'
+import { COLORS } from './consts/colors';
 
 interface containerProps {
   lightMode: boolean
 }
 
 const Container = styled.div`
-  background:${(props: containerProps) => props.lightMode ? 'white' : '#353b48'};
-  color:${(props: containerProps) => props.lightMode ? 'black' : 'white'};
+  background:${(props: containerProps) => props.lightMode ? `${COLORS.white}` : `${COLORS.background}`};
+  color:${(props: containerProps) => props.lightMode ? `${COLORS.black}` : `${COLORS.white}`};
   min-height:100vh;
   transition-duration:0.2s;
 `
@@ -26,7 +27,7 @@ const App: React.FC = () => {
     <Container
       lightMode={theme}
     >
-      <ToggleThemeButton />
+      {/* <ToggleThemeButton /> */}
       {isLoggedIn ? <PrivateRouter /> : <PublicRouter />}
     </Container>
   );

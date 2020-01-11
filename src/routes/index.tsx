@@ -4,24 +4,21 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import LoginPage from './LoginPage';
+import MainComponent from '../components/MainComponent';
 
-const PublicRouter: React.FC = () => {
+const ReactRoutesComponent: React.FC = () => {
     return <Router>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
             <Route path={'/'}>
-                <LoginPage />
-            </Route>
-            <Route path={'/login'}>
-                <LoginPage />
+                <MainComponent />
             </Route>
             <Route>
-                <LoginPage />
+                <MainComponent />
             </Route>
         </Switch>
     </Router>
 }
 
-export default PublicRouter
+export default ReactRoutesComponent

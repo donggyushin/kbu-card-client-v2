@@ -3,10 +3,10 @@ import styled from 'styled-components'
 
 const Container = styled.div``
 
-const ProfilePresenter: React.FC = () => {
+const NavigationPresenter: React.FC = () => {
     return <Container>
-        Profile
+        navigation bar
     </Container>
 }
 
-export default ProfilePresenter
+export default NavigationPresenter

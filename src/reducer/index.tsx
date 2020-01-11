@@ -7,12 +7,16 @@ import {
 import thunk from 'redux-thunk'
 import user from './user'
 import theme from './theme'
+import navigationTab from './navigationTab'
+import modal from './modal'
 
 const initialState = {}
 
 const allReducers = combineReducers({
     user,
-    theme
+    theme,
+    navigationTab,
+    modal
 })
 
 // @ts-ignore

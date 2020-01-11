@@ -1,24 +1,24 @@
 import React from 'react'
 import {
-    BrowserRouter as Router,
     Switch,
     Route
 } from "react-router-dom";
 import MainComponent from '../components/MainComponent';
+import LoginComponent from '../components/LoginComponent';
 
 const ReactRoutesComponent: React.FC = () => {
-    return <Router>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-            <Route path={'/'}>
-                <MainComponent />
-            </Route>
-            <Route>
-                <MainComponent />
-            </Route>
-        </Switch>
-    </Router>
+    return <Switch>
+        <Route exact path='/login'>
+            <LoginComponent />
+        </Route>
+        <Route exact path='/'>
+            <MainComponent />
+        </Route>
+        <Route>
+            <MainComponent />
+        </Route>
+    </Switch>
+
 }
 
 export default ReactRoutesComponent

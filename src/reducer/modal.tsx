@@ -6,7 +6,7 @@ interface ActionType {
     type: string
     title: string
     text: string
-    callBack: () => void
+    callBack?: () => void
 }
 
 const initialState: ReducerModalType = {
@@ -49,7 +49,7 @@ function turnOnModal(state: ReducerModalType, action: ActionType): ReducerModalT
         title,
         text,
         open: true,
-        callBack
+        callBack: callBack ? callBack : () => { }
     }
 
 }

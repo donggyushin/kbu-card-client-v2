@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { COLORS } from '../../consts/colors'
 import { useDispatch } from 'react-redux'
 import { TURN_ON_TAB } from '../../actions/types.d'
+import { Link } from 'react-router-dom'
 
 interface IDispatch {
     type: string
@@ -22,6 +23,7 @@ const LeftText = styled.div`
     padding-right:20px;
     cursor:pointer;
     font-weight:700;
+    color:${COLORS.black};
 `
 
 const RightConfigIcon = styled.i`
@@ -43,9 +45,15 @@ const NavigationPresenter: React.FC = () => {
     }
 
     return <Container>
-        <LeftText>
-            성서봇
+        <Link
+            style={{
+                textDecoration: 'none'
+            }}
+            to={'/'}>
+            <LeftText>
+                성서봇
         </LeftText>
+        </Link>
         <RightConfigIcon
             onClick={RightConfigIconClicked}
             className="fas fa-cog" />

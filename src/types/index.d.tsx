@@ -19,9 +19,15 @@ export interface ReducerUserType {
     name: string
 }
 
+export interface ReducerRoutingType {
+    route: boolean
+    to: string
+}
+
 export interface ReducerStateType {
     user: ReducerUserType
     theme: ReducerThemeType
     navigationTab: ReducerNavigationTabType
     modal: ReducerModalType
+    routing: ReducerRoutingType
 }

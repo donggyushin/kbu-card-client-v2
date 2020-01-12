@@ -3,10 +3,12 @@ import Presenter from './presenter'
 import { connect } from 'react-redux'
 import { ReducerStateType } from '../../types/index.d'
 import { turnOffTab } from '../../actions/tab'
+import { logoutThunkFunction } from '../../actions/user'
 
 interface IProps {
     turnOffTab: () => void
     isLoggedIn: boolean
+    logoutThunkFunction: () => void
 }
 
 interface IState {
@@ -24,20 +26,29 @@ class NavigationTab extends React.Component<IProps, IState> {
             disappearingTab
         } = this.state
         const {
-            leftIconClicked
+            disappearTabBar,
+            logoutUser
         } = this;
         const {
             isLoggedIn
         } = this.props;
         return <Presenter
             disappearingTab={disappearingTab}
-            leftIconClicked={leftIconClicked}
+            disappearTabBar={disappearTabBar}
             isLoggedIn={isLoggedIn}
+            logoutUser={logoutUser}
         />
     }
 
+    logoutUser = () => {
+        this.disappearTabBar()
+        setTimeout(() => {
+            this.props.logoutThunkFunction()
+        }, 200);
 
-    leftIconClicked = () => {
+    }
+
+    disappearTabBar = () => {
         const { turnOffTab } = this.props;
         this.setState({
             disappearingTab: true
@@ -58,5 +69,6 @@ const mapStateToProps = (state: ReducerStateType) => {
 
 
 export default connect(mapStateToProps, {
-    turnOffTab
+    turnOffTab,
+    logoutThunkFunction
 })(NavigationTab)

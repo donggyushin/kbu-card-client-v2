@@ -32,11 +32,17 @@ export default function AlertDialog() {
 
     };
 
+    const DisagreeButton = () => {
+        dispatch({
+            type: TURN_DOWN_ALERT
+        })
+    }
+
     return (
         <div>
             <Dialog
                 open={open}
-                onClose={handleClose}
+                // onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -47,8 +53,11 @@ export default function AlertDialog() {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
+                    <Button onClick={DisagreeButton} color="secondary">
+                        싫어요
+                    </Button>
                     <Button onClick={handleClose} color="primary">
-                        Agree
+                        좋아요
                     </Button>
                 </DialogActions>
             </Dialog>

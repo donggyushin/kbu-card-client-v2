@@ -1,32 +1,27 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { COLORS } from '../../consts/colors'
-import NavigationTabButton from './TabButton'
-import { Link } from 'react-router-dom'
+import TabBody from './TabBody'
 
-interface IProps {
-    disappearingTab: boolean
-    leftIconClicked: () => void
-    isLoggedIn: boolean
-}
+
 
 const fromRightToLeft = keyframes`
     from {
-        right: 250px;
+        top:100vh;
     }
 
     to {
-        right:0px;
+        top:0;
     }
 `
 
 const fromLeftToRight = keyframes`
     from {
-        right: 0px;
+        top:0;
     }
 
     to {
-        right:250px;
+        top:100vh;
     }
 `
 
@@ -41,7 +36,7 @@ const Container = styled.div`
 `
 
 const Tab = styled.div`
-    width:200px;
+    width:100%;
     background:white;
     height:100%;
     position: relative;
@@ -49,65 +44,69 @@ const Tab = styled.div`
 `
 
 const DisappearingTabComponent = styled.div`
-    width:200px;
+    width:100%;
     background:white;
     height:100%;
     position: relative;
-    right:250px;
+    top:100vh;
     animation:${fromLeftToRight} 0.2s;
 `
 
-const LeftIconContainer = styled.div`
+const XIconContainer = styled.div`
     display:flex;
     width:100%;
-    justify-content:flex-end;
+    justify-content:flex-start;
 `
 
-const LeftIcon = styled.i`
+const XIcon = styled.div`
     color:${COLORS.gray};
     padding-right:20px;
     padding-left:20px;
-    font-size:30px;
+    font-size: 33px;
+    font-weight: 100;
     cursor:pointer;
 `
 
+interface IProps {
+    disappearingTab: boolean
+    disappearTabBar: () => void
+    isLoggedIn: boolean
+    logoutUser: () => void
+}
+
 const TabPresenter: React.FC<IProps> = ({
     disappearingTab,
-    leftIconClicked,
-    isLoggedIn
+    disappearTabBar,
+    isLoggedIn,
+    logoutUser
 }) => {
 
     return <Container>
         {disappearingTab ? <DisappearingTabComponent>
-            <LeftIconContainer>
-                <LeftIcon
-                    className="fas fa-caret-left"
-                />
-            </LeftIconContainer>
-            {!isLoggedIn && <NavigationTabButton
-                text="로그인"
-                iconClassName="fas fa-home"
-            />}
+            <XIconContainer>
+                <XIcon
+                    onClick={disappearTabBar}
+                >x</XIcon>
+            </XIconContainer>
 
+            <TabBody
+                isLoggedIn={isLoggedIn}
+                logoutUser={logoutUser}
+                shutDownTabBar={disappearTabBar}
+            />
         </DisappearingTabComponent> : <Tab>
-                <LeftIconContainer>
-                    <LeftIcon
-                        className="fas fa-caret-left"
-                        onClick={leftIconClicked}
-                    />
-                </LeftIconContainer>
-                {!isLoggedIn && <Link
-                    style={{
-                        textDecoration: 'none'
-                    }}
-                    onClick={leftIconClicked}
-                    to="/login">
-                    <NavigationTabButton
-                        text="로그인"
-                        iconClassName="fas fa-home"
-                    />
-                </Link>}
-
+                <XIconContainer>
+                    <XIcon
+                        onClick={disappearTabBar}
+                    >
+                        x
+                    </XIcon>
+                </XIconContainer>
+                <TabBody
+                    isLoggedIn={isLoggedIn}
+                    logoutUser={logoutUser}
+                    shutDownTabBar={disappearTabBar}
+                />
             </Tab>}
 
 

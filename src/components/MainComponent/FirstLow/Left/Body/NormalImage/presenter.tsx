@@ -52,6 +52,7 @@ const NormalImagePresenter: React.FC<IProps> = () => {
         })
     }
 
+
     if (routing.route) {
         setTimeout(() => {
             dispatch({

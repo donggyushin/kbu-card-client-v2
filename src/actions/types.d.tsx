@@ -11,3 +11,8 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 
 export const ROUTING_ON = 'ROUTING_ON'
 export const ROUTING_OFF = 'ROUTING_OFF'
+
+export const UPDATE_CURRENT_LOCATION = 'UPDATE_CURRENT_LOCATION'
+
+export const LOADING_ON = 'LOADING_ON'
+export const LOADING_OFF = 'LOADING_OFF'

@@ -10,10 +10,27 @@ const Container = styled.div`
     flex-direction:column;
 `
 
-const LoginComponentPresenter: React.FC = () => {
+interface IProps {
+    id: string
+    pw: string
+    handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void
+    login: () => void
+}
+
+const LoginComponentPresenter: React.FC<IProps> = ({
+    id,
+    pw,
+    handleInput,
+    login
+}) => {
     return <Container>
         <Navigation />
-        <LoginForm />
+        <LoginForm
+            id={id}
+            pw={pw}
+            handleInput={handleInput}
+            login={login}
+        />
     </Container>
 }
 

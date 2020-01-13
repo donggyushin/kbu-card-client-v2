@@ -10,6 +10,8 @@ import theme from './theme'
 import navigationTab from './navigationTab'
 import modal from './modal'
 import routing from './routing'
+import location from './location'
+import loading from './loading'
 
 const initialState = {}
 
@@ -18,7 +20,9 @@ const allReducers = combineReducers({
     theme,
     navigationTab,
     modal,
-    routing
+    routing,
+    location,
+    loading
 })
 
 // @ts-ignore

@@ -23,7 +23,7 @@ interface IProps { }
 const LeftPresenter: React.FC<IProps> = () => {
     return <Container>
         <Body />
-        <UnderLine />
+        {/* <UnderLine /> */}
     </Container>
 }
 

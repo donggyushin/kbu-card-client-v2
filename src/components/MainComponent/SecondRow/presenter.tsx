@@ -6,15 +6,14 @@ import Right from './Right'
 import { COLORS } from '../../../consts/colors'
 
 const Container = styled.div`
+    height: 25vh;
     width: 90%;
-    height: 33vh;
     display: grid;
-    justify-content: center;
-    grid-template-columns: 49% 1% 49%;
+    grid-template-columns: 59% 1% 40%;
     border-bottom:1px solid ${COLORS.weakGray};
 `
 
-const FirstLowPresenter: React.FC = () => {
+const SecondRowPresenter: React.FC = () => {
     return <Container>
         <Left />
         <Center />
@@ -22,4 +21,4 @@ const FirstLowPresenter: React.FC = () => {
     </Container>
 }
 
-export default FirstLowPresenter
+export default SecondRowPresenter

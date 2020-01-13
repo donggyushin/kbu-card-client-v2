@@ -1,5 +1,6 @@
 import { ReducerUserType } from "../types/index.d";
 import { USER_LOGIN, USER_LOGOUT } from "../actions/types.d";
+import jwt from 'jsonwebtoken'
 
 interface ActionType {
     type: string
@@ -10,7 +11,11 @@ interface ActionType {
 const initialState: ReducerUserType = {
     isLoggedIn: localStorage.getItem('kbucard') ? true : false,
     email: "",
-    name: ""
+    name: "",
+    profile: "",
+    sid: "",
+    cid: "",
+    exp: 0
 }
 
 export default function (state: ReducerUserType = initialState, action: ActionType) {
@@ -27,6 +32,7 @@ export default function (state: ReducerUserType = initialState, action: ActionTy
 function userLogout(state: ReducerUserType, action: ActionType): ReducerUserType {
 
     window.localStorage.removeItem('kbucard');
+
     window.location.href = '/'
     return {
         ...state,
@@ -37,10 +43,15 @@ function userLogout(state: ReducerUserType, action: ActionType): ReducerUserType
 function userLogin(state: ReducerUserType, action: ActionType): ReducerUserType {
 
     const { token } = action
+    const decoded: any = jwt.decode(token)
+    const { sid, cid, exp } = decoded
     window.localStorage.setItem('kbucard', token)
-    window.location.href = '/'
+
     return {
         ...state,
-        isLoggedIn: true
+        isLoggedIn: true,
+        sid,
+        cid,
+        exp
     }
 }

@@ -3,18 +3,31 @@ import Presenter from './presenter'
 import { connect } from 'react-redux'
 import { ReducerStateType } from '../../types/index.d'
 import { turnOnAlert } from '../../actions/modal'
+import { loginUserThunkFunction } from '../../actions/user'
+import { loadingOn } from '../../actions/loading'
+
 
 interface IProps {
     isLoggedIn: boolean
     turnOnAlert: (title: string, text: string, callBack?: () => void) => void
+    loginUserThunkFunction: (id: string, pw: string) => void
+    loadingOn: () => void
 }
 
 interface ReducerPropsType {
     isLoggedIn: boolean
 }
 
-class LoginComponentContainer extends React.Component<IProps> {
+interface IState {
+    id: string
+    pw: string
+}
 
+class LoginComponentContainer extends React.Component<IProps, IState> {
+    state: IState = {
+        id: "",
+        pw: ""
+    }
     componentDidMount() {
         const { isLoggedIn, turnOnAlert } = this.props;
         if (isLoggedIn) {
@@ -25,7 +38,39 @@ class LoginComponentContainer extends React.Component<IProps> {
     }
 
     render() {
-        return <Presenter />
+        const {
+            id,
+            pw
+        } = this.state
+        const {
+            handleInput,
+            login
+        } = this
+        return <Presenter
+            id={id}
+            pw={pw}
+            handleInput={handleInput}
+            login={login}
+        />
+    }
+
+    login = () => {
+        this.props.loadingOn()
+        const {
+            id,
+            pw
+        } = this.state
+        this.props.loginUserThunkFunction(id, pw)
+    }
+
+    handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const name: string = event.target.name
+        const value: string = event.target.value
+
+        this.setState({
+            ...this.state,
+            [name]: value
+        })
     }
 
     goHome = () => {
@@ -42,5 +87,7 @@ const mapStateToProps = (state: ReducerStateType): ReducerPropsType => {
 
 
 export default connect(mapStateToProps, {
-    turnOnAlert
+    turnOnAlert,
+    loginUserThunkFunction,
+    loadingOn
 })(LoginComponentContainer)

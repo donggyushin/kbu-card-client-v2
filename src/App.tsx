@@ -6,6 +6,7 @@ import { COLORS } from './consts/colors';
 import ReactRoutesComponent from './routes';
 import NavigationTab from './components/NavigationTab';
 import AlertModal from './components/AlertModel';
+import Loading from './components/Loading';
 
 interface containerProps {
   lightMode: boolean
@@ -22,7 +23,9 @@ const Container = styled.div`
 const App: React.FC = () => {
   const themeReducerState = useSelector((state: ReducerStateType) => state.theme)
   const theme = themeReducerState.lightTheme
+  const loading: boolean = useSelector((state: ReducerStateType) => state.loading.loading)
   const navigationTabVisiable: boolean = useSelector((state: ReducerStateType) => state.navigationTab.visiable)
+
   return (
     <Container
       lightMode={theme}
@@ -30,6 +33,7 @@ const App: React.FC = () => {
       <ReactRoutesComponent />
       {navigationTabVisiable && <NavigationTab />}
       <AlertModal />
+      {loading && <Loading />}
     </Container>
   );
 }

@@ -7,6 +7,7 @@ const GRAY = '#a4b0be'
 const CARROT = '#e67e22'
 const WEAK_GRAY = 'gainsboro'
 const LIGHT_GREEN = '#2ecc71'
+const INDIGO = '#a29bfe'
 
 export const COLORS = {
     lightBlue: LIGHT_BLUE,
@@ -17,5 +18,6 @@ export const COLORS = {
     gray: GRAY,
     carrot: CARROT,
     weakGray: WEAK_GRAY,
-    lightGreen: LIGHT_GREEN
+    lightGreen: LIGHT_GREEN,
+    indigo: INDIGO
 }

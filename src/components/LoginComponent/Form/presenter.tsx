@@ -28,8 +28,20 @@ const TitleText = styled.div`
 `
 
 
+interface IProps {
+    id: string
+    pw: string
+    handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void
+    login: () => void
+}
 
-const LoginFormPresenter: React.FC = () => {
+
+const LoginFormPresenter: React.FC<IProps> = ({
+    id,
+    pw,
+    handleInput,
+    login
+}) => {
     return <Container>
         <Card>
             <TitleText>성서봇</TitleText>
@@ -37,15 +49,25 @@ const LoginFormPresenter: React.FC = () => {
                 style={{
                     marginBottom: 20
                 }}
-                label="아이디" variant="outlined" />
+                label="아이디" variant="outlined"
+                value={id}
+                name={'id'}
+                onChange={handleInput}
+            />
             <TextField
                 style={{
                     marginBottom: 40
                 }}
+                value={pw}
+                name={'pw'}
                 label="비밀번호"
                 type="password"
-                variant="outlined" />
-            <Button variant="contained" color="primary">로그인</Button>
+                variant="outlined"
+                onChange={handleInput}
+            />
+            <Button
+                onClick={login}
+                variant="contained" color="primary">로그인</Button>
         </Card>
     </Container>
 }

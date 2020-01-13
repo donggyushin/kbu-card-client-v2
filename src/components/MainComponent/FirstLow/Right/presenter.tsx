@@ -27,7 +27,7 @@ const RightPresenter: React.FC<IProps> = () => {
     const isLoggedIn: boolean = useSelector((state: ReducerStateType) => state.user.isLoggedIn)
     return <Container>
         {isLoggedIn ? <LoggedInImage /> : <LoggedOutImage />}
-        <UnderLine />
+        {/* <UnderLine /> */}
     </Container>
 }
 

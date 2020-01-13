@@ -45,8 +45,6 @@ const ButtonsContainerPresenter: React.FC<IProps> = ({
                     text="로그인"
                 />
             </Link>}
-
-
     </Container>
 }
 

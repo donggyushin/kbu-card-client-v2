@@ -3,22 +3,18 @@ import styled from 'styled-components'
 import { COLORS } from '../../../../consts/colors'
 
 const Container = styled.div`
-    width:100%;
-    height:100%;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
 `
 
 const Line = styled.div`
-    height:85%;
     width:1px;
+    height:85%;
     background:${COLORS.weakGray};
 `
 
-interface IProps { }
-
-const CenterPresenter: React.FC<IProps> = () => {
+const CenterPresenter: React.FC = () => {
     return <Container>
         <Line />
     </Container>

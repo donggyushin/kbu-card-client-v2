@@ -10,7 +10,7 @@ export interface ReducerModalType {
     open: boolean
     title: string
     text: string
-    callBack: () => void
+    callBack: (param?: any) => void
 }
 
 export interface ReducerLocationType {
@@ -29,12 +29,35 @@ export interface ReducerUserType {
     sid: string
     cid: string
     exp: number
+    major: string
 }
 
 export interface ReducerRoutingType {
     route: boolean
     to: string
 }
+
+export interface IChapelSummary {
+    daysOfWeek: number
+    duty: number
+    attendance: number
+    late: number
+    sure: number
+}
+
+
+export interface ReducerChapelType {
+    summary: IChapelSummary
+    thead: string[]
+    tbody: string[][]
+    selected: string
+    selectable: string[]
+}
+
+export interface ReducerMobiledStudentCardType {
+    visible: boolean
+}
+
 
 export interface ReducerStateType {
     user: ReducerUserType
@@ -44,4 +67,6 @@ export interface ReducerStateType {
     routing: ReducerRoutingType
     location: ReducerLocationType
     loading: ReducerLoadingType
+    chapel: ReducerChapelType
+    mobildStudentCard: ReducerMobiledStudentCardType
 }

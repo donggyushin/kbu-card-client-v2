@@ -20,7 +20,7 @@ export default function AlertDialog() {
     const open: boolean = useSelector((state: ReducerStateType) => state.modal.open)
     const title: string = useSelector((state: ReducerStateType) => state.modal.title)
     const text: string = useSelector((state: ReducerStateType) => state.modal.text)
-    const callBack: (() => void) | undefined = useSelector((state: ReducerStateType) => state.modal.callBack)
+    const callBack: ((param?: any) => void) | undefined = useSelector((state: ReducerStateType) => state.modal.callBack)
 
     const handleClose = () => {
         if (callBack !== undefined) {

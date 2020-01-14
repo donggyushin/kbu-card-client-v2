@@ -5,6 +5,8 @@ import {
 } from "react-router-dom";
 import MainComponent from '../components/MainComponent';
 import LoginComponent from '../components/LoginComponent';
+import CafeteriaPage from '../components/CafeteriaPage';
+import TodayPray from '../components/TodayPray';
 
 const ReactRoutesComponent: React.FC = () => {
     return <Switch>
@@ -13,6 +15,12 @@ const ReactRoutesComponent: React.FC = () => {
         </Route>
         <Route exact path='/'>
             <MainComponent />
+        </Route>
+        <Route exact path='/cafeteria'>
+            <CafeteriaPage />
+        </Route>
+        <Route exact path='/pray'>
+            <TodayPray />
         </Route>
         <Route>
             <MainComponent />

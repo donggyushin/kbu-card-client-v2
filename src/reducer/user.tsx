@@ -1,11 +1,16 @@
 import { ReducerUserType } from "../types/index.d";
-import { USER_LOGIN, USER_LOGOUT } from "../actions/types.d";
+import { USER_LOGIN, USER_LOGOUT, USER_GET_PROFILE, USER_GET_IMAGE } from "../actions/types.d";
 import jwt from 'jsonwebtoken'
 
 interface ActionType {
     type: string
     user: ReducerUserType
     token: string
+    jwtToken: string
+    sid: string
+    name: string
+    major: string
+    img: string
 }
 
 const initialState: ReducerUserType = {
@@ -15,7 +20,8 @@ const initialState: ReducerUserType = {
     profile: "",
     sid: "",
     cid: "",
-    exp: 0
+    exp: 0,
+    major: ""
 }
 
 export default function (state: ReducerUserType = initialState, action: ActionType) {
@@ -24,10 +30,34 @@ export default function (state: ReducerUserType = initialState, action: ActionTy
             return userLogin(state, action)
         case USER_LOGOUT:
             return userLogout(state, action)
+        case USER_GET_PROFILE:
+            return userGetProfile(state, action)
+        case USER_GET_IMAGE:
+            return userGetImage(state, action)
         default:
             return state
     }
 }
+
+function userGetImage(state: ReducerUserType, action: ActionType): ReducerUserType {
+    const { img } = action;
+    return {
+        ...state,
+        profile: img
+    }
+}
+
+
+function userGetProfile(state: ReducerUserType, action: ActionType): ReducerUserType {
+    const { name, major, sid } = action
+    return {
+        ...state,
+        name,
+        major,
+        sid
+    }
+}
+
 
 function userLogout(state: ReducerUserType, action: ActionType): ReducerUserType {
 
@@ -42,10 +72,10 @@ function userLogout(state: ReducerUserType, action: ActionType): ReducerUserType
 
 function userLogin(state: ReducerUserType, action: ActionType): ReducerUserType {
 
-    const { token } = action
+    const { token, jwtToken } = action
     const decoded: any = jwt.decode(token)
     const { sid, cid, exp } = decoded
-    window.localStorage.setItem('kbucard', token)
+    window.localStorage.setItem('kbucard', jwtToken)
 
     return {
         ...state,

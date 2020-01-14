@@ -12,6 +12,8 @@ import modal from './modal'
 import routing from './routing'
 import location from './location'
 import loading from './loading'
+import chapel from './chapel'
+import mobildStudentCard from './mobileStudentCard'
 
 const initialState = {}
 
@@ -22,7 +24,9 @@ const allReducers = combineReducers({
     modal,
     routing,
     location,
-    loading
+    loading,
+    chapel,
+    mobildStudentCard
 })
 
 // @ts-ignore

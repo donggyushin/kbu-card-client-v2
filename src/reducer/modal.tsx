@@ -6,14 +6,14 @@ interface ActionType {
     type: string
     title: string
     text: string
-    callBack?: () => void
+    callBack?: (param: any) => void
 }
 
 const initialState: ReducerModalType = {
     open: false,
     title: "",
     text: "",
-    callBack: () => { }
+    callBack: (param?: any) => { }
 }
 
 export default function (state: ReducerModalType = initialState, action: ActionType) {

@@ -54,8 +54,19 @@ export interface ReducerChapelType {
     selectable: string[]
 }
 
+export interface ReducerMileageType {
+    balance: number
+}
+
 export interface ReducerMobiledStudentCardType {
     visible: boolean
+}
+
+export interface ReducerTimeTableType {
+    thead: string[]
+    tbody: string[][][]
+    startTime: number
+    endTime: number
 }
 
 
@@ -69,4 +80,6 @@ export interface ReducerStateType {
     loading: ReducerLoadingType
     chapel: ReducerChapelType
     mobildStudentCard: ReducerMobiledStudentCardType
+    mileage: ReducerMileageType
+    timeTable: ReducerTimeTableType
 }

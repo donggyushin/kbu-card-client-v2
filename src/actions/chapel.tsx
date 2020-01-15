@@ -42,7 +42,7 @@ export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<Icha
         }
     })
         .then(res => {
-            console.log('response from get chapel: ', res)
+
             if (res.status === 200) {
 
                 const { summary, tbody, thead }: IchapelNotThunkFunctionData = res.data.data
@@ -55,9 +55,6 @@ export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<Icha
                     확정
                 } = summary
 
-                console.log(res.data.meta.select)
-                console.log(selectable)
-                console.log(selected)
 
                 const daysOfWeek = parseInt(주중수업일수)
                 const duty = parseInt(규정일수)

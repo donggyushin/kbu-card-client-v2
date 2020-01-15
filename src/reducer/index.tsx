@@ -14,6 +14,8 @@ import location from './location'
 import loading from './loading'
 import chapel from './chapel'
 import mobildStudentCard from './mobileStudentCard'
+import mileage from './mileage'
+import timeTable from './timeTable'
 
 const initialState = {}
 
@@ -26,7 +28,9 @@ const allReducers = combineReducers({
     location,
     loading,
     chapel,
-    mobildStudentCard
+    mobildStudentCard,
+    mileage,
+    timeTable
 })
 
 // @ts-ignore

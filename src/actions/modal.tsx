@@ -17,7 +17,7 @@ export const turnOnAlertNonThunkFunction = (title: string, text: string, dispatc
     })
 }
 
-export const turnOnAlert = (title: string, text: string, callBack?: () => void) => (dispatch: Dispatch<IDispatch>) => {
+export const turnOnAlert = (title: string, text: string, callBack?: (param: any) => void) => (dispatch: Dispatch<IDispatch>) => {
     dispatch({
         type: TURN_ON_ALERT,
         title,

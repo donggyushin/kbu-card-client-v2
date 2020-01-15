@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { COLORS } from '../../../../../consts/colors'
+import { useSelector } from 'react-redux'
+import { ReducerStateType } from '../../../../../types/index.d'
 
 const Container = styled.div`
     width: 100%;
@@ -27,11 +29,12 @@ const Text = styled.div`
 interface IProps { }
 
 const LoggedInImage: React.FC<IProps> = () => {
+    const mileageReducer = useSelector((state: ReducerStateType) => state.mileage)
     return <Container>
         <MileageIcon
             className="far fa-money-bill-alt"
         />
-        <Text>3000</Text>
+        <Text>{mileageReducer.balance}</Text>
     </Container>
 }
 

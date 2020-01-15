@@ -19,7 +19,7 @@ export const userGetProfileImageNonThunkFunction = (jwtToken: string, dispatch: 
         }
     })
         .then(res => {
-            console.log('response from getting user image', res)
+
             if (res.status === 200) {
                 const { img }: IImageData = res.data.data
                 dispatch({
@@ -66,7 +66,7 @@ export const userGetProfileThunkFunction = (jwtToken: string) => (dispatch: Disp
         }
     })
         .then(res => {
-            console.log('response from get profile: ', res)
+
 
             if (res.status === 200) {
 
@@ -96,7 +96,7 @@ export const userGetProfileNonThunkFunction = (jwtToken: string, dispatch: Dispa
         }
     })
         .then(res => {
-            console.log('response from get profile: ', res)
+
 
             if (res.status === 200) {
 
@@ -142,7 +142,7 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
     })
         .then(res => {
 
-            console.log('status code = ', res.status)
+
 
 
             if (res.status === 200) {

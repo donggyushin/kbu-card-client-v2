@@ -1,4 +1,4 @@
-import React, { useEffect, Dispatch } from 'react'
+import React, { useEffect, Dispatch, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ReducerStateType } from './types/index.d';
 import styled from 'styled-components'
@@ -12,7 +12,9 @@ import { verifyToken } from './utils/decodeToken'
 import { turnOnAlertNonThunkFunction } from './actions/modal'
 import { logoutNonThunkFunction } from './actions/user'
 import { chapelNotThunkFunction } from './actions/chapel'
+import { ImileageGetBalanceThunkFunctionD, mileageGetBalanceNormalFunction } from './actions/mileage'
 import MobiledStudentCard from './components/MobileStudentCard';
+import { Redirect } from 'react-router-dom'
 
 interface containerProps {
   lightMode: boolean
@@ -75,6 +77,9 @@ const App: React.FC = () => {
   const modalDispatch = useDispatch<Dispatch<IDispatchTurbOnModal>>()
   const logoutDispatch = useDispatch<Dispatch<IDispatchLogout>>()
   const getChapelDispatch = useDispatch<Dispatch<IDispatchGetChapel>>()
+  const getBalanceDispatch = useDispatch<Dispatch<ImileageGetBalanceThunkFunctionD>>()
+
+  const [redirect, setRedirect] = useState(false)
 
 
   useEffect(() => {
@@ -86,27 +91,38 @@ const App: React.FC = () => {
         userGetProfileNonThunkFunction(jwtToken, dispatch)
         userGetProfileImageNonThunkFunction(jwtToken, imageDispatch)
         chapelNotThunkFunction(jwtToken, getChapelDispatch)
+        mileageGetBalanceNormalFunction(getBalanceDispatch)
 
       } else {
-        turnOnAlertNonThunkFunction('경고', '토큰의 유효기간이 만료되었습니다. 다시 로그인 해주세요. ', modalDispatch, () => {
-          logoutNonThunkFunction(logoutDispatch)
-        })
+        logoutNonThunkFunction(logoutDispatch)
+        turnOnAlertNonThunkFunction('경고', '토큰의 유효기간이 만료되었습니다. 다시 로그인 해주세요. ', modalDispatch, redirectGoToLogin)
       }
 
     }
   }, [])
 
-  return (
-    <Container
-      lightMode={theme}
-    >
-      <ReactRoutesComponent />
-      {mobileStudentCard && <MobiledStudentCard />}
-      {navigationTabVisiable && <NavigationTab />}
-      <AlertModal />
-      {loading && <Loading />}
-    </Container>
-  );
+  const redirectGoToLogin = () => {
+    setRedirect(true)
+  }
+
+
+  if (redirect) {
+    return <Redirect to="/login" />
+  } else {
+
+    return (
+      <Container
+        lightMode={theme}
+      >
+        <ReactRoutesComponent />
+        {mobileStudentCard && <MobiledStudentCard />}
+        {navigationTabVisiable && <NavigationTab />}
+        <AlertModal />
+        {loading && <Loading />}
+      </Container>
+    );
+  }
+
 }
 
 export default App;

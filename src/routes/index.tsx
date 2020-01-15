@@ -7,6 +7,7 @@ import MainComponent from '../components/MainComponent';
 import LoginComponent from '../components/LoginComponent';
 import CafeteriaPage from '../components/CafeteriaPage';
 import TodayPray from '../components/TodayPray';
+import LecturePage from '../components/LectureComponent';
 
 const ReactRoutesComponent: React.FC = () => {
     return <Switch>
@@ -21,6 +22,9 @@ const ReactRoutesComponent: React.FC = () => {
         </Route>
         <Route exact path='/pray'>
             <TodayPray />
+        </Route>
+        <Route exact path='/lecture'>
+            <LecturePage />
         </Route>
         <Route>
             <MainComponent />

@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Block = styled.div`
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 `
 
 const TimeLinePresenter: React.FC = () => {
@@ -26,7 +26,6 @@ const TimeLinePresenter: React.FC = () => {
             timeArray.push(i)
 
         }
-        console.log('timeArray:', timeArray)
         setTimeArray(timeArray)
     }, [start, end])
 

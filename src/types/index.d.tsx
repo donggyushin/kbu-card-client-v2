@@ -69,6 +69,30 @@ export interface ReducerTimeTableType {
     endTime: number
 }
 
+export interface ReducerAttendanceSummaryType {
+    attendace: number
+    absence: number
+    late: number
+    etc: number
+}
+
+export interface ReducerAttendanceExtraType {
+    lectureCode: string
+    classCode: string
+    className: string
+    studentName: string
+}
+
+export interface ReducerAttendanceType {
+    visible: boolean
+    loading: boolean
+    thead: string[]
+    tbody: string[][]
+    summary: ReducerAttendanceSummaryType
+    extra: ReducerAttendanceExtraType
+    lectureCode: string
+    color: string
+}
 
 export interface ReducerStateType {
     user: ReducerUserType
@@ -82,4 +106,7 @@ export interface ReducerStateType {
     mobildStudentCard: ReducerMobiledStudentCardType
     mileage: ReducerMileageType
     timeTable: ReducerTimeTableType
+    colorSet: any
+    lectureCode: any
+    attendance: ReducerAttendanceType
 }

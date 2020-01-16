@@ -15,6 +15,7 @@ import { chapelNotThunkFunction } from './actions/chapel'
 import { ImileageGetBalanceThunkFunctionD, mileageGetBalanceNormalFunction } from './actions/mileage'
 import MobiledStudentCard from './components/MobileStudentCard';
 import { Redirect } from 'react-router-dom'
+import AttendanceComponent from './components/AttendanceComponent';
 
 interface containerProps {
   lightMode: boolean
@@ -72,6 +73,9 @@ const App: React.FC = () => {
   const loading: boolean = useSelector((state: ReducerStateType) => state.loading.loading)
   const navigationTabVisiable: boolean = useSelector((state: ReducerStateType) => state.navigationTab.visiable)
   const mobileStudentCard: boolean = useSelector((state: ReducerStateType) => state.mobildStudentCard.visible)
+  const attendanceVisible: boolean = useSelector((state: ReducerStateType) => state.attendance.visible)
+
+
   const dispatch = useDispatch<Dispatch<IDispatchForGetProfile>>()
   const imageDispatch = useDispatch<Dispatch<IGetProfileDispatch>>()
   const modalDispatch = useDispatch<Dispatch<IDispatchTurbOnModal>>()
@@ -117,6 +121,7 @@ const App: React.FC = () => {
         <ReactRoutesComponent />
         {mobileStudentCard && <MobiledStudentCard />}
         {navigationTabVisiable && <NavigationTab />}
+        {attendanceVisible && <AttendanceComponent />}
         <AlertModal />
         {loading && <Loading />}
       </Container>

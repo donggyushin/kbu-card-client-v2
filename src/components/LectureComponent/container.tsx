@@ -7,12 +7,14 @@ import { logoutThunkFunction } from '../../actions/user'
 import { verifyToken } from '../../utils/decodeToken'
 import { turnOnAlert } from '../../actions/modal'
 import { updateCurrentLocationRedux } from '../../actions/location'
+import { fetchLectureCodeThunkFunction } from '../../actions/lectureCode'
 
 interface IProps {
     fetchTimeTableThunkFunction: (jwtToken: string) => void
     logoutThunkFunction: () => void
     turnOnAlert: (title: string, text: string, callBack?: (param: any) => void) => void
     updateCurrentLocationRedux: (current: string) => void
+    fetchLectureCodeThunkFunction: (jwtToken: string) => void
 }
 
 class LecturePageContainer extends React.Component<IProps> {
@@ -28,6 +30,7 @@ class LecturePageContainer extends React.Component<IProps> {
             if (jwtToken) {
 
                 fetchTimeTableThunkFunction(jwtToken)
+                this.props.fetchLectureCodeThunkFunction(jwtToken)
             } else {
                 this.props.turnOnAlert('경고', '로그인 상태가 불안정합니다. 다시 로그인해주세요.')
                 this.props.logoutThunkFunction()
@@ -63,5 +66,6 @@ export default connect(mapStateToProps, {
     fetchTimeTableThunkFunction,
     logoutThunkFunction,
     turnOnAlert,
-    updateCurrentLocationRedux
+    updateCurrentLocationRedux,
+    fetchLectureCodeThunkFunction
 })(LecturePageContainer)

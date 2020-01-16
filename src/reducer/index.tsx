@@ -16,7 +16,9 @@ import chapel from './chapel'
 import mobildStudentCard from './mobileStudentCard'
 import mileage from './mileage'
 import timeTable from './timeTable'
-
+import colorSet from './colorSet'
+import lectureCode from './lectureCode'
+import attendance from './attendance'
 const initialState = {}
 
 const allReducers = combineReducers({
@@ -30,7 +32,10 @@ const allReducers = combineReducers({
     chapel,
     mobildStudentCard,
     mileage,
-    timeTable
+    timeTable,
+    colorSet,
+    lectureCode,
+    attendance
 })
 
 // @ts-ignore

@@ -5,6 +5,11 @@ import { useSelector } from 'react-redux'
 import { ReducerStateType } from '../../../../../../types/index.d'
 import { stringTimeToMinutes } from '../../../../../../utils/timeConverter'
 
+
+interface IHeightProps {
+    height: number
+}
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -17,7 +22,7 @@ const CellContainer = styled.div`
 
 const Empty = styled.div`
     width:100%;
-    height:1px;
+    height:${(props: IHeightProps) => props.height + 'px'};
 `
 
 interface IProps {
@@ -39,15 +44,17 @@ const ColumnPresenter: React.FC<IProps> = ({
                 const startTimeMinutes: number = startTime * 60
                 const nowClassStartTimeString: string = oneClass[2]
                 const nowClassStartTimeMinutes: number = stringTimeToMinutes(nowClassStartTimeString)
-                const EmptyArray = []
 
 
-                for (let i = startTimeMinutes; i < nowClassStartTimeMinutes; i++) {
 
-                    EmptyArray.push(<Empty key={i} />)
-                }
+                const emptyCellHeight = nowClassStartTimeMinutes - startTimeMinutes
+
+                // for (let i = startTimeMinutes; i < nowClassStartTimeMinutes; i++) {
+
+                //     EmptyArray.push(<Empty key={i} />)
+                // }
                 return <CellContainer key={i}>
-                    {EmptyArray}
+                    <Empty height={emptyCellHeight} />
                     <OneCell
                         height={cellHeight}
                         cellInfo={oneClass}
@@ -61,16 +68,11 @@ const ColumnPresenter: React.FC<IProps> = ({
                 const previousClass = oneDayClasses[i - 1]
                 const previousClassEndTimeMinutes: number = stringTimeToMinutes(previousClass[3])
                 const nowClassStartTimeMinutes: number = stringTimeToMinutes(oneClass[2])
-                const EmptyArray = []
+                const emptyCellHeight = nowClassStartTimeMinutes - previousClassEndTimeMinutes
 
-
-                for (let i = previousClassEndTimeMinutes; i < nowClassStartTimeMinutes; i++) {
-                    EmptyArray.push(<Empty key={i} />)
-
-                }
 
                 return <CellContainer key={i}>
-                    {EmptyArray}
+                    <Empty height={emptyCellHeight} />
                     <OneCell
                         height={cellHeight}
                         cellInfo={oneClass}

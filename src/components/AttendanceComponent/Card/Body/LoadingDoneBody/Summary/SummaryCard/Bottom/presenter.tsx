@@ -17,13 +17,13 @@ const Presenter: React.FC = () => {
     const summaryReducer = useSelector((state: ReducerStateType) => state.attendance.summary)
     return <Container>
         <Card
-            dataText={summaryReducer.attendace}
-            label={'출석'}
+            dataText={summaryReducer.late}
+            label={'지각'}
         />
         <Line />
         <Card
-            dataText={summaryReducer.absence}
-            label={'결석'}
+            dataText={summaryReducer.etc}
+            label={'기타'}
         />
     </Container>
 }

@@ -39,7 +39,6 @@ export const fetchAttendanceInfoNonThunkFunction = (lmsCode: string, jwtToken: s
         }
     })
         .then(res => {
-            console.log('response from attendance: ', res)
             if (res.status === 200) {
                 const {
                     summary,

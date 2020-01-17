@@ -7,7 +7,10 @@ const GRAY = '#a4b0be'
 const CARROT = '#e67e22'
 const WEAK_GRAY = 'gainsboro'
 const LIGHT_GREEN = '#2ecc71'
-const INDIGO = '#a29bfe'
+const INDIGO = '#3e98c7'
+const CHARCOL = '#34495e'
+const DEEP_GRAY = '#95a5a6'
+
 
 export const COLORS = {
     lightBlue: LIGHT_BLUE,
@@ -19,5 +22,7 @@ export const COLORS = {
     carrot: CARROT,
     weakGray: WEAK_GRAY,
     lightGreen: LIGHT_GREEN,
-    indigo: INDIGO
+    indigo: INDIGO,
+    charcol: CHARCOL,
+    deepGray: DEEP_GRAY
 }

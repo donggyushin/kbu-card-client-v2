@@ -19,22 +19,9 @@ const Card = styled.div`
     display:grid;
     grid-template-rows:1fr;
 `
-const Text = styled.div`
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-`
-
-const LectureCode = styled.div`
-    display:flex;
-    justify-content:center;
-`
 
 const Presenter: React.FC = () => {
 
-    const summaryReducer = useSelector((state: ReducerStateType) => state.attendance.summary)
-    const attendanceReducer = useSelector((state: ReducerStateType) => state.attendance)
     return <Container>
         <Card>
             <SummaryCard />

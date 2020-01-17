@@ -6,6 +6,7 @@ import { ReducerStateType } from '../../../types/index.d'
 import AttendanceCardBody from './Body'
 import { ATTENDANCE_OFF } from '../../../actions/types.d'
 
+
 const FromBottomToTop = keyframes`
     from {
         top:100vh;
@@ -102,7 +103,7 @@ const CardPresenter: React.FC = () => {
                 <XbuttonContainer
                     onClick={turnOffAttendaceView}
                 >
-                    X
+                    <ICon className={"fas fa-times"} />
                 </XbuttonContainer>
             </Header>
             <AttendanceCardBody />
@@ -118,7 +119,7 @@ const CardPresenter: React.FC = () => {
                 <XbuttonContainer
                     onClick={turnOffAttendaceView}
                 >
-                    X
+                    <ICon className={"fas fa-times"} />
                 </XbuttonContainer>
             </Header>
             <AttendanceCardBody />

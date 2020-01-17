@@ -1,9 +1,8 @@
 import React, { useState, Dispatch } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { BoxShadowObject } from '../../../consts/boxShadow'
-import Top from './Top'
 import Middle from './Middle'
-import Bottom from './Bottom'
+import Top from './Top'
 import { useDispatch } from 'react-redux'
 import { MOBILE_STUDENT_CARD_OFF } from '../../../actions/types.d'
 
@@ -18,21 +17,19 @@ const FromBottomToTop = keyframes`
 
 const Container = styled.div`
     position: relative;
-    width: 80%;
-    max-width: 400px;
-    margin-top: 44px;
-    height: 75vh;
+    width: 100%;
+    height: 100vh;
     background: white;
     border-radius: 3px;
     box-shadow:${BoxShadowObject.typeOne};
     animation:${FromBottomToTop} 0.5s;
     display: grid;
-    grid-template-rows: 7% 83% 10%;
+    grid-template-rows: 7% 93%;
 `
 
 const FromTopToBottom = keyframes`
     from {    
-        top: 44px;
+        top: 0;
     }
     to {
         top: 100vh;
@@ -41,16 +38,15 @@ const FromTopToBottom = keyframes`
 
 const DisappearingContainer = styled.div`
     position: relative;
-    width: 80%;
-    max-width: 400px;
+    width: 100%;
     top:100vh;
-    height: 75vh;
+    height: 100vh;
     background: white;
     border-radius: 3px;
     box-shadow:${BoxShadowObject.typeOne};
     animation:${FromTopToBottom} 0.5s;
     display: grid;
-    grid-template-rows: 7% 83% 10%;
+    grid-template-rows: 7% 93%;
 `
 
 interface IDispatch {
@@ -74,19 +70,19 @@ const StudentCardPresenter: React.FC = () => {
     if (visible) {
 
         return <Container>
-            <Top />
-            <Middle />
-            <Bottom
+            <Top
                 turnOffStudentMobileCard={turnOffStudentMobileCard}
             />
+            <Middle />
         </Container>
     } else {
         return <DisappearingContainer>
-            <Top />
-            <Middle />
-            <Bottom
+
+            <Top
                 turnOffStudentMobileCard={turnOffStudentMobileCard}
             />
+            <Middle />
+
         </DisappearingContainer>
     }
 

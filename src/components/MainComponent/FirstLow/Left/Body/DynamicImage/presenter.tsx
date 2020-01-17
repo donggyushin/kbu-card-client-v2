@@ -32,7 +32,7 @@ const ProgressBarContainer = styled.div`
     position:absolute;
     display: flex;
     justify-content: center;
-    width:80%;
+    width:146px;
 `
 
 interface IProps { }

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { COLORS } from '../../../../../../../../consts/colors'
 
 const Container = styled.div`
     display:flex;
@@ -8,9 +9,16 @@ const Container = styled.div`
     justify-content:center;
 `
 
-const BigText = styled.div``
+const BigText = styled.div`
+    color:${COLORS.indigo};
+    font-size:22px;
+    font-weight:600;
+`
 
-const Label = styled.div``
+const Label = styled.div`
+    font-size:12px;
+    color:${COLORS.gray};
+`
 
 interface IProps {
     dataText: number

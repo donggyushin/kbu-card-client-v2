@@ -94,6 +94,25 @@ export interface ReducerAttendanceType {
     color: string
 }
 
+export interface ReducerMCUType {
+    loading: boolean
+    expanded: boolean
+    img: string
+    hasQrcode: boolean
+}
+
+export interface ReducerLectureTypeSelect {
+    selected: string
+    selectable: string[]
+}
+
+export interface ReducerLectureType {
+    thead: string[]
+    tbody: string[][]
+    select: ReducerLectureTypeSelect
+    selectedCourse: string[]
+}
+
 export interface ReducerStateType {
     user: ReducerUserType
     theme: ReducerThemeType
@@ -109,4 +128,6 @@ export interface ReducerStateType {
     colorSet: any
     lectureCode: any
     attendance: ReducerAttendanceType
+    mcu: ReducerMCUType
+    lecture: ReducerLectureType
 }

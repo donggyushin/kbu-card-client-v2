@@ -19,6 +19,9 @@ import timeTable from './timeTable'
 import colorSet from './colorSet'
 import lectureCode from './lectureCode'
 import attendance from './attendance'
+import mcu from './mcu'
+import lecture from './lecture'
+
 const initialState = {}
 
 const allReducers = combineReducers({
@@ -35,7 +38,9 @@ const allReducers = combineReducers({
     timeTable,
     colorSet,
     lectureCode,
-    attendance
+    attendance,
+    mcu,
+    lecture
 })
 
 // @ts-ignore

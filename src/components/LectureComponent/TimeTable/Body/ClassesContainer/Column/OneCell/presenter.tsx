@@ -2,7 +2,7 @@ import React, { Dispatch } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { ReducerStateType } from '../../../../../../../types/index.d'
-import { ATTENDANCE_ON } from '../../../../../../../actions/types.d'
+import { ATTENDANCE_ON, SELECT_LECTURE } from '../../../../../../../actions/types.d'
 
 interface IContainerProps {
     height: number
@@ -35,6 +35,11 @@ interface IattendaceDispatch {
     color: string
 }
 
+interface ISelectLecture {
+    type: string
+    selectedCourse: string[]
+}
+
 const CellPresenter: React.FC<IProps> = ({
     height,
     cellInfo
@@ -45,8 +50,27 @@ const CellPresenter: React.FC<IProps> = ({
     const backgroundColor = colorSetReducer[cellInfo[0]]
     const lectureCode = lectureCodeReducer[cellInfo[0]]
     const attendaceDispatch = useDispatch<Dispatch<IattendaceDispatch>>()
+    const selectLectureDispatch = useDispatch<Dispatch<ISelectLecture>>()
+
+    const lectures = useSelector((state: ReducerStateType) => state.lecture.tbody)
+
 
     const cellClicked = () => {
+
+        let selectedCourse: string[] = []
+
+        lectures.map(lecture => {
+            if (lecture[1] === cellInfo[0]) {
+                selectedCourse = lecture
+                return
+            }
+        })
+
+        selectLectureDispatch({
+            type: SELECT_LECTURE,
+            selectedCourse
+        })
+
         attendaceDispatch({
             type: ATTENDANCE_ON,
             lectureCode,

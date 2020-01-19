@@ -10,6 +10,7 @@ const LIGHT_GREEN = '#2ecc71'
 const INDIGO = '#3e98c7'
 const CHARCOL = '#34495e'
 const DEEP_GRAY = '#95a5a6'
+const LIGHT_GRAY = '#f1f2f6'
 
 
 export const COLORS = {
@@ -24,5 +25,6 @@ export const COLORS = {
     lightGreen: LIGHT_GREEN,
     indigo: INDIGO,
     charcol: CHARCOL,
-    deepGray: DEEP_GRAY
+    deepGray: DEEP_GRAY,
+    lightGray: LIGHT_GRAY
 }

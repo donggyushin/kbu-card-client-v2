@@ -45,6 +45,14 @@ export interface IChapelSummary {
     sure: number
 }
 
+export interface ReducerChapelOneDataType {
+    year: number
+    month: number
+    day: number
+    date: string
+    time: string
+    etc: string
+}
 
 export interface ReducerChapelType {
     summary: IChapelSummary
@@ -52,6 +60,11 @@ export interface ReducerChapelType {
     tbody: string[][]
     selected: string
     selectable: string[]
+    etcs: ReducerChapelOneDataType[]
+    attendances: ReducerChapelOneDataType[]
+    lates: ReducerChapelOneDataType[]
+    absences: ReducerChapelOneDataType[]
+    current: string
 }
 
 export interface ReducerMileageType {
@@ -83,6 +96,11 @@ export interface ReducerAttendanceExtraType {
     studentName: string
 }
 
+export interface ReducerAttendanceDetailType {
+    date: string
+    time: string
+}
+
 export interface ReducerAttendanceType {
     visible: boolean
     loading: boolean
@@ -92,6 +110,12 @@ export interface ReducerAttendanceType {
     extra: ReducerAttendanceExtraType
     lectureCode: string
     color: string
+    attendances: ReducerAttendanceDetailType[]
+    absences: ReducerAttendanceDetailType[]
+    lates: ReducerAttendanceDetailType[]
+    etcs: ReducerAttendanceDetailType[]
+    detailListTable: boolean
+    specificAttendanceInfo: string
 }
 
 export interface ReducerMCUType {

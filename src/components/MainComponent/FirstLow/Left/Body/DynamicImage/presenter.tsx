@@ -18,6 +18,7 @@ const Container = styled.div`
 
 const ChurchIcon = styled.i`
     font-size: 34px;
+    color:black;
 `
 
 const Text = styled.div`

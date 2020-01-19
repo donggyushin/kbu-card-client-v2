@@ -1,5 +1,5 @@
-import { ReducerChapelType } from "../types/index.d";
-import { CHAPEL_GET } from "../actions/types.d";
+import { ReducerChapelType, ReducerChapelOneDataType } from "../types/index.d";
+import { CHAPEL_GET, SORING_CHAPEL, CHAPEL_UPDATE_CURRENT } from "../actions/types.d";
 
 interface ActionType {
     type: string
@@ -12,6 +12,11 @@ interface ActionType {
     thead: string[]
     selected: string
     selectable: string[]
+    attendances: ReducerChapelOneDataType[]
+    lates: ReducerChapelOneDataType[]
+    etcs: ReducerChapelOneDataType[]
+    absences: ReducerChapelOneDataType[]
+    current: string
 }
 
 const initialState: ReducerChapelType = {
@@ -25,7 +30,12 @@ const initialState: ReducerChapelType = {
     tbody: [],
     thead: [],
     selected: "",
-    selectable: []
+    selectable: [],
+    current: "attendance",
+    attendances: [],
+    etcs: [],
+    lates: [],
+    absences: []
 }
 
 export default function (state: ReducerChapelType = initialState, action: ActionType) {
@@ -33,9 +43,31 @@ export default function (state: ReducerChapelType = initialState, action: Action
 
         case CHAPEL_GET:
             return getChapel(state, action)
-
+        case SORING_CHAPEL:
+            return sortingChapels(state, action)
+        case CHAPEL_UPDATE_CURRENT:
+            return updateCurrent(state, action)
         default:
             return state
+    }
+}
+
+function updateCurrent(state: ReducerChapelType, action: ActionType): ReducerChapelType {
+    const { current } = action
+    return {
+        ...state,
+        current
+    }
+}
+
+function sortingChapels(state: ReducerChapelType, action: ActionType): ReducerChapelType {
+    const { etcs, lates, absences, attendances } = action;
+    return {
+        ...state,
+        etcs,
+        lates,
+        absences,
+        attendances
     }
 }
 

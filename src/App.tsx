@@ -1,6 +1,6 @@
 import React, { useEffect, Dispatch, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ReducerStateType } from './types/index.d';
+import { ReducerStateType, ReducerChapelOneDataType } from './types/index.d';
 import styled from 'styled-components'
 import { COLORS } from './consts/colors';
 import ReactRoutesComponent from './routes';
@@ -16,6 +16,7 @@ import { ImileageGetBalanceThunkFunctionD, mileageGetBalanceNormalFunction } fro
 import MobiledStudentCard from './components/MobileStudentCard';
 import { Redirect } from 'react-router-dom'
 import AttendanceComponent from './components/AttendanceComponent';
+import AttendanceDetailListTable from './components/AttendaceDetailListTable';
 
 interface containerProps {
   lightMode: boolean
@@ -23,15 +24,18 @@ interface containerProps {
 
 interface IDispatchGetChapel {
   type: string
-  daysOfWeek: number
-  duty: number
-  late: number
-  attendance: number
-  sure: number
-  tbody: string[][]
-  thead: string[]
-  selected: string
-  selectable: string[]
+  daysOfWeek?: number
+  duty?: number
+  late?: number
+  attendance?: number
+  sure?: number
+  tbody?: string[][]
+  thead?: string[]
+  selected?: string
+  selectable?: string[]
+  attendances?: ReducerChapelOneDataType[]
+  lates?: ReducerChapelOneDataType[]
+  sures?: ReducerChapelOneDataType[]
 }
 
 interface IDispatchLogout {
@@ -74,6 +78,7 @@ const App: React.FC = () => {
   const navigationTabVisiable: boolean = useSelector((state: ReducerStateType) => state.navigationTab.visiable)
   const mobileStudentCard: boolean = useSelector((state: ReducerStateType) => state.mobildStudentCard.visible)
   const attendanceVisible: boolean = useSelector((state: ReducerStateType) => state.attendance.visible)
+  const attendanceDetailListTableView: boolean = useSelector((state: ReducerStateType) => state.attendance.detailListTable)
 
 
   const dispatch = useDispatch<Dispatch<IDispatchForGetProfile>>()
@@ -122,6 +127,7 @@ const App: React.FC = () => {
         {mobileStudentCard && <MobiledStudentCard />}
         {navigationTabVisiable && <NavigationTab />}
         {attendanceVisible && <AttendanceComponent />}
+        {attendanceDetailListTableView && <AttendanceDetailListTable />}
         <AlertModal />
         {loading && <Loading />}
       </Container>

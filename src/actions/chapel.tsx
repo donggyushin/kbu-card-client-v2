@@ -1,19 +1,24 @@
 import axios from 'axios'
 import { END_POINT } from '../consts/endpoint'
 import { Dispatch } from 'react'
-import { CHAPEL_GET } from './types.d'
+import { CHAPEL_GET, SORING_CHAPEL } from './types.d'
+import { ReducerChapelOneDataType } from '../types/index.d'
 
 interface IchapelNotThunkFunctionDispatch {
     type: string
-    daysOfWeek: number
-    duty: number
-    late: number
-    attendance: number
-    sure: number
-    tbody: string[][]
-    thead: string[]
-    selected: string
-    selectable: string[]
+    daysOfWeek?: number
+    duty?: number
+    late?: number
+    attendance?: number
+    sure?: number
+    tbody?: string[][]
+    thead?: string[]
+    selected?: string
+    selectable?: string[]
+    attendances?: ReducerChapelOneDataType[]
+    lates?: ReducerChapelOneDataType[]
+    etcs?: ReducerChapelOneDataType[]
+    absences?: ReducerChapelOneDataType[]
 }
 
 interface ISummary {
@@ -55,6 +60,8 @@ export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<Icha
                     확정
                 } = summary
 
+                sortChapels(tbody, dispatch)
+
 
                 const daysOfWeek = parseInt(주중수업일수)
                 const duty = parseInt(규정일수)
@@ -85,4 +92,49 @@ export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<Icha
             console.log(`Error occured at action/chapel.tsx chapelNotThunkFunction`)
             console.error(err)
         })
+}
+
+const sortChapels = (tbody: string[][], dispatch: Dispatch<IchapelNotThunkFunctionDispatch>): void => {
+    const attendances: ReducerChapelOneDataType[] = []
+    const lates: ReducerChapelOneDataType[] = []
+    const etcs: ReducerChapelOneDataType[] = []
+    const absences: ReducerChapelOneDataType[] = []
+
+
+    // 0: (9) ["2019", "12", "12", "11:59:00", "목", "주", "출석", "출석", "채플오류일괄등록    (2019-12-13)"]
+
+    tbody.map(oneData => {
+        const instance: ReducerChapelOneDataType = {
+            year: parseInt(oneData[0]),
+            month: parseInt(oneData[1]),
+            day: parseInt(oneData[2]),
+            time: oneData[3],
+            date: oneData[4],
+            etc: oneData[8]
+        }
+
+        if (instance.etc.length !== 1) {
+            etcs.push(instance)
+        }
+
+        if (oneData[7] === '출석') {
+            attendances.push(instance)
+        } else if (oneData[7] === '지각') {
+            lates.push(instance)
+        } else if (oneData[7] === '결석') {
+            absences.push(instance)
+        }
+
+
+    })
+
+    dispatch({
+        type: SORING_CHAPEL,
+        attendances,
+        lates,
+        etcs,
+        absences
+    })
+
+
 }

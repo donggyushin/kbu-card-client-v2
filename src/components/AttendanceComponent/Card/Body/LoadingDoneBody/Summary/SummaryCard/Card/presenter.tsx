@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { Dispatch } from 'react'
 import styled from 'styled-components'
 import { COLORS } from '../../../../../../../../consts/colors'
+import { useDispatch } from 'react-redux'
+import { CLICK_SPECIFIC_ATTENDANCE_INFO } from '../../../../../../../../actions/types.d'
 
 const Container = styled.div`
     display:flex;
@@ -25,11 +27,26 @@ interface IProps {
     label: string
 }
 
+interface IclickSpecificAttendanceInfoDispatch {
+    type: string
+    specificAttendance: string
+}
+
 const Presenter: React.FC<IProps> = ({
     dataText,
     label
 }) => {
-    return <Container>
+    const clickSpecificAttendanceInfoDispatch = useDispatch<Dispatch<IclickSpecificAttendanceInfoDispatch>>()
+
+    const containerClicked = () => {
+        clickSpecificAttendanceInfoDispatch({
+            type: CLICK_SPECIFIC_ATTENDANCE_INFO,
+            specificAttendance: label
+        })
+    }
+    return <Container
+        onClick={containerClicked}
+    >
         <BigText>
             {dataText}
         </BigText>

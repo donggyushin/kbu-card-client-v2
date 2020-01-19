@@ -13,9 +13,11 @@ const Container = styled.div`
 `
 
 const ProfileImage = styled.img`
-    width:90%;
-    margin-top:5px;
-    z-index:2;
+    width: 90%;
+    margin-top: 5px;
+    z-index: 2;
+    max-height: 240px;
+    object-fit: contain;
 `
 
 

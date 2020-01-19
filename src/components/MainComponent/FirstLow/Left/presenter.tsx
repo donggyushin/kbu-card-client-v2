@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { COLORS } from '../../../../consts/colors'
+import { Link } from 'react-router-dom'
 import Body from './Body'
+import { useSelector } from 'react-redux'
+import { ReducerStateType } from '../../../../types/index.d'
+
 
 const Container = styled.div`
     position: relative;
@@ -10,21 +13,22 @@ const Container = styled.div`
     align-items:center;
 `
 
-const UnderLine = styled.div`
-    position:absolute;
-    bottom:0;
-    width:60%;
-    height:1px;
-    background:${COLORS.weakGray};
-`
 
 interface IProps { }
 
 const LeftPresenter: React.FC<IProps> = () => {
+    const isLoggedIn: boolean = useSelector((state: ReducerStateType) => state.user.isLoggedIn)
     return <Container>
-        <Body />
-        {/* <UnderLine /> */}
+        {isLoggedIn ? <Link style={{
+            width: '100%',
+            height: '100%',
+            textDecoration: 'none'
+        }} to="/chapel">
+            <Body />
+        </Link> : <Body />}
+
     </Container>
+
 }
 
 export default LeftPresenter

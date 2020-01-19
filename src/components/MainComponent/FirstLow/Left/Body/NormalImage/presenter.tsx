@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TURN_ON_ALERT, ROUTING_ON, ROUTING_OFF } from '../../../../../../actions/types.d'
 import { ReducerStateType } from '../../../../../../types/index.d'
 import { Redirect } from 'react-router'
+import { COLORS } from '../../../../../../consts/colors'
 
 const Container = styled.div`
     width: 100%;
@@ -16,12 +17,14 @@ const Container = styled.div`
 
 const ChurchIcon = styled.i`
     font-size: 34px;
+    color:black;
 `
 
 const Text = styled.div`
     font-weight: 600;
     position:relative;
     top:20px;
+    color:${COLORS.black};
 `
 
 interface IDispatch {

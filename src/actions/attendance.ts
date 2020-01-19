@@ -1,15 +1,20 @@
 import axios from 'axios'
 import { END_POINT } from '../consts/endpoint'
 import { Dispatch } from 'react'
-import { ReducerAttendanceExtraType, ReducerAttendanceSummaryType } from '../types/index.d'
-import { FETCH_ATTENDANCE } from './types.d'
+import { ReducerAttendanceExtraType, ReducerAttendanceSummaryType, ReducerAttendanceDetailType } from '../types/index.d'
+import { FETCH_ATTENDANCE, SORT_ATTENDANCES } from './types.d'
 
 interface IfetchAttendanceInfoNonThunkFunctionDispatch {
     type: string
-    summary: ReducerAttendanceSummaryType
-    thead: string[]
-    tbody: string[][]
-    extra: ReducerAttendanceExtraType
+    summary?: ReducerAttendanceSummaryType
+    thead?: string[]
+    tbody?: string[][]
+    extra?: ReducerAttendanceExtraType
+    attendances?: ReducerAttendanceDetailType[]
+    absences?: ReducerAttendanceDetailType[]
+    lates?: ReducerAttendanceDetailType[]
+    etcs?: ReducerAttendanceDetailType[]
+
 }
 
 interface ISummary {
@@ -47,6 +52,8 @@ export const fetchAttendanceInfoNonThunkFunction = (lmsCode: string, jwtToken: s
                     extra
                 }: IfetchAttendanceInfoNonThunkFunctionData = res.data.data
 
+                sortAttendancesInfo(tbody, dispatch)
+
                 const convertedSummary: ReducerAttendanceSummaryType = {
                     absence: parseInt(summary.일반결석),
                     late: parseInt(summary.지각),
@@ -76,4 +83,39 @@ export const fetchAttendanceInfoNonThunkFunction = (lmsCode: string, jwtToken: s
             console.log(`Error occured at actions/attendance.ts fetchAttendanceInfoNonThunkFunction`)
             console.error(err)
         })
+}
+
+function sortAttendancesInfo(attendancesdata: string[][], dispatch: Dispatch<IfetchAttendanceInfoNonThunkFunctionDispatch>) {
+    const attendances: ReducerAttendanceDetailType[] = []
+    const lates: ReducerAttendanceDetailType[] = []
+    const absences: ReducerAttendanceDetailType[] = []
+    const etcs: ReducerAttendanceDetailType[] = []
+
+    attendancesdata.map(data => {
+        const attendaceInstance: ReducerAttendanceDetailType = {
+            date: data[0],
+            time: data[1]
+        }
+        if (data[2].length === 1) {
+            // 출석
+            attendances.push(attendaceInstance)
+        } else if (data[4].length === 1) {
+            // 결석
+            lates.push(attendaceInstance)
+        } else if (data[3].length === 1) {
+            // 지각
+            absences.push(attendaceInstance)
+        } else if (data[5].length === 1) {
+            // 기타 
+            etcs.push(attendaceInstance)
+        }
+    })
+
+    dispatch({
+        type: SORT_ATTENDANCES,
+        attendances,
+        lates,
+        absences,
+        etcs
+    })
 }

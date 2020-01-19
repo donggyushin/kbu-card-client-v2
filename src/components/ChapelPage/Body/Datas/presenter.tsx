@@ -33,7 +33,9 @@ const Presenter: React.FC = () => {
 
     return <Container>
         {chapelDatas.map((data, i) => {
-            return <Cell key={i} />
+            return <Cell
+                data={data}
+                key={i} />
         })}
     </Container>
 }

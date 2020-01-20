@@ -17,6 +17,7 @@ import MobiledStudentCard from './components/MobileStudentCard';
 import { Redirect } from 'react-router-dom'
 import AttendanceComponent from './components/AttendanceComponent';
 import AttendanceDetailListTable from './components/AttendaceDetailListTable';
+import ScheduleDetail from './components/ScheduleDetail';
 
 interface containerProps {
   lightMode: boolean
@@ -79,7 +80,7 @@ const App: React.FC = () => {
   const mobileStudentCard: boolean = useSelector((state: ReducerStateType) => state.mobildStudentCard.visible)
   const attendanceVisible: boolean = useSelector((state: ReducerStateType) => state.attendance.visible)
   const attendanceDetailListTableView: boolean = useSelector((state: ReducerStateType) => state.attendance.detailListTable)
-
+  const scheduleDetailView: boolean = useSelector((state: ReducerStateType) => state.scheduleDetail.visible)
 
   const dispatch = useDispatch<Dispatch<IDispatchForGetProfile>>()
   const imageDispatch = useDispatch<Dispatch<IGetProfileDispatch>>()
@@ -87,6 +88,7 @@ const App: React.FC = () => {
   const logoutDispatch = useDispatch<Dispatch<IDispatchLogout>>()
   const getChapelDispatch = useDispatch<Dispatch<IDispatchGetChapel>>()
   const getBalanceDispatch = useDispatch<Dispatch<ImileageGetBalanceThunkFunctionD>>()
+
 
   const [redirect, setRedirect] = useState(false)
 
@@ -128,6 +130,7 @@ const App: React.FC = () => {
         {navigationTabVisiable && <NavigationTab />}
         {attendanceVisible && <AttendanceComponent />}
         {attendanceDetailListTableView && <AttendanceDetailListTable />}
+        {scheduleDetailView && <ScheduleDetail />}
         <AlertModal />
         {loading && <Loading />}
       </Container>

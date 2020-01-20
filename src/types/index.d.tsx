@@ -137,6 +137,54 @@ export interface ReducerLectureType {
     selectedCourse: string[]
 }
 
+export interface ReducerSchedulesCreatorType {
+    email: string
+    displayName: string
+}
+
+export interface ReducerSchedulesOrganizerType {
+    email: string
+    displayName: string
+}
+
+export interface ReducerSchedulesDateType {
+    date: string
+}
+
+export interface ReducerSchedulesEventType {
+    id: string
+    creator: ReducerSchedulesCreatorType
+    organizer: ReducerSchedulesOrganizerType
+    summary: string
+    start: ReducerSchedulesDateType
+    end?: ReducerSchedulesDateType
+    htmlLink: string
+
+}
+
+export interface ReducerScheduleType {
+    kind: string
+    summary: string
+    items: ReducerSchedulesEventType[]
+}
+
+export interface ReducerSchedulesTypes {
+    kbu: ReducerScheduleType
+    offdays: ReducerScheduleType
+}
+
+export interface ReducerScheduleDetailTypes {
+    visible: boolean
+    id: string
+    summary: string
+    start: ReducerSchedulesDateType
+    end?: ReducerSchedulesDateType
+    creator: ReducerSchedulesCreatorType
+    organizer: ReducerSchedulesOrganizerType
+    htmlLink: string
+}
+
+
 export interface ReducerStateType {
     user: ReducerUserType
     theme: ReducerThemeType
@@ -154,4 +202,6 @@ export interface ReducerStateType {
     attendance: ReducerAttendanceType
     mcu: ReducerMCUType
     lecture: ReducerLectureType
+    schedule: ReducerSchedulesTypes
+    scheduleDetail: ReducerScheduleDetailTypes
 }

@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { COLORS } from '../../../../consts/colors'
 
 const Container = styled.div`
     display:flex;
@@ -10,21 +12,29 @@ const Container = styled.div`
 
 const Korean = styled.div`
     font-weight: 600;
+    color:${COLORS.black};
 `
 
 const English = styled.div`
     font-size: 12px;
     margin-top:7px;
+    color:${COLORS.black};
 `
 
 const LeftPresenter: React.FC = () => {
     return <Container>
-        <Korean>
-            학사일정
+        <Link
+            style={{
+                textDecoration: 'none'
+            }}
+            to="/schedule">
+            <Korean>
+                학사일정
         </Korean>
-        <English>
-            Schedule
+            <English>
+                Schedule
         </English>
+        </Link>
     </Container>
 }
 

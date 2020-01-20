@@ -15,6 +15,16 @@ const Container = styled.div`
     justify-content:center;
     color:${(props: IContainerProps) => props.activated ? COLORS.black : COLORS.deepGray};
     background:${(props: IContainerProps) => props.activated ? COLORS.white : COLORS.lightGray};
+    flex-direction:column;
+`
+
+const Count = styled.div`
+    color:${(props: IContainerProps) => props.activated && COLORS.indigo};
+    font-weight: 500;
+`
+
+const Label = styled.div`
+    font-size:10px;
 `
 
 interface IchapelUpdateCurrentDispatch {
@@ -65,7 +75,14 @@ const Presenter: React.FC<IProps> = ({
             categoryClicked(name)
         }}
     >
-        {label} ({count})
+        <Count
+            activated={activated}
+        >
+            {count}
+        </Count>
+        <Label>
+            {label}
+        </Label>
     </Container>
 }
 

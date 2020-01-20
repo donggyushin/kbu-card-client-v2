@@ -6,6 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import store from './reducer'
 import { BrowserRouter } from 'react-router-dom'
+import './calendarcss/core.css'
+import './calendarcss/daygrid.css'
 
 ReactDOM.render(
     <Provider store={store}>

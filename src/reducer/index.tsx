@@ -21,6 +21,8 @@ import lectureCode from './lectureCode'
 import attendance from './attendance'
 import mcu from './mcu'
 import lecture from './lecture'
+import schedule from './schedule'
+import scheduleDetail from './scheduleDetail'
 
 const initialState = {}
 
@@ -40,7 +42,9 @@ const allReducers = combineReducers({
     lectureCode,
     attendance,
     mcu,
-    lecture
+    lecture,
+    schedule,
+    scheduleDetail
 })
 
 // @ts-ignore

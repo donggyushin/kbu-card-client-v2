@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import Top from './Top'
+import Bottom from './Bottom'
+import { ReducerSchedulesDateType } from '../../../../types/index.d'
 
 const Container = styled.div`
     display: grid;
@@ -8,9 +11,23 @@ const Container = styled.div`
     padding-right: 10px;
 `
 
-const Presenter: React.FC = () => {
+interface IProps {
+    start: ReducerSchedulesDateType
+    end: ReducerSchedulesDateType | undefined
+}
+
+const Presenter: React.FC<IProps> = ({
+    start,
+    end
+}) => {
     return <Container>
-        time line
+        <Top
+            start={start}
+        />
+        {end && <Bottom
+            end={end}
+        />}
+
     </Container>
 }
 

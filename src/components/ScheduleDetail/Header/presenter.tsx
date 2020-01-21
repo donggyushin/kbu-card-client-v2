@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { COLORS } from '../../../consts/colors'
+import { ReducerSchedulesDateType } from '../../../types/index.d'
 
 const Container = styled.div`
     background:${COLORS.seaColor};
@@ -27,17 +28,33 @@ const Text = styled.div`
 
 interface IProps {
     turnOffScheduleDetail: () => void
+    start: ReducerSchedulesDateType
 }
 
 const Presenter: React.FC<IProps> = ({
-    turnOffScheduleDetail
+    turnOffScheduleDetail,
+    start
 }) => {
+    const year: string = start.date.substr(0, 4);
+    const [month, setMonth] = useState("")
+
+    useEffect(() => {
+        setMonth(getMonthName(start.date.substr(5, 2)))
+    }, [])
+    // const month: string = getMonthName(start.date.substr(5, 2))
+
     return <Container>
-        <Text>August 2020</Text>
+        <Text>{month} {year}</Text>
         <XButton
             onClick={turnOffScheduleDetail}
             className="fas fa-times" />
     </Container>
+
+    function getMonthName(month: string): string {
+        const monthList = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'August', 'Sep', 'Oct', 'Nov', 'Dec']
+        const convertedMonth = parseInt(month) - 1
+        return monthList[convertedMonth]
+    }
 }
 
 export default Presenter

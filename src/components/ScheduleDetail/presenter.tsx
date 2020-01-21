@@ -2,8 +2,9 @@ import React, { useState, Dispatch } from 'react'
 import styled, { keyframes } from 'styled-components'
 import Header from './Header'
 import Body from './Body'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SCHEDULE_DETAIL_OFF } from '../../actions/types.d'
+import { ReducerStateType } from '../../types/index.d'
 
 const FromBottomToTop = keyframes`
     from {
@@ -57,22 +58,41 @@ const Presenter: React.FC = () => {
 
     const [off, setOff] = useState(false)
     const scheduleDetailDispatch = useDispatch<Dispatch<IScheduleDetailDispatch>>()
+    const scheduleDetailReducer = useSelector((state: ReducerStateType) => state.scheduleDetail)
+
+    const { start, end, summary, creator, organizer, htmlLink } = scheduleDetailReducer;
 
 
     if (off) {
         return <DisappearingContainer>
             <Header
                 turnOffScheduleDetail={turnOffScheduleDetail}
+                start={start}
             />
-            <Body />
+            <Body
+                start={start}
+                end={end}
+                summary={summary}
+                creator={creator}
+                organizer={organizer}
+                htmlLink={htmlLink}
+            />
         </DisappearingContainer>
     } else {
 
         return <Container>
             <Header
+                start={start}
                 turnOffScheduleDetail={turnOffScheduleDetail}
             />
-            <Body />
+            <Body
+                start={start}
+                end={end}
+                summary={summary}
+                creator={creator}
+                organizer={organizer}
+                htmlLink={htmlLink}
+            />
         </Container>
     }
 

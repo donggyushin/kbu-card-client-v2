@@ -19,6 +19,7 @@ interface IchapelNotThunkFunctionDispatch {
     lates?: ReducerChapelOneDataType[]
     etcs?: ReducerChapelOneDataType[]
     absences?: ReducerChapelOneDataType[]
+    totalChapelDatas?: ReducerChapelOneDataType[]
 }
 
 interface ISummary {
@@ -99,31 +100,44 @@ const sortChapels = (tbody: string[][], dispatch: Dispatch<IchapelNotThunkFuncti
     const lates: ReducerChapelOneDataType[] = []
     const etcs: ReducerChapelOneDataType[] = []
     const absences: ReducerChapelOneDataType[] = []
+    const totalChapelDatas: ReducerChapelOneDataType[] = []
 
 
     // 0: (9) ["2019", "12", "12", "11:59:00", "목", "주", "출석", "출석", "채플오류일괄등록    (2019-12-13)"]
 
     tbody.map(oneData => {
-        const instance: ReducerChapelOneDataType = {
+        let instance: ReducerChapelOneDataType = {
             year: parseInt(oneData[0]),
             month: parseInt(oneData[1]),
             day: parseInt(oneData[2]),
             time: oneData[3],
             date: oneData[4],
-            etc: oneData[8]
+            etc: oneData[8],
+            classification: ""
+        }
+
+
+
+
+        if (oneData[7] === '출석') {
+            instance.classification = "ATTENDANCE"
+            attendances.push(instance)
+
+        } else if (oneData[7] === '지각') {
+            instance.classification = "LATE"
+            lates.push(instance)
+
+        } else if (oneData[7] === '결석') {
+            instance.classification = "ABSENCE"
+            absences.push(instance)
+
         }
 
         if (instance.etc.length !== 1) {
             etcs.push(instance)
         }
 
-        if (oneData[7] === '출석') {
-            attendances.push(instance)
-        } else if (oneData[7] === '지각') {
-            lates.push(instance)
-        } else if (oneData[7] === '결석') {
-            absences.push(instance)
-        }
+        totalChapelDatas.push(instance)
 
 
     })
@@ -133,7 +147,8 @@ const sortChapels = (tbody: string[][], dispatch: Dispatch<IchapelNotThunkFuncti
         attendances,
         lates,
         etcs,
-        absences
+        absences,
+        totalChapelDatas: totalChapelDatas
     })
 
 

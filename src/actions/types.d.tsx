@@ -52,3 +52,7 @@ export const FETCH_OFFDAYS_SCHEDULE = 'FETCH_OFFDAYS_SCHEDULE'
 
 export const SCHEDULE_DETAIL_ON = 'SCHEDULE_ON'
 export const SCHEDULE_DETAIL_OFF = 'SCHEDULE_OFF'
+
+export const FETCH_MCU = 'FETCH_MCU'
+export const MCU_LOADING = 'MCU_LOADING'
+export const MCU_OFF = 'MCU_OFF'

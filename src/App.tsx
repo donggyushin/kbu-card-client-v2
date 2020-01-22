@@ -18,6 +18,7 @@ import { Redirect } from 'react-router-dom'
 import AttendanceComponent from './components/AttendanceComponent';
 import AttendanceDetailListTable from './components/AttendaceDetailListTable';
 import ScheduleDetail from './components/ScheduleDetail';
+import QrCode from './components/Qrcode';
 
 interface containerProps {
   lightMode: boolean
@@ -81,6 +82,7 @@ const App: React.FC = () => {
   const attendanceVisible: boolean = useSelector((state: ReducerStateType) => state.attendance.visible)
   const attendanceDetailListTableView: boolean = useSelector((state: ReducerStateType) => state.attendance.detailListTable)
   const scheduleDetailView: boolean = useSelector((state: ReducerStateType) => state.scheduleDetail.visible)
+  const qrCodeVisible: boolean = useSelector((state: ReducerStateType) => state.mcu.hasQrcode)
 
   const dispatch = useDispatch<Dispatch<IDispatchForGetProfile>>()
   const imageDispatch = useDispatch<Dispatch<IGetProfileDispatch>>()
@@ -127,6 +129,7 @@ const App: React.FC = () => {
       >
         <ReactRoutesComponent />
         {mobileStudentCard && <MobiledStudentCard />}
+        {qrCodeVisible && <QrCode />}
         {navigationTabVisiable && <NavigationTab />}
         {attendanceVisible && <AttendanceComponent />}
         {attendanceDetailListTableView && <AttendanceDetailListTable />}

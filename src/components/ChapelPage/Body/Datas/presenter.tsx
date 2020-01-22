@@ -28,6 +28,8 @@ const Presenter: React.FC = () => {
             setChapelDatas(chapelReducers.etcs)
         } else if (current === 'absence') {
             setChapelDatas(chapelReducers.absences)
+        } else {
+            setChapelDatas(chapelReducers.chapelDatas)
         }
     }, [current, chapelReducers])
 

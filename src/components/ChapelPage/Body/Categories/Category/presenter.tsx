@@ -19,7 +19,7 @@ const Container = styled.div`
 `
 
 const Count = styled.div`
-    color:${(props: IContainerProps) => props.activated && COLORS.indigo};
+    color:${(props: IContainerProps) => props.activated && COLORS.black};
     font-weight: 500;
 `
 
@@ -63,10 +63,21 @@ const Presenter: React.FC<IProps> = ({
     }, [chapelReducer])
 
     const categoryClicked = (name: string) => {
-        chapelUpdateCurrentDispatch({
-            type: CHAPEL_UPDATE_CURRENT,
-            current: name
-        })
+
+
+        if (chapelReducer.current === name) {
+            chapelUpdateCurrentDispatch({
+                type: CHAPEL_UPDATE_CURRENT,
+                current: ""
+            })
+        } else {
+            chapelUpdateCurrentDispatch({
+                type: CHAPEL_UPDATE_CURRENT,
+                current: name
+            })
+        }
+
+
     }
 
     return <Container

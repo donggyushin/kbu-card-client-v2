@@ -77,7 +77,7 @@ const Presenter: React.FC = () => {
                 eventLimit: true,
                 views: {
                     dayGrid: {
-                        eventLimit: 2
+                        eventLimit: 4
                     }
                 },
                 eventSources: [

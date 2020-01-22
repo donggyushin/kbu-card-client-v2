@@ -79,7 +79,7 @@
 
 
 #calendar > div.fc-view-container > div > table > tbody > tr > td > div {
-    min-height: 70vh !important;
+    min-height: 59vh !important;
 }
 
 #calendar > div.fc-toolbar.fc-header-toolbar > div.fc-left > h2 {

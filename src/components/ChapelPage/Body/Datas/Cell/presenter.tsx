@@ -27,7 +27,9 @@ const IContainer = styled.div`
     justify-content:center;
 `
 
-const ICon = styled.i``
+const ICon = styled.i`
+    color:${COLORS.black};
+`
 
 interface IProps {
     data: ReducerChapelOneDataType
@@ -39,22 +41,21 @@ const Presenter: React.FC<IProps> = ({
 
     const currentName: string = useSelector((state: ReducerStateType) => state.chapel.current)
 
+
     const [className, setClassName] = useState("")
 
     useEffect(() => {
-        setClassName(getClassName(currentName))
-    }, [currentName])
+        setClassName(getClassName(data.classification))
+    }, [data])
 
     const getClassName = (name: string): string => {
         switch (name) {
-            case "attendance":
+            case "ATTENDANCE":
                 return "fas fa-check"
-            case "late":
+            case "LATE":
                 return "far fa-clock"
-            case "absence":
+            case "ABSENCE":
                 return "fas fa-times"
-            case "etc":
-                return "fas fa-tags"
             default: return ""
         }
     }

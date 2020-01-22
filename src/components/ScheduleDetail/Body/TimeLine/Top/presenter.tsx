@@ -17,16 +17,16 @@ const TextContainer = styled.div`
 
 const Number = styled.div`
     font-size:22px;
-    color:${COLORS.seaColor};
+    color:${COLORS.black};
 `
 
 const Text = styled.div`
     font-weight: 200;
-    color:${COLORS.seaColor};
+    color:${COLORS.black};
 `
 
 const YellowBadge = styled.div`
-    background:${COLORS.lightYellow};
+    background:${COLORS.black};
     color:${COLORS.white};
     display:flex;
     justify-content:center;

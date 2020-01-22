@@ -45,6 +45,8 @@ export interface IChapelSummary {
     sure: number
 }
 
+
+
 export interface ReducerChapelOneDataType {
     year: number
     month: number
@@ -52,6 +54,16 @@ export interface ReducerChapelOneDataType {
     date: string
     time: string
     etc: string
+    classification: "ATTENDANCE" | "LATE" | "ABSENCE" | ""
+}
+
+export interface ReducerChapelGeneralDataType {
+    year: number
+    month: number
+    day: number
+    date: string
+    time: string
+    classification: string
 }
 
 export interface ReducerChapelType {
@@ -64,6 +76,7 @@ export interface ReducerChapelType {
     attendances: ReducerChapelOneDataType[]
     lates: ReducerChapelOneDataType[]
     absences: ReducerChapelOneDataType[]
+    chapelDatas: ReducerChapelOneDataType[]
     current: string
 }
 
@@ -123,6 +136,9 @@ export interface ReducerMCUType {
     expanded: boolean
     img: string
     hasQrcode: boolean
+    token: string
+    iat: number
+    exp: number
 }
 
 export interface ReducerLectureTypeSelect {

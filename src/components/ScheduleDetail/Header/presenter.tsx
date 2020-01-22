@@ -4,8 +4,8 @@ import { COLORS } from '../../../consts/colors'
 import { ReducerSchedulesDateType } from '../../../types/index.d'
 
 const Container = styled.div`
-    background:${COLORS.seaColor};
-    color:${COLORS.white};
+    background:${COLORS.white};
+    color:${COLORS.black};
     display:flex;
     align-items:center;
     justify-content:center;
@@ -16,7 +16,7 @@ const XButton = styled.i`
     position:absolute;
     top:0;
     left:0;
-    color:white;
+    color:black;
     font-size:25px;
     padding:9px;
 `

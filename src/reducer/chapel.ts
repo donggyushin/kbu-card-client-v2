@@ -17,6 +17,7 @@ interface ActionType {
     etcs: ReducerChapelOneDataType[]
     absences: ReducerChapelOneDataType[]
     current: string
+    totalChapelDatas: ReducerChapelOneDataType[]
 }
 
 const initialState: ReducerChapelType = {
@@ -31,11 +32,12 @@ const initialState: ReducerChapelType = {
     thead: [],
     selected: "",
     selectable: [],
-    current: "attendance",
+    current: "",
     attendances: [],
     etcs: [],
     lates: [],
-    absences: []
+    absences: [],
+    chapelDatas: []
 }
 
 export default function (state: ReducerChapelType = initialState, action: ActionType) {
@@ -61,13 +63,14 @@ function updateCurrent(state: ReducerChapelType, action: ActionType): ReducerCha
 }
 
 function sortingChapels(state: ReducerChapelType, action: ActionType): ReducerChapelType {
-    const { etcs, lates, absences, attendances } = action;
+    const { etcs, lates, absences, attendances, totalChapelDatas } = action;
     return {
         ...state,
         etcs,
         lates,
         absences,
-        attendances
+        attendances,
+        chapelDatas: totalChapelDatas
     }
 }
 

@@ -10,7 +10,7 @@ const Presenter: React.FC = () => {
     return <Container>
         <Navigation />
         <CalenderBody />
-        <BottomNavigation />
+        {/* <BottomNavigation /> */}
     </Container>
 }
 

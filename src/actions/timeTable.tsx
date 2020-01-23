@@ -54,9 +54,7 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
                     startTime,
                     endTime
                 })
-                dispatch({
-                    type: LOADING_OFF
-                })
+
             }
         })
         .catch(err => {

@@ -6,13 +6,13 @@ import Summary from './Summary'
 const Container = styled.div`
     height: 100%;
     display: grid;
-    grid-template-rows: 35% 65%;
+    grid-template-rows: 46% 1fr;
 `
 
 const LoadingDoneBodyPresenter: React.FC = () => {
-    return <Container>
-        <Summary />
+    return <Container className="asdasd">
         <Body />
+        <Summary />
     </Container>
 }
 

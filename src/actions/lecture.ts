@@ -1,13 +1,13 @@
 import axios from 'axios'
-import { FETCH_LECTURES } from './types.d'
+import { FETCH_LECTURES, LOADING_OFF } from './types.d'
 import { Dispatch } from 'react'
 import { END_POINT } from '../consts/endpoint'
 
 interface IDispatch {
     type: string
-    tbody: string[][]
-    thead: string[]
-    select: ISelect
+    tbody?: string[][]
+    thead?: string[]
+    select?: ISelect
 }
 
 interface ISelect {
@@ -40,6 +40,9 @@ export const fetchLecturesThunkFunction = (jwtToken: string) => (dispatch: Dispa
                     thead,
                     tbody,
                     select
+                })
+                dispatch({
+                    type: LOADING_OFF
                 })
             }
         })

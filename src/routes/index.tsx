@@ -10,6 +10,7 @@ import TodayPray from '../components/TodayPray';
 import LecturePage from '../components/LectureComponent';
 import ChapelPage from '../components/ChapelPage';
 import SchedulePage from '../components/SchedulePage';
+import MileagePage from '../components/MileagePage';
 
 const ReactRoutesComponent: React.FC = () => {
     return <Switch>
@@ -33,6 +34,9 @@ const ReactRoutesComponent: React.FC = () => {
         </Route>
         <Route exact path='/schedule'>
             <SchedulePage />
+        </Route>
+        <Route exact path='/mileage'>
+            <MileagePage />
         </Route>
         <Route>
             <MainComponent />

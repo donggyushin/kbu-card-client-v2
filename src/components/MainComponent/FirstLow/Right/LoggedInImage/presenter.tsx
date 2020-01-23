@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { COLORS } from '../../../../../consts/colors'
 import { useSelector } from 'react-redux'
 import { ReducerStateType } from '../../../../../types/index.d'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     width: 100%;
@@ -15,6 +16,7 @@ const Container = styled.div`
 
 const MileageIcon = styled.i`
     font-size: 33px;
+    color:${COLORS.black};
 `
 
 const Text = styled.div`
@@ -30,12 +32,25 @@ interface IProps { }
 
 const LoggedInImage: React.FC<IProps> = () => {
     const mileageReducer = useSelector((state: ReducerStateType) => state.mileage)
-    return <Container>
-        <MileageIcon
-            className="far fa-money-bill-alt"
-        />
-        <Text>{mileageReducer.balance}</Text>
-    </Container>
+    return <Link style={{
+        textDecoration: 'none',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+    }} to="/mileage">
+
+        <Container>
+
+            <MileageIcon
+                className="far fa-money-bill-alt"
+            />
+            <Text>{mileageReducer.balance}</Text>
+
+        </Container>
+    </Link>
 }
 
 export default LoggedInImage

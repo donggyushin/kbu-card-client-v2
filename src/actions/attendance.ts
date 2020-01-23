@@ -2,7 +2,21 @@ import axios from 'axios'
 import { END_POINT } from '../consts/endpoint'
 import { Dispatch } from 'react'
 import { ReducerAttendanceExtraType, ReducerAttendanceSummaryType, ReducerAttendanceDetailType } from '../types/index.d'
-import { FETCH_ATTENDANCE, SORT_ATTENDANCES } from './types.d'
+import { FETCH_ATTENDANCE, SORT_ATTENDANCES, PUT_ATTENDANCE_CURRENT } from './types.d'
+
+interface IputAttendanceCurrentDispatch {
+    type: string
+    newCurrent: "" | "ATTENDANCE" | "ETC" | "ABSENCE" | "LATE"
+}
+
+export const putAttendanceCurrent = (newCurrent: "" | "ATTENDANCE" | "ETC" | "ABSENCE" | "LATE", dispatch: Dispatch<IputAttendanceCurrentDispatch>) => {
+
+    dispatch({
+        type: PUT_ATTENDANCE_CURRENT,
+        newCurrent
+    })
+}
+
 
 interface IfetchAttendanceInfoNonThunkFunctionDispatch {
     type: string
@@ -14,7 +28,7 @@ interface IfetchAttendanceInfoNonThunkFunctionDispatch {
     absences?: ReducerAttendanceDetailType[]
     lates?: ReducerAttendanceDetailType[]
     etcs?: ReducerAttendanceDetailType[]
-
+    all?: ReducerAttendanceDetailType[]
 }
 
 interface ISummary {
@@ -90,25 +104,37 @@ function sortAttendancesInfo(attendancesdata: string[][], dispatch: Dispatch<Ife
     const lates: ReducerAttendanceDetailType[] = []
     const absences: ReducerAttendanceDetailType[] = []
     const etcs: ReducerAttendanceDetailType[] = []
+    const all: ReducerAttendanceDetailType[] = []
 
     attendancesdata.map(data => {
-        const attendaceInstance: ReducerAttendanceDetailType = {
+        let attendaceInstance: ReducerAttendanceDetailType = {
             date: data[0],
-            time: data[1]
+            time: data[1],
+            classification: ""
         }
         if (data[2].length === 1) {
             // 출석
+            attendaceInstance.classification = "ATTENDANCE"
             attendances.push(attendaceInstance)
         } else if (data[4].length === 1) {
-            // 결석
+            // 지각
+            attendaceInstance.classification = "LATE"
             lates.push(attendaceInstance)
         } else if (data[3].length === 1) {
-            // 지각
+            // 결석
+            attendaceInstance.classification = "ABSENCE"
             absences.push(attendaceInstance)
         } else if (data[5].length === 1) {
             // 기타 
+            attendaceInstance.classification = "ETC"
             etcs.push(attendaceInstance)
+        } else {
+            // 출석
+            attendaceInstance.classification = "ATTENDANCE"
+            attendances.push(attendaceInstance)
         }
+
+        all.push(attendaceInstance)
     })
 
     dispatch({
@@ -116,6 +142,7 @@ function sortAttendancesInfo(attendancesdata: string[][], dispatch: Dispatch<Ife
         attendances,
         lates,
         absences,
-        etcs
+        etcs,
+        all
     })
 }

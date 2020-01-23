@@ -79,6 +79,7 @@
 
 
 #calendar > div.fc-view-container > div > table > tbody > tr > td > div {
+  height:auto !important;
     min-height: 59vh !important;
 }
 

@@ -1,5 +1,5 @@
 import { ReducerAttendanceType, ReducerAttendanceSummaryType, ReducerAttendanceExtraType, ReducerAttendanceDetailType } from "../types/index.d";
-import { ATTENDANCE_ON, ATTENDANCE_OFF, FETCH_ATTENDANCE, SORT_ATTENDANCES, ATTENDANCE_DETAIL_LIST_TABLE_ON, ATTENDANCE_DETAIL_LIST_TABLE_OFF, CLICK_SPECIFIC_ATTENDANCE_INFO } from "../actions/types.d";
+import { ATTENDANCE_ON, ATTENDANCE_OFF, FETCH_ATTENDANCE, SORT_ATTENDANCES, ATTENDANCE_DETAIL_LIST_TABLE_ON, ATTENDANCE_DETAIL_LIST_TABLE_OFF, CLICK_SPECIFIC_ATTENDANCE_INFO, PUT_ATTENDANCE_CURRENT } from "../actions/types.d";
 import { ATTENDANCE, ABSENCE, LATE, ETC } from "../consts/attendancesTypes";
 
 interface ActionType {
@@ -15,6 +15,8 @@ interface ActionType {
     lates: ReducerAttendanceDetailType[]
     etcs: ReducerAttendanceDetailType[]
     specificAttendance: string
+    all: ReducerAttendanceDetailType[]
+    newCurrent: "" | "ATTENDANCE" | "ETC" | "ABSENCE" | "LATE"
 }
 
 const initialState: ReducerAttendanceType = {
@@ -41,7 +43,9 @@ const initialState: ReducerAttendanceType = {
     lates: [],
     etcs: [],
     detailListTable: false,
-    specificAttendanceInfo: ""
+    specificAttendanceInfo: "",
+    all: [],
+    current: ""
 }
 
 export default function (state: ReducerAttendanceType = initialState, action: ActionType) {
@@ -61,6 +65,8 @@ export default function (state: ReducerAttendanceType = initialState, action: Ac
             return attendanceDetailListTableViewOff(state, action)
         case CLICK_SPECIFIC_ATTENDANCE_INFO:
             return clickSpecificAttendanceInfo(state, action)
+        case PUT_ATTENDANCE_CURRENT:
+            return putCurrent(state, action)
         default:
             return state
     }
@@ -83,6 +89,7 @@ function clickSpecificAttendanceInfo(state: ReducerAttendanceType, action: Actio
         case "기타":
             type = ETC
             break;
+
         default:
             break;
     }
@@ -91,6 +98,20 @@ function clickSpecificAttendanceInfo(state: ReducerAttendanceType, action: Actio
         ...state,
         specificAttendanceInfo: type,
         detailListTable: true
+    }
+}
+
+interface IputCurrentAction {
+    type: string
+    newCurrent: "" | "ATTENDANCE" | "ETC" | "ABSENCE" | "LATE"
+}
+
+function putCurrent(state: ReducerAttendanceType, action: IputCurrentAction): ReducerAttendanceType {
+    const { newCurrent } = action
+    console.log(newCurrent)
+    return {
+        ...state,
+        current: newCurrent
     }
 }
 
@@ -114,14 +135,16 @@ function sortAttendances(state: ReducerAttendanceType, action: ActionType): Redu
         attendances,
         etcs,
         absences,
-        lates
+        lates,
+        all
     } = action
     return {
         ...state,
         attendances,
         etcs,
         absences,
-        lates
+        lates,
+        all
     }
 }
 
@@ -177,6 +200,8 @@ function turnDownAttendance(state: ReducerAttendanceType, action: ActionType): R
         lates: [],
         etcs: [],
         detailListTable: false,
-        specificAttendanceInfo: ""
+        specificAttendanceInfo: "",
+        all: [],
+        current: ""
     }
 }

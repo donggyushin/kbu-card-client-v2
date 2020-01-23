@@ -80,8 +80,21 @@ export interface ReducerChapelType {
     current: string
 }
 
+export interface ReducerMileageDataType {
+    content: string
+    cost: number
+    date: string
+    classification: "" | "IN" | "OUT"
+}
+
 export interface ReducerMileageType {
     balance: number
+    thead: string[]
+    tbody: string[][]
+    datas: ReducerMileageDataType[]
+    inDatas: ReducerMileageDataType[]
+    outDatas: ReducerMileageDataType[]
+    current: "" | "IN" | "OUT"
 }
 
 export interface ReducerMobiledStudentCardType {
@@ -112,6 +125,7 @@ export interface ReducerAttendanceExtraType {
 export interface ReducerAttendanceDetailType {
     date: string
     time: string
+    classification: 'ATTENDANCE' | 'LATE' | 'ABSENCE' | '' | 'ETC'
 }
 
 export interface ReducerAttendanceType {
@@ -127,8 +141,10 @@ export interface ReducerAttendanceType {
     absences: ReducerAttendanceDetailType[]
     lates: ReducerAttendanceDetailType[]
     etcs: ReducerAttendanceDetailType[]
+    all: ReducerAttendanceDetailType[]
     detailListTable: boolean
     specificAttendanceInfo: string
+    current: 'ATTENDANCE' | 'LATE' | 'ABSENCE' | '' | 'ETC'
 }
 
 export interface ReducerMCUType {

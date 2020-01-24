@@ -6,6 +6,13 @@ interface IDispatch {
     current: string
 }
 
+export const updateCurrentLocationNonThunkFunction = (current: string, dispatch: Dispatch<IDispatch>) => {
+    dispatch({
+        type: UPDATE_CURRENT_LOCATION,
+        current
+    })
+}
+
 export const updateCurrentLocationRedux = (current: string) => (dispatch: Dispatch<IDispatch>) => {
     dispatch({
         type: UPDATE_CURRENT_LOCATION,

@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Navigation from '../NavigationBar'
-import FirstLow from './FirstLow'
-import SecondRow from './SecondRow'
-import ThirdRow from './ThirdRow'
 import BottomNavigation from '../BottomNavigation'
+import Body from './Body'
 
 const Container = styled.div`
     display:flex;
@@ -15,9 +13,7 @@ const Container = styled.div`
 const MainComponentPresenter: React.FC = () => {
     return <Container>
         <Navigation />
-        <FirstLow />
-        <SecondRow />
-        <ThirdRow />
+        <Body />
         <BottomNavigation />
     </Container>
 }

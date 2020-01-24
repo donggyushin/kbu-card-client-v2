@@ -59,3 +59,6 @@ export const SCHEDULE_DETAIL_OFF = 'SCHEDULE_OFF'
 export const FETCH_MCU = 'FETCH_MCU'
 export const MCU_LOADING = 'MCU_LOADING'
 export const MCU_OFF = 'MCU_OFF'
+
+
+export const GET_NOTICES = 'GET_NOTICES'

@@ -216,6 +216,19 @@ export interface ReducerScheduleDetailTypes {
     htmlLink: string
 }
 
+export interface ReducerNoticeDataType {
+    id: number
+    author: string
+    title: string
+    description: string
+    url: string
+    tag: string
+    created_time_str: string
+}
+
+export interface ReducerNoticeType {
+    datas: ReducerNoticeDataType[]
+}
 
 export interface ReducerStateType {
     user: ReducerUserType
@@ -236,4 +249,5 @@ export interface ReducerStateType {
     lecture: ReducerLectureType
     schedule: ReducerSchedulesTypes
     scheduleDetail: ReducerScheduleDetailTypes
+    notice: ReducerNoticeType
 }

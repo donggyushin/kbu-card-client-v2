@@ -11,6 +11,7 @@ import LecturePage from '../components/LectureComponent';
 import ChapelPage from '../components/ChapelPage';
 import SchedulePage from '../components/SchedulePage';
 import MileagePage from '../components/MileagePage';
+import NoticePage from '../components/NoticePage';
 
 const ReactRoutesComponent: React.FC = () => {
     return <Switch>
@@ -37,6 +38,9 @@ const ReactRoutesComponent: React.FC = () => {
         </Route>
         <Route exact path='/mileage'>
             <MileagePage />
+        </Route>
+        <Route exact path='/notice'>
+            <NoticePage />
         </Route>
         <Route>
             <MainComponent />

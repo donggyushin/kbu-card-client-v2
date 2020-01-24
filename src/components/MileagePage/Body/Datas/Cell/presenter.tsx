@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ReducerMileageDataType } from '../../../../../types/index.d'
 import { COLORS } from '../../../../../consts/colors'
+import currencyFormatter from 'currency-formatter'
 
 const Container = styled.div`
     display: grid;
@@ -23,7 +24,6 @@ const Date = styled.div`
 const Cost = styled.div`
     font-size:15px;
     margin-top:4px;
-    margin-bottom:4px;
 `
 
 const Content = styled.div`
@@ -38,7 +38,7 @@ const Right = styled.div`
 `
 
 const ICon = styled.i`
-    font-size: 16px;
+    font-size: 12px;
 `
 
 interface IProps {
@@ -60,7 +60,8 @@ const Presenter: React.FC<IProps> = ({ cell }) => {
                 {cell.date}
             </Date>
             <Cost>
-                {cell.cost}
+                {/* {cell.cost} */}
+                {formatCost()}
             </Cost>
             <Content>
                 {cell.content}
@@ -72,7 +73,14 @@ const Presenter: React.FC<IProps> = ({ cell }) => {
         </Right>
     </Container>
 
-
+    function formatCost() {
+        return currencyFormatter.format(cell.cost, {
+            symbol: '원',
+            thousand: ',',
+            precision: 0,
+            format: '%v %s'
+        })
+    }
 
     function setIconClassNameFunc(classification: "" | "IN" | "OUT"): string {
         if (classification === "OUT") {

@@ -1,2 +1,2 @@
-import TodayPray from './container'
+import TodayPray from './presenter'
 export default TodayPray

@@ -8,6 +8,9 @@ import store from './reducer'
 import { BrowserRouter } from 'react-router-dom'
 import './calendarcss/core.css'
 import './calendarcss/daygrid.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 ReactDOM.render(
     <Provider store={store}>

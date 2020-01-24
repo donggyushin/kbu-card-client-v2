@@ -1,9 +1,10 @@
 import React, { Dispatch, useEffect } from 'react'
 import styled from 'styled-components'
-import BottomNavigation from '../BottomNavigation'
 import Navigation from '../NavigationBar'
-import { updateCurrentLocationNonThunkFunction } from '../../actions/location'
+import BottomNavigation from '../BottomNavigation'
 import { useDispatch } from 'react-redux'
+import { updateCurrentLocationNonThunkFunction } from '../../actions/location'
+import Body from './Body'
 
 const Container = styled.div``
 
@@ -12,7 +13,7 @@ interface ILocationDispatch {
     current: string
 }
 
-const TodayPrayerPresenter: React.FC = () => {
+const Presenter: React.FC = () => {
 
     const locationDispatch = useDispatch<Dispatch<ILocationDispatch>>()
 
@@ -22,13 +23,13 @@ const TodayPrayerPresenter: React.FC = () => {
 
     return <Container>
         <Navigation />
-        today prayer
+        <Body />
         <BottomNavigation />
     </Container>
 
     function updateCurrentLocation() {
-        updateCurrentLocationNonThunkFunction('pray', locationDispatch)
+        updateCurrentLocationNonThunkFunction('notice', locationDispatch)
     }
 }
 
-export default TodayPrayerPresenter
+export default Presenter

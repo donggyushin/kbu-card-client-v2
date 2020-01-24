@@ -1,2 +1,2 @@
-import CafeteriaPage from './container'
+import CafeteriaPage from './presenter'
 export default CafeteriaPage

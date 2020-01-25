@@ -1,36 +1,48 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Redirect } from 'react-router-dom'
+import Slider from "react-slick"
+import Card from './Card'
+import { useSelector } from 'react-redux'
+import { ReducerStateType } from '../../../../../types/index.d'
 
 const Container = styled.div`
-        display: grid;
-    grid-template-rows: 17% 1fr;
-`
-
-const Text = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
 `
 
 const Presenter: React.FC = () => {
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
-    const [redirect, setRedirect] = useState(false)
-
-    if (redirect) {
-        return <Redirect to="/cafeteria" />
-    } else {
-        return <Container onClick={redirectFunc}>
-            <Text>오늘의 학식</Text>
-        </Container>
-
-    }
-
-
-    function redirectFunc() {
-        setRedirect(true)
-    }
+    const cafeteriaReducer = useSelector((state: ReducerStateType) => state.cafeteria)
+    const lunchMenus = cafeteriaReducer.lunch.menus
+    const dinnerMenus = cafeteriaReducer.dinner.menus
+    const dailyMenus = cafeteriaReducer.daily.menus
+    const fixMenus = cafeteriaReducer.fix.menus
+    return <Container>
+        <Slider {...settings}>
+            <Card
+                label="오늘의 중식"
+                menus={lunchMenus}
+            />
+            <Card
+                label="오늘의 석식"
+                menus={dinnerMenus}
+            />
+            <Card
+                label="오늘의 데일리"
+                menus={dailyMenus}
+            />
+            <Card
+                label="오늘의 고정메뉴"
+                menus={fixMenus}
+            />
+        </Slider>
+    </Container>
 }
+
 
 export default Presenter

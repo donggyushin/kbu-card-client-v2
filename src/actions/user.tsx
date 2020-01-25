@@ -159,14 +159,14 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
                 })
                 window.location.href = '/'
             } else if (res.status === 400) {
-                console.log('비밀번호가 틀렸을때')
+                console.log('비밀번호가 틀렸을때 혹은 인트라넷 서버 망가졌을때')
                 dispatch({
                     type: LOADING_OFF
                 })
                 dispatch({
                     type: TURN_ON_ALERT,
                     title: "경고",
-                    text: "아이디와 패스워드가 일치하지 않습니다",
+                    text: "한국성서대학교 서버 인트라넷이 현재 불안정합니다.",
                     callBack: undefined
                 })
             }

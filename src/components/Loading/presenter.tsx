@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { BarLoader } from 'react-spinners'
+import { BarLoader, ScaleLoader } from 'react-spinners'
+import { COLORS } from '../../consts/colors'
 
 const Container = styled.div`
     position: absolute;
@@ -16,7 +17,7 @@ const Container = styled.div`
 
 const LoadingPresenter: React.FC = () => {
     return <Container>
-        <BarLoader color={'#36D7B7'} />
+        <ScaleLoader color={COLORS.lightBlue} />
     </Container>
 }
 

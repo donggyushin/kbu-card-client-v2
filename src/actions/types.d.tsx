@@ -62,3 +62,6 @@ export const MCU_OFF = 'MCU_OFF'
 
 
 export const GET_NOTICES = 'GET_NOTICES'
+export const APPEND_NEW_NOTICES = 'APPEND_NEW_NOTICES'
+
+export const GET_MENU = 'GET_MENU'

@@ -1,6 +1,6 @@
 import React, { useEffect, Dispatch, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ReducerStateType, ReducerChapelOneDataType } from './types/index.d';
+import { ReducerStateType, ReducerChapelOneDataType, ReducerCafeteriaType } from './types/index.d';
 import styled from 'styled-components'
 import { COLORS } from './consts/colors';
 import ReactRoutesComponent from './routes';
@@ -13,6 +13,7 @@ import { turnOnAlertNonThunkFunction } from './actions/modal'
 import { logoutNonThunkFunction } from './actions/user'
 import { chapelNotThunkFunction } from './actions/chapel'
 import { ImileageGetBalanceThunkFunctionD, mileageGetBalanceNormalFunction } from './actions/mileage'
+import { getMenu } from './actions/cafeteria'
 import MobiledStudentCard from './components/MobileStudentCard';
 import { Redirect } from 'react-router-dom'
 import AttendanceComponent from './components/AttendanceComponent';
@@ -65,6 +66,14 @@ interface IGetProfileDispatch {
   img: string
 }
 
+interface ICafeteriaGetMenuDispatch {
+  type: string
+  menu?: ReducerCafeteriaType
+  title?: string
+  text?: string
+  callBack?: (param: any) => void
+}
+
 const Container = styled.div`
   background:${(props: containerProps) => props.lightMode ? `${COLORS.white}` : `${COLORS.background}`};
   color:${(props: containerProps) => props.lightMode ? `${COLORS.black}` : `${COLORS.white}`};
@@ -90,6 +99,7 @@ const App: React.FC = () => {
   const logoutDispatch = useDispatch<Dispatch<IDispatchLogout>>()
   const getChapelDispatch = useDispatch<Dispatch<IDispatchGetChapel>>()
   const getBalanceDispatch = useDispatch<Dispatch<ImileageGetBalanceThunkFunctionD>>()
+  const cafeteriaGetMenuDispatch = useDispatch<Dispatch<ICafeteriaGetMenuDispatch>>()
 
 
   const [redirect, setRedirect] = useState(false)
@@ -97,6 +107,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     console.log('App mount it!')
+    getMenu(new Date().getTime(), cafeteriaGetMenuDispatch)
     const jwtToken = localStorage.getItem('kbucard')
     if (jwtToken) {
       const verified: boolean = verifyToken()

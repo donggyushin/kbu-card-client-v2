@@ -228,6 +228,23 @@ export interface ReducerNoticeDataType {
 
 export interface ReducerNoticeType {
     datas: ReducerNoticeDataType[]
+    minId: number
+}
+
+export interface ReducerCafeteriaMenusType {
+    _id: string
+    menus: string[]
+}
+
+export interface ReducerCafeteriaType {
+    _id: string
+    year: number
+    month: number
+    day: number
+    lunch: ReducerCafeteriaMenusType
+    dinner: ReducerCafeteriaMenusType
+    fix: ReducerCafeteriaMenusType
+    daily: ReducerCafeteriaMenusType
 }
 
 export interface ReducerStateType {
@@ -250,4 +267,5 @@ export interface ReducerStateType {
     schedule: ReducerSchedulesTypes
     scheduleDetail: ReducerScheduleDetailTypes
     notice: ReducerNoticeType
+    cafeteria: ReducerCafeteriaType
 }

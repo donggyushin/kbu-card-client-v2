@@ -1,11 +1,8 @@
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, { Dispatch, useEffect, useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
-import { getNoticeNonThunkFunction } from '../../../actions/notice'
+import { getNoticeNonThunkFunction, getNoticeWithMinimunId } from '../../../actions/notice'
 import { useDispatch, useSelector } from 'react-redux'
-import { verifyToken } from '../../../utils/decodeToken'
-import { turnOnAlertNonThunkFunction } from '../../../actions/modal'
-import { Redirect } from 'react-router-dom'
-import { ReducerStateType } from '../../../types/index.d'
+import { ReducerStateType, ReducerNoticeDataType } from '../../../types/index.d'
 import Cell from './Cell'
 
 const Container = styled.div`
@@ -19,69 +16,64 @@ const Container = styled.div`
 
 interface INoticeDispatch {
     type: string
+    datas?: ReducerNoticeDataType[]
+    minId?: number
 }
 
-interface IAlertDispatch {
-    type: string
-    text: string
-    title: string,
-    callBack?: (param: any) => void
-}
 
 const Presenter: React.FC = () => {
 
     const noticeDispatch = useDispatch<Dispatch<INoticeDispatch>>()
-    const alertDispatch = useDispatch<Dispatch<IAlertDispatch>>()
-    const [redirect, setRedirect] = useState(false)
     const noticeReducer = useSelector((state: ReducerStateType) => state.notice)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        if (checkThereIsToken()) {
-            const token = localStorage.getItem('kbucard')
-            if (token) {
-                callGetNoticeFunction(token)
-            }
-        } else {
-            showAlert()
-        }
+        callGetNoticeFunction()
+
     }, [])
 
-    if (redirect) {
-        return <Redirect to="/" />
-    } else {
-        return <Container>
-            {noticeReducer.datas.map((data, i) => {
-                return <Cell data={data} key={i} />
-            })}
-        </Container>
+    useEffect(() => {
+        const containerElement = document.getElementById('noticeBody')
+        containerElement?.addEventListener('scroll', trackScrolling)
+        return () => {
+            containerElement?.removeEventListener('scroll', trackScrolling)
+        }
+    }, [noticeReducer, loading])
 
-    }
-
-
-    function showAlert() {
-        turnOnAlertNonThunkFunction("죄송해요", "세션이 만료되었습니다. 다시 로그인해주세요.", alertDispatch, redirectFunc)
-    }
-
-    function redirectFunc() {
-        setRedirect(true)
-    }
+    useEffect(() => {
+        setLoading(false)
+    }, [noticeReducer])
 
 
-    function checkThereIsToken(): boolean {
-        const token = localStorage.getItem('kbucard')
-        if (token) {
-            if (verifyToken()) {
-                return true
-            } else {
-                return false
+    return <Container id='noticeBody'>
+        {noticeReducer.datas.map((data, i) => {
+            return <Cell data={data} key={i} />
+        })}
+    </Container>
+
+
+
+    function isBottom(el: HTMLElement) {
+
+        if (el.scrollTop === (el.scrollHeight - el.offsetHeight)) {
+            if (loading === false) {
+                setLoading(true)
+                getNoticeWithMinimunId(noticeReducer.minId, noticeDispatch)
+
             }
-        } else {
-            return false
         }
     }
 
-    function callGetNoticeFunction(jwtToken: string) {
-        getNoticeNonThunkFunction(jwtToken, noticeDispatch)
+    function trackScrolling() {
+        const wrappedElement = document.getElementById('noticeBody')
+        if (wrappedElement) {
+            isBottom(wrappedElement)
+        }
+    }
+
+
+    function callGetNoticeFunction() {
+        getNoticeNonThunkFunction(noticeDispatch)
     }
 }
 

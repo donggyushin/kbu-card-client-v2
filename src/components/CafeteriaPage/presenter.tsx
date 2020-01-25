@@ -12,6 +12,7 @@ interface ILocationDispatch {
     current: string
 }
 
+
 const CafeteriaPresenter: React.FC = () => {
 
     const locationDispatch = useDispatch<Dispatch<ILocationDispatch>>()

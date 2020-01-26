@@ -36,7 +36,7 @@ interface IProps {
 }
 
 const Presenter: React.FC<IProps> = ({ data }) => {
-    return <Container>
+    return <Container onClick={clickNotice}>
         <Id>
             {data.id}
         </Id>
@@ -53,6 +53,10 @@ const Presenter: React.FC<IProps> = ({ data }) => {
             <Text>{data.created_time_str}</Text>
         </CreatorAndDate>
     </Container>
+
+    function clickNotice() {
+        window.open(data.url)
+    }
 }
 
 export default Presenter

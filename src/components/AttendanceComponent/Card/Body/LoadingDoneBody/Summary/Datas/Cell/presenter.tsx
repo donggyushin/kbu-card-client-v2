@@ -2,28 +2,25 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ReducerAttendanceDetailType, ReducerStateType } from '../../../../../../../../types/index.d'
 import { useSelector } from 'react-redux'
+import { COLORS } from '../../../../../../../../consts/colors'
 
 const Container = styled.div`
 display:grid;
-    grid-template-columns: 45% 37% 1fr;
+    grid-template-columns: 50% 50%;
+    font-size:14px;
+    color:${COLORS.black};
 `
 
 const Date = styled.div`
     display:flex;
     align-items:center;
-    padding-left:10px;
-`
-
-const Time = styled.div`
-    display:flex;
-    align-items:center;
-    padding-left:10px;
+    justify-content:center;
 `
 
 const Icon = styled.i`
     display:flex;
     align-items:center;
-    padding-left:10px;
+    justify-content:center;
 `
 
 interface IProps {
@@ -34,20 +31,28 @@ const Presenter: React.FC<IProps> = ({
     data
 }) => {
     const [iconClassName, setIconClassName] = useState("")
+    const [month, setMonth] = useState("월")
+    const [day, setDay] = useState("일")
     const current = useSelector((state: ReducerStateType) => state.attendance.current)
     useEffect(() => {
         setIconClassName(getIconClassName(current, data.classification))
+        setMonthFunction()
+        setDayFunction()
     }, [current, data])
 
     return <Container>
         <Date>
-            {data.date}
+            {month} {day}
         </Date>
-        <Time>
-            {data.time}
-        </Time>
         <Icon className={iconClassName} />
     </Container>
+    function setDayFunction() {
+        setDay(data.date.substr(8, 2) + '일')
+    }
+
+    function setMonthFunction() {
+        setMonth(data.date.substr(5, 2) + '월')
+    }
 
     function getIconClassName(current: string, classification: "" | "ATTENDANCE" | "LATE" | "ABSENCE" | "ETC"): string {
         let result = ""

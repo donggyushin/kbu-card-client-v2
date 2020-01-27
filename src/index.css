@@ -31,3 +31,8 @@ code {
 .slick-track {
   height: 100%;
 }
+
+button:focus {
+  /* outline: 1px dotted; */
+  outline: 0px !important;
+}

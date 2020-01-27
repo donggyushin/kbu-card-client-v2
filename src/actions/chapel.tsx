@@ -1,8 +1,21 @@
 import axios from 'axios'
 import { END_POINT } from '../consts/endpoint'
 import { Dispatch } from 'react'
-import { CHAPEL_GET, SORING_CHAPEL } from './types.d'
+import { CHAPEL_GET, SORING_CHAPEL, CHAPEL_UPDATE_CURRENT } from './types.d'
 import { ReducerChapelOneDataType } from '../types/index.d'
+
+interface IchangeChapelCurrentDispatch {
+    type: string
+    current: "" | "absence" | "attendance" | "late" | "etc"
+}
+
+export const changeChapelCurrent = (newCurrent: "" | "absence" | "attendance" | "late" | "etc", dispatch: Dispatch<IchangeChapelCurrentDispatch>) => {
+    dispatch({
+        type: CHAPEL_UPDATE_CURRENT,
+        current: newCurrent
+    })
+}
+
 
 interface IchapelNotThunkFunctionDispatch {
     type: string

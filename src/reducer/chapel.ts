@@ -16,7 +16,7 @@ interface ActionType {
     lates: ReducerChapelOneDataType[]
     etcs: ReducerChapelOneDataType[]
     absences: ReducerChapelOneDataType[]
-    current: string
+    current: "" | "absence" | "attendance" | "late" | "etc"
     totalChapelDatas: ReducerChapelOneDataType[]
 }
 

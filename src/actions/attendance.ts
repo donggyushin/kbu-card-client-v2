@@ -137,6 +137,12 @@ function sortAttendancesInfo(attendancesdata: string[][], dispatch: Dispatch<Ife
         all.push(attendaceInstance)
     })
 
+    attendances.reverse()
+    lates.reverse()
+    absences.reverse()
+    etcs.reverse()
+    all.reverse()
+
     dispatch({
         type: SORT_ATTENDANCES,
         attendances,

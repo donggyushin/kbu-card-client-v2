@@ -8,7 +8,8 @@ const Container = styled.div`
     display:grid;
     grid-auto-rows:40px;
     overflow-y:scroll;
-    
+    justify-content:center;
+    grid-template-columns: 95%;
 `
 
 const Presenter: React.FC = () => {

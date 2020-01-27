@@ -65,3 +65,5 @@ export const GET_NOTICES = 'GET_NOTICES'
 export const APPEND_NEW_NOTICES = 'APPEND_NEW_NOTICES'
 
 export const GET_MENU = 'GET_MENU'
+
+export const GET_TODAY_PRAY = 'GET_TODAY_PRAY'

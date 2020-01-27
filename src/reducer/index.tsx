@@ -25,6 +25,7 @@ import schedule from './schedule'
 import scheduleDetail from './scheduleDetail'
 import notice from './notice'
 import cafeteria from './cafeteria'
+import todayPray from './todayPray'
 
 const initialState = {}
 
@@ -48,7 +49,8 @@ const allReducers = combineReducers({
     schedule,
     scheduleDetail,
     notice,
-    cafeteria
+    cafeteria,
+    todayPray
 })
 
 // @ts-ignore

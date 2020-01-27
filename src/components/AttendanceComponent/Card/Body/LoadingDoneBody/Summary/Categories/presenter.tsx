@@ -1,46 +1,45 @@
-import React from 'react'
+import React, { Dispatch } from 'react'
 import styled from 'styled-components'
-import Cell from './Cell'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { ReducerStateType } from '../../../../../../../types/index.d'
+import { Tabs, Tab, Paper } from '@material-ui/core'
+import { putAttendanceCurrent } from '../../../../../../../actions/attendance'
 
 const Container = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 `
 
-
+interface IAttendanceDispatch {
+    type: string
+    newCurrent: "" | "ATTENDANCE" | "ETC" | "ABSENCE" | "LATE"
+}
 
 const Presenter: React.FC = () => {
 
     const current = useSelector((state: ReducerStateType) => state.attendance.current)
-    const attendanceReducer = useSelector((state: ReducerStateType) => state.attendance)
+    const attendanceDispatch = useDispatch<Dispatch<IAttendanceDispatch>>()
+
+    const handleChange = (event: React.ChangeEvent<{}>, newValue: "" | "ATTENDANCE" | "ETC" | "ABSENCE" | "LATE") => {
+        putAttendanceCurrent(newValue, attendanceDispatch)
+    }
 
     return <Container>
-        <Cell
-            label="출석"
-            current={current}
-            name="ATTENDANCE"
-            counter={attendanceReducer.attendances.length}
-        />
-        <Cell
-            label="지각"
-            current={current}
-            name="LATE"
-            counter={attendanceReducer.lates.length}
-        />
-        <Cell
-            label="결석"
-            current={current}
-            name="ABSENCE"
-            counter={attendanceReducer.absences.length}
-        />
-        <Cell
-            label="비고"
-            current={current}
-            name="ETC"
-            counter={attendanceReducer.etcs.length}
-        />
+        <Paper square>
+            <Tabs
+                value={current}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={handleChange}
+            >
+                <Tab value={""} label="전체" />
+                <Tab value={"ATTENDANCE"} label="출석" />
+                <Tab value={"LATE"} label="지각" />
+                <Tab value={"ABSENCE"} label="결석" />
+                <Tab value={"ETC"} label="비고" />
+            </Tabs>
+        </Paper>
     </Container>
 }
 

@@ -77,7 +77,7 @@ export interface ReducerChapelType {
     lates: ReducerChapelOneDataType[]
     absences: ReducerChapelOneDataType[]
     chapelDatas: ReducerChapelOneDataType[]
-    current: string
+    current: "" | "attendance" | "late" | "etc" | "absence"
 }
 
 export interface ReducerMileageDataType {
@@ -247,6 +247,31 @@ export interface ReducerCafeteriaType {
     daily: ReducerCafeteriaMenusType
 }
 
+export interface ReducerTodayPrayWriterType {
+    _id: string
+    email: string
+    name: string
+    phone: string
+}
+
+export interface ReducerTodayPrayStudentPrayType {
+    prays: string[]
+    _id: string
+    name: string
+    studentId: string
+}
+
+export interface ReducerTodayPrayType {
+    _id: string
+    year: number
+    month: number
+    day: number
+    ads?: string[]
+    todayPrayContent: string[]
+    writer: ReducerTodayPrayWriterType
+    studentPray: ReducerTodayPrayStudentPrayType[]
+}
+
 export interface ReducerStateType {
     user: ReducerUserType
     theme: ReducerThemeType
@@ -268,4 +293,5 @@ export interface ReducerStateType {
     scheduleDetail: ReducerScheduleDetailTypes
     notice: ReducerNoticeType
     cafeteria: ReducerCafeteriaType
+    todayPray: ReducerTodayPrayType
 }

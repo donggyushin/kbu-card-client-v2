@@ -67,10 +67,10 @@ const Presenter: React.FC<IProps> = ({ cell }) => {
                 {cell.content}
             </Content>
         </Left>
-        <Right>
+        {/* <Right>
             <ICon
                 className={iconClassName} />
-        </Right>
+        </Right> */}
     </Container>
 
     function formatCost() {

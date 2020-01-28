@@ -18,7 +18,8 @@ const initialState: ReducerTodayPrayType = {
         phone: ""
     },
     todayPrayContent: [],
-    studentPray: []
+    studentPray: [],
+    ads: []
 }
 
 export default function (state = initialState, action: ActionType) {

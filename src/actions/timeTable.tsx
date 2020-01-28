@@ -30,12 +30,13 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
         type: LOADING_ON
     })
 
-    axios.get(`${END_POINT}users/information/timetable`, {
+    axios.get(`${END_POINT}users/information/timetable?semester=20192`, {
         headers: {
             'Authorization': jwtToken
         }
     })
         .then(res => {
+
             if (res.status === 200) {
                 const { tbody, thead }: IfetchTimeTableThunkFunctionData = res.data.data
                 const { startTime, endTime } = getStartTimeAndEndTime(tbody)
@@ -47,6 +48,7 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
                     colorSet
                 })
 
+
                 dispatch({
                     type: TIME_TABLE_FETCH,
                     thead,
@@ -54,6 +56,7 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
                     startTime,
                     endTime
                 })
+
 
             }
         })
@@ -106,12 +109,17 @@ function getStartTimeAndEndTime(schedule: string[][][]): IFirstAndEndTime {
         endClasses.push(row[row.length - 1])
     })
     firstClasses.map(firstClass => {
-        const firstTime: number = parseInt(firstClass[2].substr(0, 2))
-        firstClassStartTimes.push(firstTime)
+
+        if (firstClass) {
+            const firstTime: number = parseInt(firstClass[2].substr(0, 2))
+            firstClassStartTimes.push(firstTime)
+        }
     })
     endClasses.map(endClass => {
-        const endTime: number = parseInt(endClass[3].substr(0, 2))
-        endClassesEndTimes.push(endTime)
+        if (endClass) {
+            const endTime: number = parseInt(endClass[3].substr(0, 2))
+            endClassesEndTimes.push(endTime)
+        }
     })
     firstTime = firstClassStartTimes[0]
     endTime = endClassesEndTimes[0]

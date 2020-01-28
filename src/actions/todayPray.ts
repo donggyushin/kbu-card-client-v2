@@ -39,9 +39,9 @@ export const getTodayPray = (date: string | number, dispatch: Dispatch<IGetToday
                     type: TURN_ON_ALERT,
                     title: "알림",
                     text: error,
-                    callBack: () => {
-                        window.location.href = '/'
-                    }
+                    // callBack: () => {
+                    //     window.location.href = '/'
+                    // }
                 })
                 dispatch({
                     type: LOADING_OFF

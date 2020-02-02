@@ -266,7 +266,7 @@ export interface ReducerTodayPrayType {
     year: number
     month: number
     day: number
-    ads?: string[]
+    ads: string[]
     todayPrayContent: string[]
     writer: ReducerTodayPrayWriterType
     studentPray: ReducerTodayPrayStudentPrayType[]

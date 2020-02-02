@@ -4,8 +4,11 @@ import Slider from "react-slick"
 import Card from './Card'
 import { useSelector } from 'react-redux'
 import { ReducerStateType } from '../../../../../types/index.d'
+import { COLORS } from '../../../../../consts/colors'
 
 const Container = styled.div`
+    border-bottom:1px solid ${COLORS.weakGray};
+
 `
 
 const Presenter: React.FC = () => {

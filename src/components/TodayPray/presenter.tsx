@@ -6,6 +6,7 @@ import { updateCurrentLocationNonThunkFunction } from '../../actions/location'
 import { getTodayPray } from '../../actions/todayPray'
 import { useDispatch } from 'react-redux'
 import { ReducerTodayPrayType } from '../../types/index.d'
+import Body from './Body'
 
 const Container = styled.div``
 
@@ -34,7 +35,7 @@ const TodayPrayerPresenter: React.FC = () => {
 
     return <Container>
         <Navigation />
-        today prayer
+        <Body />
         <BottomNavigation />
     </Container>
 

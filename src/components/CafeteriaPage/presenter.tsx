@@ -4,8 +4,10 @@ import BottomNavigation from '../BottomNavigation'
 import Navigation from '../NavigationBar'
 import { updateCurrentLocationNonThunkFunction } from '../../actions/location'
 import { useDispatch } from 'react-redux'
+import Body from './Body'
 
-const Container = styled.div``
+const Container = styled.div`
+`
 
 interface ILocationDispatch {
     type: string
@@ -23,7 +25,7 @@ const CafeteriaPresenter: React.FC = () => {
 
     return <Container>
         <Navigation />
-        cafeteria page
+        <Body />
         <BottomNavigation />
     </Container>
 

@@ -5,10 +5,9 @@ import BottomNavigation from '../BottomNavigation'
 import TimeTable from './TimeTable'
 
 const Container = styled.div`
-    display:flex;
-    width:100%;
-    flex-direction:column;
-    align-items:center;
+    display: grid;
+    height:100vh;
+    grid-template-rows: 10% 1fr 7%;
 `
 
 const LecturePagePresenter: React.FC = () => {

@@ -12,7 +12,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(3,1fr);
     background: #f5f6fa;
-    position:fixed;
+    /* position:fixed; */
     bottom:0;
 `
 

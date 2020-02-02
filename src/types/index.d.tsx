@@ -294,4 +294,5 @@ export interface ReducerStateType {
     notice: ReducerNoticeType
     cafeteria: ReducerCafeteriaType
     todayPray: ReducerTodayPrayType
+    cafeteriaForPage: ReducerCafeteriaType
 }

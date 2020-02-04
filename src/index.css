@@ -40,3 +40,7 @@ button:focus {
 .MuiFormControl-marginNormal {
   margin-top: 0px !important;
 }
+
+.MuiInput-underline:before {
+  border-bottom: 0 !important;
+}

@@ -34,7 +34,7 @@ export default function MaterialUIPickers() {
                 <KeyboardDatePicker
                     margin="normal"
                     id="date-picker-dialog"
-                    label="Date picker dialog"
+                    label="날짜를 선택해주세요!"
                     format="MM/dd/yyyy"
                     value={selectedDate}
                     onChange={handleDateChange}

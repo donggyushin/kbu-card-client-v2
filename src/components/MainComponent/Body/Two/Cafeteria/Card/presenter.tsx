@@ -1,10 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import { BoxShadowObject } from '../../../../../../consts/boxShadow'
 
 const Container = styled.div`
     height:100%;
     display:grid;
     grid-template-rows:17% 1fr;
+    border-radius:4px;
+    box-shadow:${BoxShadowObject.typeOne};
 `
 
 const Label = styled.div`
@@ -12,6 +15,7 @@ const Label = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
+    font-weight:600;
 `
 
 const Menus = styled.div`

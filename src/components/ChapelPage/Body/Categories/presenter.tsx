@@ -20,10 +20,16 @@ const Presenter: React.FC = () => {
 
     const current: string = useSelector((state: ReducerStateType) => state.chapel.current)
     const chapelDispatch = useDispatch<Dispatch<IChapelDispatch>>()
-
+    const chapelReducer = useSelector((state: ReducerStateType) => state.chapel)
     const handleChange = (event: React.ChangeEvent<{}>, newValue: "" | "absence" | "attendance" | "late" | "etc") => {
         changeChapelCurrent(newValue, chapelDispatch)
     }
+
+    const allNumber = chapelReducer.chapelDatas.length
+    const attendanceNum = chapelReducer.attendances.length
+    const latesNum = chapelReducer.lates.length
+    const absenceNum = chapelReducer.absences.length
+    const etcsNum = chapelReducer.etcs.length
 
     return <Container>
         <Paper square>
@@ -33,11 +39,11 @@ const Presenter: React.FC = () => {
                 textColor="primary"
                 onChange={handleChange}
             >
-                <Tab value={""} label="전체" />
-                <Tab value={"attendance"} label="출석" />
-                <Tab value={"late"} label="지각" />
-                <Tab value={"absence"} label="결석" />
-                <Tab value={"etc"} label="비고" />
+                <Tab value={""} label={`전체 (${allNumber})`} />
+                <Tab value={"attendance"} label={`출석 (${attendanceNum})`} />
+                <Tab value={"late"} label={`지각 (${latesNum})`} />
+                <Tab value={"absence"} label={`결석 (${absenceNum})`} />
+                <Tab value={"etc"} label={`비고 (${etcsNum})`} />
             </Tabs>
         </Paper>
     </Container>

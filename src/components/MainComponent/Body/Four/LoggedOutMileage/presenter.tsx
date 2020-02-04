@@ -39,6 +39,10 @@ const Icon = styled.i`
     margin-left:7px;
 `
 
+const Image = styled.img`
+    width: 37px;
+    margin-left: 27%;
+`
 
 const Presenter: React.FC = () => {
 
@@ -52,7 +56,7 @@ const Presenter: React.FC = () => {
                 <TinyText>
                     마일리지
             </TinyText>
-                <NomralText>안알랴쥼</NomralText>
+                <Image src="https://img.icons8.com/officel/80/000000/money.png" />
             </Left>
             <Right>로그인 <Icon className="fas fa-chevron-right" /></Right>
         </Container>

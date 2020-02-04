@@ -2,7 +2,7 @@ import { Dispatch } from "react";
 import axios from 'axios'
 import { DONGGYU_END_POINT } from "../consts/endpoint";
 import { ReducerTodayPrayType } from '../types/index.d'
-import { TURN_ON_ALERT, GET_TODAY_PRAY, LOADING_ON, LOADING_OFF } from "./types.d";
+import { TURN_ON_ALERT, GET_TODAY_PRAY, LOADING_ON, LOADING_OFF, INIT_TODAY_PRAY } from "./types.d";
 
 export interface IGetTodayPrayDispatch {
     type: string
@@ -36,9 +36,12 @@ export const getTodayPray = (date: string | number, dispatch: Dispatch<IGetToday
                 })
             } else {
                 dispatch({
+                    type: INIT_TODAY_PRAY
+                })
+                dispatch({
                     type: TURN_ON_ALERT,
                     title: "알림",
-                    text: "아직 업로드되지 않았어요",
+                    text: "아직 업로드되지 않았어요. 홈으로 이동하시겠습니까?",
                     callBack: () => {
                         window.location.href = '/'
                     }

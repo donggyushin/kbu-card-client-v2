@@ -14,6 +14,18 @@ const Text = styled.div`
     font-size:11px;
 `
 
+const ImageContainer = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content:center;
+`
+
+const Image = styled.img`
+    width:50px;
+    position: relative;
+    bottom: 12%;
+`
+
 const Presenter: React.FC = () => {
 
     const [redirect, setRedirect] = useState(false)
@@ -25,7 +37,10 @@ const Presenter: React.FC = () => {
         return <Container onClick={redirectFunc}>
             <Text>
                 수업 시간
-        </Text>
+            </Text>
+            <ImageContainer>
+                <Image src="https://img.icons8.com/officel/80/000000/overtime.png" />
+            </ImageContainer>
         </Container>
     }
 

@@ -1,5 +1,5 @@
 import { ReducerTodayPrayType } from "../types/index.d";
-import { GET_TODAY_PRAY } from "../actions/types.d";
+import { GET_TODAY_PRAY, INIT_TODAY_PRAY } from "../actions/types.d";
 
 interface ActionType {
     type: string
@@ -26,8 +26,28 @@ export default function (state = initialState, action: ActionType) {
     switch (action.type) {
         case GET_TODAY_PRAY:
             return getTodayPray(state, action)
+        case INIT_TODAY_PRAY:
+            return init(state, action)
         default:
             return state
+    }
+}
+
+function init(state: ReducerTodayPrayType, action: ActionType): ReducerTodayPrayType {
+    return {
+        _id: "",
+        year: 0,
+        month: 0,
+        day: 0,
+        writer: {
+            _id: "",
+            name: "",
+            email: "",
+            phone: ""
+        },
+        todayPrayContent: [],
+        studentPray: [],
+        ads: []
     }
 }
 

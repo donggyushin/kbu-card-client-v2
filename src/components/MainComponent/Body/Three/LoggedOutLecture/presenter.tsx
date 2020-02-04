@@ -16,6 +16,20 @@ const Text = styled.div`
     font-size:11px;
 `
 
+const ImageContainer = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content:center;
+`
+
+const Image = styled.img`
+    width:50px;
+    position: relative;
+    bottom: 12%;
+    opacity:0.6;
+`
+
+
 interface IModalDispatch {
     type: string
     text: string
@@ -35,12 +49,15 @@ const Presenter: React.FC = () => {
             <Text>
                 수업 시간
         </Text>
+            <ImageContainer>
+                <Image src="https://img.icons8.com/officel/80/000000/overtime.png" />
+            </ImageContainer>
         </Container>
     }
 
 
     function showAlert() {
-        turnOnAlertNonThunkFunction("알림", "로그인이 필요한 페이지입니다. 로그인하시겠습니까? ", modalDispatch, redirectFunc)
+        turnOnAlertNonThunkFunction("알림", "로그인이 필요한 페이지입니다. 로그인페이지로 이동하시겠습니까? ", modalDispatch, redirectFunc)
     }
 
     function redirectFunc() {

@@ -258,7 +258,7 @@ export interface ReducerTodayPrayStudentPrayType {
     prays: string[]
     _id: string
     name: string
-    studentId: string
+    grade: number
 }
 
 export interface ReducerTodayPrayType {

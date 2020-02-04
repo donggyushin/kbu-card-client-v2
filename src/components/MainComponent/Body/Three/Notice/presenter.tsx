@@ -6,14 +6,26 @@ import { Redirect } from 'react-router-dom'
 const Container = styled.div`
     display: grid;
     grid-template-rows: 22% 1fr;
+    padding-left:10px;
 `
 
 const Text = styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
-padding-left:10px;
 font-size:11px;
+`
+
+const ImageContainer = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content:center;
+`
+
+const Img = styled.img`
+    position: relative;
+    bottom: 15%;
+    width:50px;
 `
 
 const Presenter: React.FC = () => {
@@ -26,6 +38,9 @@ const Presenter: React.FC = () => {
 
         return <Container onClick={goToNotice}>
             <Text>공지사항</Text>
+            <ImageContainer>
+                <Img src="https://img.icons8.com/cotton/80/000000/speaker.png" />
+            </ImageContainer>
         </Container>
     }
 

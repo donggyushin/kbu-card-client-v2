@@ -6,7 +6,7 @@ import Summary from './Summary'
 const Container = styled.div`
     height: 100%;
     display: grid;
-    grid-template-rows: 46% 1fr;
+    grid-template-rows: 43% 1fr;
 `
 
 const LoadingDoneBodyPresenter: React.FC = () => {

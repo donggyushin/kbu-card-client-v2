@@ -20,7 +20,7 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 7% 86% 7%;
+    grid-template-rows: 7% 93%;
     background:white;
     box-shadow:${BoxShadowObject.typeOne};
     overflow:hidden;
@@ -42,7 +42,7 @@ const DisappearingContainer = styled.div`
     height: 100%;
     top: 100vh;
     display: grid;
-    grid-template-rows: 7% 86% 7%;
+    grid-template-rows: 7% 93%;
     background:white;
     box-shadow:${BoxShadowObject.typeOne};
     overflow:hidden;

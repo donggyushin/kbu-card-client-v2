@@ -6,7 +6,6 @@ import ClassesContainer from './ClassesContainer'
 const Container = styled.div`
     display: grid;
     grid-template-columns: 27px 1fr;
-    padding-bottom:50px;
 `
 
 const TimeTableBodyPresenter: React.FC = () => {

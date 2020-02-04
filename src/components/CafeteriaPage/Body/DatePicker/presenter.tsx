@@ -23,6 +23,13 @@ export default function MaterialUIPickers() {
     const handleDateChange = (date: Date | null) => {
         setSelectedDate(date);
     };
+    useEffect(() => {
+
+        const input = document.getElementById("date-picker-dialog") as HTMLInputElement
+        if (input) {
+            input.disabled = true
+        }
+    })
 
     useEffect(() => {
         callFetchingMenuApi()

@@ -1,12 +1,11 @@
-FROM node:10 as builder 
+FROM node:10 as builder
 
 # 작업 폴더를 만들고 npm 설치
 RUN mkdir /usr/src/app 
 WORKDIR /usr/src/app 
-ENV PATH /usr/src/app/node_modules/.bin:&PATH
+ENV PATH /usr/src/app/node_modules/.bin:${PATH}
 COPY package*.json /usr/src/app/package.json 
 RUN npm install --silent 
-RUN npm install react-script@3.3.0 -g --silent 
 
 # 소스를 작업폴더로 복사하고 빌드 
 COPY . /usr/src/app 
@@ -21,5 +20,5 @@ COPY conf /etc/nginx
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html 
 
 # 80포트 오픈하고 nginx 실행 
-EXPOSE 80 
+EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ] 

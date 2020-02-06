@@ -28,6 +28,7 @@
     "@types/react-slick": "^0.23.4",
     "@types/styled-components": "^4.4.2",
     "axios": "^0.19.1",
+    "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.4.1",
     "currency-formatter": "^1.5.5",
     "date-fns": "^2.9.0",

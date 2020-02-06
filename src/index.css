@@ -48,3 +48,16 @@ button:focus {
 .MuiInputBase-input {
   color:black !important;
 }
+
+label + .MuiInput-formControl {
+  position: relative;
+  width: 223px;
+}
+
+.MuiInputBase-input {
+  opacity: 0;
+}
+
+.datepicker-container {
+  position: relative;
+}

@@ -20,6 +20,7 @@ import AttendanceComponent from './components/AttendanceComponent';
 import AttendanceDetailListTable from './components/AttendaceDetailListTable';
 import ScheduleDetail from './components/ScheduleDetail';
 import QrCode from './components/Qrcode';
+import { Helmet } from 'react-helmet'
 
 interface containerProps {
   lightMode: boolean
@@ -138,6 +139,11 @@ const App: React.FC = () => {
       <Container
         lightMode={theme}
       >
+        <Helmet>
+          <meta charSet="utf-8" />
+          <meta name="description" content="한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇" />
+          <title>성서봇</title>
+        </Helmet>
         <ReactRoutesComponent />
         {mobileStudentCard && <MobiledStudentCard />}
         {qrCodeVisible && <QrCode />}

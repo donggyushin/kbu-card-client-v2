@@ -39,14 +39,6 @@ export const getTodayPray = (date: string | number, dispatch: Dispatch<IGetToday
                     type: INIT_TODAY_PRAY
                 })
                 dispatch({
-                    type: TURN_ON_ALERT,
-                    title: "알림",
-                    text: "아직 업로드되지 않았어요. 홈으로 이동하시겠습니까?",
-                    callBack: () => {
-                        window.location.href = '/'
-                    }
-                })
-                dispatch({
                     type: LOADING_OFF
                 })
             }
@@ -57,7 +49,7 @@ export const getTodayPray = (date: string | number, dispatch: Dispatch<IGetToday
             return dispatch({
                 type: TURN_ON_ALERT,
                 title: "에러",
-                text: '알수없는 에러 발생. 관리자에게 문의해주세요.',
+                text: '알수없는 에러 발생. 관리자에게 문의해주세요. 홈으로 이동할까요?',
                 callBack: () => {
                     window.location.href = '/'
                 }

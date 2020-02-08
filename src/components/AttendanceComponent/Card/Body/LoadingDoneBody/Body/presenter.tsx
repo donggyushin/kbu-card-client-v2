@@ -18,7 +18,6 @@ const Card = styled.div`
     display: grid;
     grid-template-rows: 60px 47px 57px;
     height: 100%;
-    margin-top: 24px;
 `
 
 const CourseName = styled.div`

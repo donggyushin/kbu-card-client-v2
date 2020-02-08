@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BoxShadowObject } from '../../../../../../consts/boxShadow'
+import { COLORS } from '../../../../../../consts/colors'
 
 const Container = styled.div`
     height:100%;
@@ -10,12 +11,25 @@ const Container = styled.div`
     box-shadow:${BoxShadowObject.typeOne};
 `
 
+const Row = styled.div`
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+`
+
 const Label = styled.div`
     font-size:11px;
     display:flex;
     justify-content:center;
     align-items:center;
     font-weight:600;
+`
+
+const IConContainer = styled.div``
+
+const ICon = styled.i`
+    font-size:12px;
+    color:${COLORS.indigo};
 `
 
 const Menus = styled.div`
@@ -36,7 +50,17 @@ const Presenter: React.FC<IProps> = ({
     menus
 }) => {
     return <Container>
-        <Label>{label}</Label>
+        <Row>
+            <IConContainer>
+                <ICon className="fas fa-chevron-left"></ICon>
+                <ICon className="fas fa-chevron-left"></ICon>
+            </IConContainer>
+            <Label>{label}</Label>
+            <IConContainer>
+                <ICon className="fas fa-chevron-right"></ICon>
+                <ICon className="fas fa-chevron-right"></ICon>
+            </IConContainer>
+        </Row>
         <Menus>
             {menus.map((data, i) => {
                 return <Menu key={i}>

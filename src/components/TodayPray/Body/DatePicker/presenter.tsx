@@ -12,6 +12,7 @@ import {
 } from '../../../../actions/todayPray'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
+import { COLORS } from '../../../../consts/colors';
 
 const DateDiv = styled.div`
     position: absolute;
@@ -19,6 +20,24 @@ const DateDiv = styled.div`
     font-size: 13px;
     font-weight: 600;
     right: 48%;
+`
+
+const ICon = styled.div`
+    color:${COLORS.indigo};
+    position:relative;
+    bottom:4px;
+`
+
+const TodayButton = styled.div`
+    position:absolute;
+    top: 5%;
+    right: 33%;
+    font-size: 10px;
+    border-radius: 3px;
+    padding: 0px 3px;
+    background: ${COLORS.lightBlue};
+    color: white;
+    font-weight: 600;
 `
 
 export default function MaterialUIPickers() {
@@ -53,7 +72,7 @@ export default function MaterialUIPickers() {
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid className="datepicker-container" container justify="space-around">
-                <DateDiv>{year}년 {month}월 {day}일 {dayName}요일</DateDiv>
+                <ICon onClick={leftButtonClicked} className="fas fa-chevron-circle-left" />
                 <KeyboardDatePicker
                     margin="normal"
                     id="date-picker-dialog"
@@ -65,9 +84,44 @@ export default function MaterialUIPickers() {
                         'aria-label': 'change date',
                     }}
                 />
+                <ICon onClick={rightButtonClicked} className="fas fa-chevron-circle-right" />
+                <DateDiv>{year}년 {month}월 {day}일 {dayName}요일</DateDiv>
+                {!isToday() && <TodayButton onClick={todayButtonClicked}>
+                    TODAY
+                </TodayButton>}
             </Grid>
         </MuiPickersUtilsProvider>
     );
+
+    function leftButtonClicked() {
+        if (selectedDate) {
+            const yesterday = new Date(selectedDate.getTime())
+            yesterday.setDate(yesterday.getDate() - 1)
+            setSelectedDate(yesterday)
+        }
+    }
+
+    function rightButtonClicked() {
+        if (selectedDate) {
+            const tomorrow = new Date(selectedDate.getTime())
+            tomorrow.setDate(tomorrow.getDate() + 1)
+            setSelectedDate(tomorrow)
+        }
+    }
+
+    function todayButtonClicked() {
+        setSelectedDate(new Date())
+    }
+
+    function isToday() {
+        const todayDateObj = new Date()
+
+        if (year === todayDateObj.getFullYear() &&
+            month === todayDateObj.getMonth() &&
+            day === todayDateObj.getDate()) {
+            return true
+        } else return false
+    }
 
     function getDayName(): void {
         const week = ['일', '월', '화', '수', '목', '금', '토']

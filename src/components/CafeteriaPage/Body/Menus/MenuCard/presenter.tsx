@@ -17,6 +17,7 @@ const Header = styled.div`
 
 const Label = styled.div`
     font-weight:600;
+    font-size:14px;
 `
 
 const Body = styled.div``
@@ -31,6 +32,7 @@ const MenusContainer = styled.div`
 const Menu = styled.div`
     margin-top:4px;
     margin-bottom:4px;
+    font-size:14px;
 `
 
 interface IProps {

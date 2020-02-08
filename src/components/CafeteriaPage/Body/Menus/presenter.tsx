@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import MenuCard from './MenuCard'
 import { useSelector } from 'react-redux'
 import { ReducerStateType } from '../../../../types/index.d'
-import { BoxShadowObject } from '../../../../consts/boxShadow'
+import { COLORS } from '../../../../consts/colors'
 
 const Container = styled.div`
     display: grid;
@@ -11,7 +11,7 @@ const Container = styled.div`
     grid-template-columns: 48% 48%;
     grid-template-rows: repeat(2,1fr);
     border-radius:4px;
-    box-shadow:${BoxShadowObject.typeOne};
+    border-top:1px solid ${COLORS.weakGray};
 `
 
 const Presenter: React.FC = () => {

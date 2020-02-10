@@ -119,7 +119,7 @@ const App: React.FC = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <meta name="description" content="한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇" />
-        <title>성서봇</title>
+        <title>성서봇 | 한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇</title>
       </Helmet>
       <ReactRoutesComponent />
       {mobileStudentCard && <MobiledStudentCard />}

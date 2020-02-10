@@ -1,7 +1,9 @@
 import { Dispatch } from "react";
-import { USER_LOGOUT, USER_LOGIN, LOADING_OFF, USER_GET_PROFILE, USER_GET_IMAGE, TURN_ON_ALERT } from "./types.d";
+import { USER_LOGOUT, USER_LOGIN, LOADING_OFF, USER_GET_PROFILE, USER_GET_IMAGE, TURN_ON_ALERT, LOADING_ON } from "./types.d";
 import axios from 'axios'
 import { END_POINT } from '../consts/endpoint'
+import { encrypt } from '../utils/cryptr'
+import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../consts/localStorageKeys'
 
 interface IImageDispatch {
     type: string
@@ -132,8 +134,21 @@ export const logoutThunkFunction = () => (dispatch: Dispatch<IDispatch>) => {
     })
 }
 
+export interface IuserLoginDispatch {
+    type: string
+    token?: string
+    jwtToken?: string
+    title?: string
+    text?: string
+    callBack?: () => void
+}
 
-export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dispatch<IDispatch>) => {
+export const replaceJwtTokenThunk = (id: string, pw: string) => (dispatch: Dispatch<IuserLoginDispatch>) => {
+
+    const encryptedUserId = encrypt(id)
+    const encryptedPassword = encrypt(pw)
+    localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
+    localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
     axios.post(`${END_POINT}auth/login`, {
         id,
         pw
@@ -141,10 +156,112 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
         withCredentials: true
     })
         .then(res => {
+            if (res.status === 200) {
+                const jwtToken: string = res.headers['authorization']
+                const token: string = jwtToken.split(' ')[1]
+                dispatch({
+                    type: USER_LOGIN,
+                    token,
+                    jwtToken
+                })
+                window.location.reload()
+            }
+        })
+}
 
+export const replaceJwtToken = async (id: string, pw: string, dispatch: Dispatch<IuserLoginDispatch>) => {
+    const encryptedUserId = encrypt(id)
+    const encryptedPassword = encrypt(pw)
+    localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
+    localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
+    axios.post(`${END_POINT}auth/login`, {
+        id,
+        pw
+    }, {
+        withCredentials: true
+    })
+        .then(res => {
+            if (res.status === 200) {
+                const jwtToken: string = res.headers['authorization']
+                const token: string = jwtToken.split(' ')[1]
+                dispatch({
+                    type: USER_LOGIN,
+                    token,
+                    jwtToken
+                })
+                window.location.reload()
+            }
+        })
+}
 
+export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLoginDispatch>) => {
+    dispatch({
+        type: LOADING_ON
+    })
+    const encryptedUserId = encrypt(id)
+    const encryptedPassword = encrypt(pw)
+    localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
+    localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
+    axios.post(`${END_POINT}auth/login`, {
+        id,
+        pw
+    }, {
+        withCredentials: true
+    })
+        .then(res => {
+            if (res.status === 200) {
+                const jwtToken: string = res.headers['authorization']
+                const token: string = jwtToken.split(' ')[1]
+                dispatch({
+                    type: USER_LOGIN,
+                    token,
+                    jwtToken
+                })
+                dispatch({
+                    type: LOADING_OFF
+                })
+                window.location.href = '/'
+            } else {
+                dispatch({
+                    type: LOADING_OFF
+                })
+                dispatch({
+                    type: TURN_ON_ALERT,
+                    title: "경고",
+                    text: "한국성서대학교 서버 인트라넷이 현재 불안정합니다.",
+                    callBack: undefined
+                })
+            }
+        })
+        .catch(err => {
+            console.error(err)
+            dispatch({
+                type: LOADING_OFF
+            })
+            dispatch({
+                type: TURN_ON_ALERT,
+                title: "경고",
+                text: "네트워크 에러 발생. 관리자에게 문의해주세요. 한국성서대 컴쏘 일동 -",
+                callBack: undefined
+            })
+        })
+}
 
-
+export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dispatch<IDispatch>) => {
+    dispatch({
+        type: LOADING_ON
+    })
+    const encryptedUserId = encrypt(id)
+    const encryptedPassword = encrypt(pw)
+    localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
+    localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
+    axios.post(`${END_POINT}auth/login`, {
+        id,
+        pw
+    }, {
+        withCredentials: true
+    })
+        .then(res => {
             if (res.status === 200) {
 
                 const jwtToken: string = res.headers['authorization']

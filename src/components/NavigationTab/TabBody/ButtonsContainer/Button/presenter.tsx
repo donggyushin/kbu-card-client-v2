@@ -36,13 +36,15 @@ const Text = styled.div`
 interface IProps {
     iconClassName: string
     text: string
+    onClick?: () => void
 }
 
 const ButtonPresenter: React.FC<IProps> = ({
     text,
-    iconClassName
+    iconClassName,
+    onClick
 }) => {
-    return <Container>
+    return <Container onClick={onClick}>
         <IConContainer>
             <Icon className={iconClassName} />
         </IConContainer>

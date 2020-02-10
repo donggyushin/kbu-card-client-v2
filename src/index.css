@@ -74,3 +74,28 @@ label + .MuiInput-formControl {
   position: relative;
   bottom:5px;
 }
+
+.fc-button-primary {
+  background-color: rgba(0,0,0,0.25) !important;
+}
+
+.fc-today-button.fc-button.fc-button-primary {
+  background-color: #74b9ff !important;
+}
+
+.fc-button:disabled {
+  opacity: 0 !important;
+}
+
+.fc {
+  color: #34495e;
+}
+
+.fc th {
+  font-weight: 400;
+}
+
+#calendar > div.fc-toolbar.fc-header-toolbar > div.fc-left > h2 {
+  font-size: 1.2em !important;
+  margin-left: 10px;
+}

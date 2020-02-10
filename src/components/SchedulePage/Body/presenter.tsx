@@ -84,7 +84,7 @@ const Presenter: React.FC = () => {
                     // kbu event source
                     {
                         events: kbuItems,
-                        color: COLORS.seaColor,
+                        color: COLORS.lightBlue,
                         textColor: 'white',
                     },
                     // offdays event source

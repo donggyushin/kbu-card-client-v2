@@ -8,6 +8,9 @@ import { turnOnAlertNonThunkFunction } from '../../actions/modal'
 import { ReducerMileageDataType } from '../../types/index.d'
 import { useDispatch } from 'react-redux'
 import { verifyToken } from '../../utils/decodeToken'
+import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../../consts/localStorageKeys'
+import { decrypt } from '../../utils/cryptr'
+import { replaceJwtToken, IuserLoginDispatch } from '../../actions/user'
 
 
 const Container = styled.div``
@@ -30,6 +33,7 @@ const Presenter: React.FC = () => {
 
     const getMileageNonThunkFunctionDispatch = useDispatch<Dispatch<IgetMileageNonThunkFunctionDispatch>>()
     const modalDispatch = useDispatch<Dispatch<IModalDispatch>>()
+    const userLoginDispatch = useDispatch<Dispatch<IuserLoginDispatch>>()
 
     useEffect(() => {
 
@@ -39,10 +43,10 @@ const Presenter: React.FC = () => {
                 getMileageNonThunkFunction(token, getMileageNonThunkFunctionDispatch)
 
             } else {
-                callModal('경고', '로그인이 제대로 이루어져있지 않습니다. 다시 로그인해주세요. ')
+                replaceJwtTokenFunc()
             }
         } else {
-            callModal('경고', '토큰의 만료시간이 끝났습니다. 다시 로그인해주세요.')
+            replaceJwtTokenFunc()
         }
 
     }, [])
@@ -52,6 +56,20 @@ const Presenter: React.FC = () => {
         <Body />
         <BottomNavigation />
     </Container>
+
+    function replaceJwtTokenFunc() {
+        if (verifyToken()) {
+
+        } else {
+            if (localStorage.getItem(ENCRYPTED_USER_ID) && localStorage.getItem(ENCRYPTED_USER_PASSWORD)) {
+                const decryptedId = decrypt(localStorage.getItem(ENCRYPTED_USER_ID) as string)
+                const decryptedPw = decrypt(localStorage.getItem(ENCRYPTED_USER_PASSWORD) as string)
+                replaceJwtToken(decryptedId, decryptedPw, userLoginDispatch)
+            }
+
+
+        }
+    }
 
     function callModal(title: string, text: string) {
         turnOnAlertNonThunkFunction(title, text, modalDispatch, () => {

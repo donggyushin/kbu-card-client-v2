@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TURN_ON_ALERT, USER_LOGOUT } from '../../../../../../actions/types.d'
 import { verifyToken } from '../../../../../../utils/decodeToken'
 import { ReducerStateType } from '../../../../../../types/index.d'
+import { replaceJwtToken } from '../../../../../../actions/user'
+import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../../../../../../consts/localStorageKeys'
+import { decrypt } from '../../../../../../utils/cryptr'
 
 const Container = styled.div`
     display:flex;
@@ -45,22 +48,21 @@ const Presenter: React.FC = () => {
             if (verifyToken()) {
                 fetchMcuNonThunkFunction(jwttoken, mscDispatch)
             } else {
-                modalDispatch({
-                    type: TURN_ON_ALERT,
-                    title: "경고",
-                    text: "세션이 만료되었습니다. 다시 로그인해주세요.",
-                    callBack: goHome
-                })
+
+                // 토큰을 교체한다. 교체한 토큰으로 다시 큐알코드를 호출한다. 
+                replaceTokenAndReFetchQrCode()
             }
         } else {
             modalDispatch({
                 type: TURN_ON_ALERT,
                 title: "경고",
-                text: "세션이 만료되었습니다. 다시 로그인해주세요.",
+                text: "로그인이 제대로 이루어져 있지 않습니다. 다시 로그인해주세요.",
                 callBack: goHome
             })
         }
     }
+
+
 
     const goHome = () => {
         userDispatch({
@@ -74,6 +76,20 @@ const Presenter: React.FC = () => {
         </Button>}
 
     </Container>
+
+    // 토큰을 교체하고 다시 큐알코드를 요청하는 함수 
+    async function replaceTokenAndReFetchQrCode() {
+
+        const jwttoken: string = localStorage.getItem('kbucard') as string
+
+        const id = decrypt(localStorage.getItem(ENCRYPTED_USER_ID) as string)
+        const pw = decrypt(localStorage.getItem(ENCRYPTED_USER_PASSWORD) as string)
+
+        await replaceJwtToken(id, pw, userDispatch)
+
+        fetchMcuNonThunkFunction(jwttoken, mscDispatch)
+
+    }
 }
 
 export default Presenter

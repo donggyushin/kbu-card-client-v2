@@ -11,7 +11,6 @@ interface UpdateCurrentLocationDispatch {
 const ScheduleContainer: React.FC = () => {
 
     const locationDispatch = useDispatch<Dispatch<UpdateCurrentLocationDispatch>>()
-
     useEffect(() => {
         updateCurrentLocation('schedule', locationDispatch)
     }, [])
@@ -24,6 +23,8 @@ function updateCurrentLocation(currentLocation: string, dispatch: Dispatch<Updat
         type: UPDATE_CURRENT_LOCATION,
         current: currentLocation
     })
+
+
 }
 
 

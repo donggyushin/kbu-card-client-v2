@@ -7,20 +7,20 @@ import ReactRoutesComponent from './routes';
 import NavigationTab from './components/NavigationTab';
 import AlertModal from './components/AlertModel';
 import Loading from './components/Loading';
-import { userGetProfileNonThunkFunction, userGetProfileImageNonThunkFunction } from './actions/user'
-import { verifyToken } from './utils/decodeToken'
-import { turnOnAlertNonThunkFunction } from './actions/modal'
+import { userGetProfileNonThunkFunction, userGetProfileImageNonThunkFunction, loginNonThunk, IuserLoginDispatch } from './actions/user'
+import { verifyToken, decodeToken } from './utils/decodeToken'
 import { logoutNonThunkFunction } from './actions/user'
 import { chapelNotThunkFunction } from './actions/chapel'
 import { ImileageGetBalanceThunkFunctionD, mileageGetBalanceNormalFunction } from './actions/mileage'
 import { getMenu } from './actions/cafeteria'
 import MobiledStudentCard from './components/MobileStudentCard';
-import { Redirect } from 'react-router-dom'
 import AttendanceComponent from './components/AttendanceComponent';
 import AttendanceDetailListTable from './components/AttendaceDetailListTable';
 import ScheduleDetail from './components/ScheduleDetail';
 import QrCode from './components/Qrcode';
 import { Helmet } from 'react-helmet'
+import { decrypt } from './utils/cryptr'
+import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from './consts/localStorageKeys';
 
 interface containerProps {
   lightMode: boolean
@@ -94,67 +94,63 @@ const App: React.FC = () => {
   const scheduleDetailView: boolean = useSelector((state: ReducerStateType) => state.scheduleDetail.visible)
   const qrCodeVisible: boolean = useSelector((state: ReducerStateType) => state.mcu.hasQrcode)
 
-  const dispatch = useDispatch<Dispatch<IDispatchForGetProfile>>()
+  const getProfileDispatch = useDispatch<Dispatch<IDispatchForGetProfile>>()
   const imageDispatch = useDispatch<Dispatch<IGetProfileDispatch>>()
-  const modalDispatch = useDispatch<Dispatch<IDispatchTurbOnModal>>()
-  const logoutDispatch = useDispatch<Dispatch<IDispatchLogout>>()
   const getChapelDispatch = useDispatch<Dispatch<IDispatchGetChapel>>()
   const getBalanceDispatch = useDispatch<Dispatch<ImileageGetBalanceThunkFunctionD>>()
   const cafeteriaGetMenuDispatch = useDispatch<Dispatch<ICafeteriaGetMenuDispatch>>()
-
-
-  const [redirect, setRedirect] = useState(false)
-
+  const userLoginDispatch = useDispatch<Dispatch<IuserLoginDispatch>>()
 
   useEffect(() => {
-    console.log('App mount it!')
-    getMenu(new Date().getTime(), cafeteriaGetMenuDispatch)
-    const jwtToken = localStorage.getItem('kbucard')
-    if (jwtToken) {
-      const verified: boolean = verifyToken()
-      if (verified) {
-        userGetProfileNonThunkFunction(jwtToken, dispatch)
-        userGetProfileImageNonThunkFunction(jwtToken, imageDispatch)
-        chapelNotThunkFunction(jwtToken, getChapelDispatch)
-        mileageGetBalanceNormalFunction(getBalanceDispatch)
-
+    if (localStorage.getItem('kbucard')) {
+      if (verifyToken()) {
+        getInitialDatas()
       } else {
-        logoutNonThunkFunction(logoutDispatch)
-        turnOnAlertNonThunkFunction('경고', '토큰의 유효기간이 만료되었습니다. 다시 로그인 해주세요. ', modalDispatch, redirectGoToLogin)
+        loginUserWithLocalstorage()
       }
-
     }
   }, [])
 
-  const redirectGoToLogin = () => {
-    setRedirect(true)
+
+
+  return (
+    <Container
+      lightMode={theme}
+    >
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta name="description" content="한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇" />
+        <title>성서봇</title>
+      </Helmet>
+      <ReactRoutesComponent />
+      {mobileStudentCard && <MobiledStudentCard />}
+      {qrCodeVisible && <QrCode />}
+      {navigationTabVisiable && <NavigationTab />}
+      {attendanceVisible && <AttendanceComponent />}
+      {attendanceDetailListTableView && <AttendanceDetailListTable />}
+      {scheduleDetailView && <ScheduleDetail />}
+      <AlertModal />
+      {loading && <Loading />}
+    </Container>
+  );
+
+  function getInitialDatas() {
+    const jwtToken = localStorage.getItem('kbucard') as string
+    userGetProfileNonThunkFunction(jwtToken, getProfileDispatch)
+    userGetProfileImageNonThunkFunction(jwtToken, imageDispatch)
+    chapelNotThunkFunction(jwtToken, getChapelDispatch)
+    mileageGetBalanceNormalFunction(getBalanceDispatch)
+    getMenu(new Date().getTime(), cafeteriaGetMenuDispatch)
   }
 
-
-  if (redirect) {
-    return <Redirect to="/login" />
-  } else {
-
-    return (
-      <Container
-        lightMode={theme}
-      >
-        <Helmet>
-          <meta charSet="utf-8" />
-          <meta name="description" content="한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇" />
-          <title>성서봇</title>
-        </Helmet>
-        <ReactRoutesComponent />
-        {mobileStudentCard && <MobiledStudentCard />}
-        {qrCodeVisible && <QrCode />}
-        {navigationTabVisiable && <NavigationTab />}
-        {attendanceVisible && <AttendanceComponent />}
-        {attendanceDetailListTableView && <AttendanceDetailListTable />}
-        {scheduleDetailView && <ScheduleDetail />}
-        <AlertModal />
-        {loading && <Loading />}
-      </Container>
-    );
+  function loginUserWithLocalstorage() {
+    const encryptedUserId = localStorage.getItem(ENCRYPTED_USER_ID)
+    const encryptedUserPassword = localStorage.getItem(ENCRYPTED_USER_PASSWORD)
+    if (encryptedUserId && encryptedUserPassword) {
+      const userId = decrypt(encryptedUserId)
+      const userPassword = decrypt(encryptedUserPassword)
+      loginNonThunk(userId, userPassword, userLoginDispatch)
+    }
   }
 
 }

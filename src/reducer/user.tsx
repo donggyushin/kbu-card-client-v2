@@ -1,5 +1,6 @@
 import { ReducerUserType } from "../types/index.d";
 import { USER_LOGIN, USER_LOGOUT, USER_GET_PROFILE, USER_GET_IMAGE } from "../actions/types.d";
+import { ENCRYPTED_USER_PASSWORD, ENCRYPTED_USER_ID } from '../consts/localStorageKeys'
 import jwt from 'jsonwebtoken'
 
 interface ActionType {
@@ -62,6 +63,8 @@ function userGetProfile(state: ReducerUserType, action: ActionType): ReducerUser
 function userLogout(state: ReducerUserType, action: ActionType): ReducerUserType {
 
     window.localStorage.removeItem('kbucard');
+    window.localStorage.removeItem(ENCRYPTED_USER_ID)
+    window.localStorage.removeItem(ENCRYPTED_USER_PASSWORD)
 
     window.location.href = '/'
     return {

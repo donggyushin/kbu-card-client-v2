@@ -55,12 +55,12 @@ class LoginComponentContainer extends React.Component<IProps, IState> {
     }
 
     login = () => {
-        this.props.loadingOn()
         const {
             id,
             pw
         } = this.state
         this.props.loginUserThunkFunction(id, pw)
+        console.log('3')
     }
 
     handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {

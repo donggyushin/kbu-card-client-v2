@@ -9,6 +9,9 @@ import { turnOnAlert } from '../../actions/modal'
 import { updateCurrentLocationRedux } from '../../actions/location'
 import { fetchLectureCodeThunkFunction } from '../../actions/lectureCode'
 import { fetchLecturesThunkFunction } from '../../actions/lecture'
+import { replaceJwtTokenThunk } from '../../actions/user'
+import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../../consts/localStorageKeys'
+import { decrypt } from '../../utils/cryptr'
 
 interface IProps {
     fetchTimeTableThunkFunction: (jwtToken: string) => void
@@ -17,17 +20,19 @@ interface IProps {
     updateCurrentLocationRedux: (current: string) => void
     fetchLectureCodeThunkFunction: (jwtToken: string) => void
     fetchLecturesThunkFunction: (jwtToken: string) => void
+    replaceJwtTokenThunk: (id: string, pw: string) => void
 }
 
 class LecturePageContainer extends React.Component<IProps> {
 
     componentDidMount() {
-        const tokenChecked: boolean = verifyToken()
+        let tokenChecked: boolean = verifyToken()
         const { fetchTimeTableThunkFunction } = this.props;
         this.props.updateCurrentLocationRedux('lecture')
 
-        if (tokenChecked) {
 
+        if (tokenChecked) {
+            console.log('token checked')
             const jwtToken: string | null = localStorage.getItem('kbucard')
             if (jwtToken) {
 
@@ -45,20 +50,27 @@ class LecturePageContainer extends React.Component<IProps> {
 
         } else {
             // 토큰이 만료되었다면 만료되었다는 메시지를 띄워준다. 
-            this.props.turnOnAlert('경고', '토큰이 만료되었습니다. ')
-
-            // 토큰이 만료되어졌다면 로그아웃 시켜주고 다시 메인페이지로 복귀시켜준다. 
-
-            this.props.logoutThunkFunction()
-            setTimeout(() => {
-                window.location.href = '/'
-            }, 1000);
+            this.replaceJwtTokenFunc()
 
         }
     }
 
     render() {
         return <Presenter />
+    }
+
+    replaceJwtTokenFunc() {
+
+
+        if (localStorage.getItem(ENCRYPTED_USER_ID) && localStorage.getItem(ENCRYPTED_USER_PASSWORD)) {
+
+            const decryptedId = decrypt(localStorage.getItem(ENCRYPTED_USER_ID) as string)
+            const decryptedPw = decrypt(localStorage.getItem(ENCRYPTED_USER_PASSWORD) as string)
+            this.props.replaceJwtTokenThunk(decryptedId, decryptedPw)
+        }
+
+
+
     }
 }
 
@@ -72,5 +84,6 @@ export default connect(mapStateToProps, {
     turnOnAlert,
     updateCurrentLocationRedux,
     fetchLectureCodeThunkFunction,
-    fetchLecturesThunkFunction
+    fetchLecturesThunkFunction,
+    replaceJwtTokenThunk
 })(LecturePageContainer)

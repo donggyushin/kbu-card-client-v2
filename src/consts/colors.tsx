@@ -14,7 +14,7 @@ const LIGHT_GRAY = '#f1f2f6'
 const PURPLE = '#9c88ff'
 const PINK = '#e84393'
 const SEA_COLOR = '#4b7bec'
-const LIGHT_YELLOW = '#fed330'
+const LIGHT_YELLOW = '#ffbe76'
 
 
 export const COLORS = {

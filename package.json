@@ -33,6 +33,7 @@
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^3.0.8",
     "bootstrap": "^4.4.1",
+    "core-js": "^3.6.4",
     "cryptr": "^6.0.1",
     "currency-formatter": "^1.5.5",
     "date-fns": "^2.9.0",
@@ -51,6 +52,7 @@
     "react-spinners": "^0.8.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^4.4.1",
     "typescript": "~3.7.2"

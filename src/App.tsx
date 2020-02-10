@@ -8,8 +8,7 @@ import NavigationTab from './components/NavigationTab';
 import AlertModal from './components/AlertModel';
 import Loading from './components/Loading';
 import { userGetProfileNonThunkFunction, userGetProfileImageNonThunkFunction, loginNonThunk, IuserLoginDispatch } from './actions/user'
-import { verifyToken, decodeToken } from './utils/decodeToken'
-import { logoutNonThunkFunction } from './actions/user'
+import { verifyToken } from './utils/decodeToken'
 import { chapelNotThunkFunction } from './actions/chapel'
 import { ImileageGetBalanceThunkFunctionD, mileageGetBalanceNormalFunction } from './actions/mileage'
 import { getMenu } from './actions/cafeteria'

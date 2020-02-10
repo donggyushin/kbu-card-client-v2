@@ -101,6 +101,7 @@ const App: React.FC = () => {
   const userLoginDispatch = useDispatch<Dispatch<IuserLoginDispatch>>()
 
   useEffect(() => {
+    getMenu(new Date().getTime(), cafeteriaGetMenuDispatch)
     if (localStorage.getItem('kbucard')) {
       if (verifyToken()) {
         getInitialDatas()
@@ -139,7 +140,7 @@ const App: React.FC = () => {
     userGetProfileImageNonThunkFunction(jwtToken, imageDispatch)
     chapelNotThunkFunction(jwtToken, getChapelDispatch)
     mileageGetBalanceNormalFunction(getBalanceDispatch)
-    getMenu(new Date().getTime(), cafeteriaGetMenuDispatch)
+
   }
 
   function loginUserWithLocalstorage() {

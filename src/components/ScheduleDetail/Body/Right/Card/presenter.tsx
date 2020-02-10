@@ -102,7 +102,7 @@ const Presenter: React.FC<IProps> = ({
         </Left>
         <Right>
             <Badge
-                color={'black'}
+                color={COLORS.charcol}
             >
                 {name}
             </Badge>

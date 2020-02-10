@@ -1,5 +1,5 @@
 import { ReducerSchedulesTypes, ReducerSchedulesEventType } from "../types/index.d";
-import { FETCH_KBU_SCHEDULE, FETCH_OFFDAYS_SCHEDULE } from "../actions/types.d";
+import { FETCH_KBU_SCHEDULE, FETCH_OFFDAYS_SCHEDULE, FETCH_BIRTHDAYS_SCHEDULE } from "../actions/types.d";
 
 interface ActionType {
     type: string
@@ -20,6 +20,11 @@ const initialState: ReducerSchedulesTypes = {
         kind: "",
         summary: "",
         items: []
+    },
+    birthdays: {
+        kind: "",
+        summary: "",
+        items: []
     }
 }
 
@@ -29,8 +34,22 @@ export default function (state: ReducerSchedulesTypes = initialState, action: Ac
             return fetchKbuSchedule(state, action)
         case FETCH_OFFDAYS_SCHEDULE:
             return fetchOffdaysSchedule(state, action)
+        case FETCH_BIRTHDAYS_SCHEDULE:
+            return fetchBirthdays(state, action)
         default:
             return state
+    }
+}
+
+function fetchBirthdays(state: ReducerSchedulesTypes, action: ActionType): ReducerSchedulesTypes {
+    const { kind, summary, items } = action
+    return {
+        ...state,
+        birthdays: {
+            kind,
+            summary,
+            items
+        }
     }
 }
 

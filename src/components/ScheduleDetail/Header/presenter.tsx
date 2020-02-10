@@ -16,7 +16,7 @@ const XButton = styled.i`
     position:absolute;
     top:0;
     left:0;
-    color:black;
+    color:${COLORS.charcol};
     font-size:25px;
     padding:9px;
 `
@@ -24,6 +24,7 @@ const XButton = styled.i`
 const Text = styled.div`
     font-weight: 700;
     font-size: 18px;
+    color:${COLORS.charcol};
 `
 
 interface IProps {
@@ -35,11 +36,23 @@ const Presenter: React.FC<IProps> = ({
     turnOffScheduleDetail,
     start
 }) => {
-    const year: string = start.date.substr(0, 4);
+
+    let year;
+    if (start.dateTime) {
+        year = start.dateTime.substr(0, 4);
+    } else {
+
+        year = start.date.substr(0, 4);
+    }
     const [month, setMonth] = useState("")
 
     useEffect(() => {
-        setMonth(getMonthName(start.date.substr(5, 2)))
+        if (start.dateTime) {
+            setMonth(getMonthName(start.dateTime.substr(5, 2)))
+        } else {
+
+            setMonth(getMonthName(start.date.substr(5, 2)))
+        }
     }, [])
     // const month: string = getMonthName(start.date.substr(5, 2))
 

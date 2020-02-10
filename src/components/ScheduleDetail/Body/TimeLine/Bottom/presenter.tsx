@@ -16,16 +16,16 @@ const TextContainer = styled.div`
 
 const Number = styled.div`
     font-size:22px;
-    color:${COLORS.black};
+    color:${COLORS.charcol};
 `
 
 const Text = styled.div`
     font-weight: 200;
-    color:${COLORS.black};
+    color:${COLORS.charcol};
 `
 
 const YellowBadge = styled.div`
-    background:${COLORS.black};
+    background:${COLORS.charcol};
     color:${COLORS.white};
     display:flex;
     justify-content:center;
@@ -44,11 +44,25 @@ const Presenter: React.FC<IProps> = ({
     end
 }) => {
 
-    const day = parseInt(end.date.substr(8))
+
+    let day
+
+    if (end.dateTime) {
+        day = parseInt(end.dateTime.substr(8))
+    } else {
+
+        day = parseInt(end.date.substr(8))
+    }
+
     const [dayName, setDayName] = useState("")
 
     useEffect(() => {
-        setDayName(getDayName(end.date))
+        if (end.dateTime) {
+            setDayName(getDayName(end.dateTime))
+        } else {
+            setDayName(getDayName(end.date))
+        }
+
     }, [])
 
     return <Container>

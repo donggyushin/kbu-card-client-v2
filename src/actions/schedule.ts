@@ -2,7 +2,7 @@ import axios from 'axios'
 import GoogleCalendarEndPointObject from '../consts/googleCalendarEndpoint'
 import { ReducerSchedulesEventType } from '../types/index.d'
 import { Dispatch } from 'react'
-import { FETCH_KBU_SCHEDULE, FETCH_OFFDAYS_SCHEDULE } from './types.d'
+import { FETCH_KBU_SCHEDULE, FETCH_OFFDAYS_SCHEDULE, FETCH_BIRTHDAYS_SCHEDULE } from './types.d'
 
 interface IfetchScheduleNonThunkFunctionData {
     kind: string
@@ -49,10 +49,32 @@ export const fetchOffDaysSchedulesNonThunkFunction = (dispatch: Dispatch<IfetchS
                     summary,
                     items
                 })
+                fetchBirthdaysNonThunkFunction(dispatch)
             }
         })
         .catch(err => {
             console.log('error occured at actions/schedule.ts fetchOffDaysSchedulesNonThunkFunction')
+            console.error(err)
+        })
+}
+
+export const fetchBirthdaysNonThunkFunction = (dispatch: Dispatch<IfetchScheduleNonThunkFunctionDispatch>) => {
+    console.log('here')
+    axios.get(GoogleCalendarEndPointObject.birthdays)
+        .then(res => {
+            if (res.status === 200) {
+                const { kind, summary, items }: IfetchScheduleNonThunkFunctionData = res.data
+                console.log(kind, summary, items)
+                dispatch({
+                    type: FETCH_BIRTHDAYS_SCHEDULE,
+                    kind,
+                    summary,
+                    items
+                })
+            }
+        })
+        .catch(err => {
+            console.log('error occured at actions/schedule.ts fetchBirthdaysNonThunkFunction')
             console.error(err)
         })
 }

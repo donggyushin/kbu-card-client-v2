@@ -38,6 +38,7 @@ const Presenter: React.FC = () => {
     const scheduleDispatch = useDispatch<Dispatch<IfetchScheduleNonThunkFunctionDispatch>>()
     const kbuEventItems = useSelector((state: ReducerStateType) => state.schedule.kbu.items)
     const offDaysEventItems = useSelector((state: ReducerStateType) => state.schedule.offdays.items)
+    const birthdaysEventItems = useSelector((state: ReducerStateType) => state.schedule.birthdays.items)
     const scheduleDetailDispatch = useDispatch<Dispatch<IScheduleDetailOnDispatch>>()
 
     const [oneTime, setOneTime] = useState(0)
@@ -62,6 +63,15 @@ const Presenter: React.FC = () => {
             }
         })
 
+        const birthDayItems = birthdaysEventItems.map((item) => {
+            return {
+                id: item.id,
+                title: item.summary,
+                start: item.start.date,
+                end: item.end?.date
+            }
+        })
+
         const offDayItems = offDaysEventItems.map((item, i) => {
             return {
                 id: item.id,
@@ -70,6 +80,7 @@ const Presenter: React.FC = () => {
                 end: item.end?.date
             }
         })
+
 
         if (calendarEl) {
             const calendar = new Calendar(calendarEl, {
@@ -92,24 +103,33 @@ const Presenter: React.FC = () => {
                         events: offDayItems,
                         color: COLORS.lightYellow,
                         textColor: 'white'
+                    },
+                    {
+                        events: birthDayItems,
+                        color: COLORS.pink,
+                        textColor: 'white'
                     }
+
                 ],
                 eventClick
 
             })
-            if (calendarRender === 2) {
+            if (calendarRender === 3) {
                 calendar.render()
             }
         }
     }, [
         kbuEventItems,
-        offDaysEventItems
+        offDaysEventItems,
+        birthdaysEventItems
     ])
 
     function eventClick(info: any) {
+
         const eventId = info.event.id
         const kbuEvent = findOneKbuEvent(eventId)
         const offDayEvent = findOneOffDayEvent(eventId)
+        const birthDayEvent = findOneBirthdayEvent(eventId)
 
         if (kbuEvent) {
             const event = kbuEvent
@@ -140,6 +160,19 @@ const Presenter: React.FC = () => {
                 organizer,
                 htmlLink
             })
+        } else if (birthDayEvent) {
+            const event = birthDayEvent
+            const { id, summary, start, end, creator, organizer, htmlLink } = event
+            scheduleDetailDispatch({
+                type: SCHEDULE_DETAIL_ON,
+                id,
+                summary,
+                start,
+                end,
+                creator,
+                organizer,
+                htmlLink
+            })
         }
 
 
@@ -147,6 +180,11 @@ const Presenter: React.FC = () => {
 
 
 
+    }
+
+    function findOneBirthdayEvent(id: string): ReducerSchedulesEventType {
+        const event = birthdaysEventItems.filter(birthdayEvent => birthdayEvent.id === id)[0]
+        return event
     }
 
     function findOneKbuEvent(id: string): ReducerSchedulesEventType {

@@ -5,7 +5,7 @@ import { BoxShadowObject } from '../../../../../consts/boxShadow'
 
 const Container = styled.div`
     border-radius:4px;
-    background:${COLORS.black};
+    background:${COLORS.charcol};
     color:${COLORS.white};
     display:flex;
     justify-content:center;

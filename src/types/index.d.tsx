@@ -181,6 +181,7 @@ export interface ReducerSchedulesOrganizerType {
 
 export interface ReducerSchedulesDateType {
     date: string
+    dateTime?: string
 }
 
 export interface ReducerSchedulesEventType {
@@ -203,6 +204,7 @@ export interface ReducerScheduleType {
 export interface ReducerSchedulesTypes {
     kbu: ReducerScheduleType
     offdays: ReducerScheduleType
+    birthdays: ReducerScheduleType
 }
 
 export interface ReducerScheduleDetailTypes {

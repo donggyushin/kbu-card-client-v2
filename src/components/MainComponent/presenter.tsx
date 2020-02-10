@@ -15,8 +15,9 @@ const Container = styled.div`
 const MainComponentPresenter: React.FC = () => {
     return <Container>
         <Helmet>
-            <title>성서봇</title>
-            <meta name="description" content="한국성서대학교 공식 모바일 전용 웹 어플리케이션" />
+            <meta charSet="utf-8" />
+            <meta name="description" content="한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇" />
+            <title>성서봇 | 한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇</title>
         </Helmet>
         <Navigation />
         <Body />

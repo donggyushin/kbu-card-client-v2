@@ -198,10 +198,8 @@ export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLo
     dispatch({
         type: LOADING_ON
     })
-    const encryptedUserId = encrypt(id)
-    const encryptedPassword = encrypt(pw)
-    localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
-    localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
+    // return;
+
     axios.post(`${END_POINT}auth/login`, {
         id,
         pw
@@ -220,6 +218,10 @@ export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLo
                 dispatch({
                     type: LOADING_OFF
                 })
+                const encryptedUserId = encrypt(id)
+                const encryptedPassword = encrypt(pw)
+                localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
+                localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
                 window.location.href = '/'
             } else {
                 dispatch({
@@ -251,10 +253,7 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
     dispatch({
         type: LOADING_ON
     })
-    const encryptedUserId = encrypt(id)
-    const encryptedPassword = encrypt(pw)
-    localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
-    localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
+
     axios.post(`${END_POINT}auth/login`, {
         id,
         pw
@@ -274,6 +273,10 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
                 dispatch({
                     type: LOADING_OFF
                 })
+                const encryptedUserId = encrypt(id)
+                const encryptedPassword = encrypt(pw)
+                localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
+                localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
                 window.location.href = '/'
             } else if (res.status === 400) {
                 console.log('비밀번호가 틀렸을때 혹은 인트라넷 서버 망가졌을때')
@@ -286,6 +289,7 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
                     text: "한국성서대학교 서버 인트라넷이 현재 불안정합니다.",
                     callBack: undefined
                 })
+
             }
 
 
@@ -303,4 +307,6 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
             })
             console.error(`[actions/user.tsx]Error occured:${err}`)
         })
+
+
 }

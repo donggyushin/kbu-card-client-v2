@@ -5,6 +5,7 @@ import BottomNavigation from '../BottomNavigation'
 import Body from './Body'
 import { Helmet } from 'react-helmet'
 import { COLORS } from '../../consts/colors'
+import SnackBar from '../Snackbar'
 
 const Container = styled.div`
     display:flex;
@@ -27,7 +28,7 @@ const InstallButton = styled.div`
 const MainComponentPresenter: React.FC = () => {
 
     const [pwa, setPwa] = useState(false)
-    let deferredPrompt: any;
+    const [ios, setIos] = useState(false)
 
     useEffect(() => {
         window.addEventListener('beforeinstallprompt', function (event) {
@@ -35,17 +36,24 @@ const MainComponentPresenter: React.FC = () => {
             //@ts-ignore
             window.promptEvent = event;
 
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('display-mode is standalone');
+                setPwa(false)
+            } else {
+                if (isIos()) {
+                    if (isSafari()) {
+                        //show ios version popup
+                        setIos(true)
+                    }
+                } else {
+                    showInstallPromotion();
+                }
+            }
 
         });
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            console.log('display-mode is standalone');
-            setPwa(false)
-        } else {
-            showInstallPromotion();
-        }
     }, [])
 
-    return <Container>
+    return (<Container>
         <Helmet>
             <meta charSet="utf-8" />
             <meta name="description" content="한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇" />
@@ -55,8 +63,26 @@ const MainComponentPresenter: React.FC = () => {
         <Body />
         <BottomNavigation />
         {pwa === true && <InstallButton onClick={addToHomeScreen}>Install</InstallButton>}
+        {ios && <SnackBar />}
+    </Container>)
 
-    </Container>
+    function isIos() {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent);
+    }
+
+
+    function isSafari(): boolean {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.indexOf('safari') != -1) {
+            if (ua.indexOf('chrome') > -1) {
+                return false
+            } else {
+                return true
+            }
+        }
+        return false
+    }
 
     function showInstallPromotion() {
         setPwa(true)

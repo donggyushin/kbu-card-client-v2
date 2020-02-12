@@ -29,15 +29,13 @@ const MainComponentPresenter: React.FC = () => {
 
             } else {
                 setIos(true)
-                if (isIos()) {
-                    if (isSafari()) {
-                        //show ios version popup
-                        setIos(true)
-                    }
-                }
+
             }
 
         });
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            setIos(true)
+        }
     }, [])
 
     return (<Container>
@@ -52,23 +50,6 @@ const MainComponentPresenter: React.FC = () => {
         {ios && <SnackBar downloadApp={addToHomeScreen} />}
     </Container>)
 
-    function isIos() {
-        const userAgent = window.navigator.userAgent.toLowerCase();
-        return /iphone|ipad|ipod/.test(userAgent);
-    }
-
-
-    function isSafari(): boolean {
-        var ua = navigator.userAgent.toLowerCase();
-        if (ua.indexOf('safari') != -1) {
-            if (ua.indexOf('chrome') > -1) {
-                return false
-            } else {
-                return true
-            }
-        }
-        return false
-    }
 
 
 

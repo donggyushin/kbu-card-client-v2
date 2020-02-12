@@ -8,19 +8,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "icon-64.png",
-      "type": "image/png",
-      "sizes": "64x64"
-    },
-    {
       "src": "icon-256.png",
       "type": "image/png",
       "sizes": "256x256"
-    },
-    {
-      "src": "icon512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "lang": "en-US",

@@ -20,6 +20,7 @@ import QrCode from './components/Qrcode';
 import { Helmet } from 'react-helmet'
 import { decrypt } from './utils/cryptr'
 import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from './consts/localStorageKeys';
+import SnackBar from './components/Snackbar';
 
 interface containerProps {
   lightMode: boolean
@@ -100,6 +101,10 @@ const App: React.FC = () => {
   const cafeteriaGetMenuDispatch = useDispatch<Dispatch<ICafeteriaGetMenuDispatch>>()
   const userLoginDispatch = useDispatch<Dispatch<IuserLoginDispatch>>()
 
+  // PWA install prompt code
+  const [ios, setIos] = useState(false)
+
+
   useEffect(() => {
     getMenu(new Date().getTime(), cafeteriaGetMenuDispatch)
     if (localStorage.getItem('kbucard')) {
@@ -109,6 +114,33 @@ const App: React.FC = () => {
         loginUserWithLocalstorage()
       }
     }
+
+
+    window.addEventListener('beforeinstallprompt', function (event) {
+      event.preventDefault();
+      //@ts-ignore
+      window.promptEvent = event;
+
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('display-mode is standalone');
+
+      } else {
+        setIos(true)
+
+      }
+
+    });
+
+    if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('display-mode is standalone');
+
+      } else {
+        setIos(true)
+
+      }
+    }
+
   }, [])
 
   return (
@@ -129,8 +161,24 @@ const App: React.FC = () => {
       {scheduleDetailView && <ScheduleDetail />}
       <AlertModal />
       {loading && <Loading />}
+      {ios && <SnackBar downloadApp={addToHomeScreen} />}
     </Container>
   );
+
+  function addToHomeScreen() {
+    //@ts-ignore
+    window.promptEvent.prompt();
+    //@ts-ignore
+    window.promptEvent.userChoice.then((choiceResult: any) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt')
+      } else {
+        console.log('User dismissed the A2HS prompt')
+      }
+    })
+
+
+  }
 
   function getInitialDatas() {
     const jwtToken = localStorage.getItem('kbucard') as string

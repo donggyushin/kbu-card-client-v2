@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Navigation from '../NavigationBar'
 import BottomNavigation from '../BottomNavigation'
 import Body from './Body'
 import { Helmet } from 'react-helmet'
-import SnackBar from '../Snackbar'
 
 const Container = styled.div`
     display:flex;
@@ -16,35 +15,7 @@ const Container = styled.div`
 
 const MainComponentPresenter: React.FC = () => {
 
-    const [ios, setIos] = useState(false)
 
-    useEffect(() => {
-        window.addEventListener('beforeinstallprompt', function (event) {
-            event.preventDefault();
-            //@ts-ignore
-            window.promptEvent = event;
-
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                console.log('display-mode is standalone');
-
-            } else {
-                setIos(true)
-
-            }
-
-        });
-
-        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                console.log('display-mode is standalone');
-
-            } else {
-                setIos(true)
-
-            }
-        }
-
-    }, [])
 
     return (<Container>
         <Helmet>
@@ -55,26 +26,11 @@ const MainComponentPresenter: React.FC = () => {
         <Navigation />
         <Body />
         <BottomNavigation />
-        {ios && <SnackBar downloadApp={addToHomeScreen} />}
+
     </Container>)
 
 
 
-
-    function addToHomeScreen() {
-        //@ts-ignore
-        window.promptEvent.prompt();
-        //@ts-ignore
-        window.promptEvent.userChoice.then((choiceResult: any) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the A2HS prompt')
-            } else {
-                console.log('User dismissed the A2HS prompt')
-            }
-        })
-
-    
-    }
 }
 
 export default MainComponentPresenter

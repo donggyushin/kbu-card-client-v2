@@ -27,11 +27,10 @@ const InstallButton = styled.div`
 const MainComponentPresenter: React.FC = () => {
 
     const [pwa, setPwa] = useState(false)
-    let deferredPrompt: any;
+    let deferredPrompt: any = null;
 
     useEffect(() => {
         window.addEventListener('beforeinstallprompt', function (event) {
-
             deferredPrompt = event;
             showInstallPromotion();
 

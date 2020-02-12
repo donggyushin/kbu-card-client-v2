@@ -47,7 +47,7 @@ const MainComponentPresenter: React.FC = () => {
         <Navigation />
         <Body />
         <BottomNavigation />
-        {pwa === false && <InstallButton onClick={addToHomeScreen}>Install</InstallButton>}
+        {pwa === true && <InstallButton onClick={addToHomeScreen}>Install</InstallButton>}
 
     </Container>
 

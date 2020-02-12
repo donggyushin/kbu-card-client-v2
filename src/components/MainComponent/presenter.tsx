@@ -27,22 +27,15 @@ const InstallButton = styled.div`
 const MainComponentPresenter: React.FC = () => {
 
     const [pwa, setPwa] = useState(false)
+    let deferredPrompt: any;
 
     useEffect(() => {
         window.addEventListener('beforeinstallprompt', function (event) {
-            // not show the default browser install app prompt
-            event.preventDefault();
 
-            // add the banner here or make it visible
-            // …
-
-            // save the event to use it later
-            // (it has the important prompt method and userChoice property)
-            // @ts-ignore
-            window.promptEvent = event;
+            deferredPrompt = event;
+            showInstallPromotion();
 
         });
-        checkUserHasPwa()
     }, [])
 
     return <Container>
@@ -58,35 +51,25 @@ const MainComponentPresenter: React.FC = () => {
 
     </Container>
 
-    function checkUserHasPwa() {
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            // do things here  
-            // set a variable to be used when calling something  
-            // e.g. call Google Analytics to track standalone use   
-            setPwa(true)
-        }
+    function showInstallPromotion() {
+        setPwa(true)
     }
+
 
     function addToHomeScreen() {
-        // show the install app prompt
-        // @ts-ignore
-        window.promptEvent.prompt();
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice
+            .then((choiceResult: any) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt')
+                } else {
+                    console.log('User dismissed the A2HS prompt')
+                }
+                deferredPrompt = null;
+            })
 
-        // handle the Decline/Accept choice of the user
-        // @ts-ignore
-        window.promptEvent.userChoice.then(function (choiceResult) {
-            // hide the prompt banner here
-            // …
-
-            if (choiceResult.outcome === 'accepted') {
-                console.info('mm User accepted the A2HS prompt');
-            } else {
-                console.info('mm User dismissed the A2HS prompt');
-            }
-            // @ts-ignore
-            window.promptEvent = null;
-        }); 
-}
+    
     }
+}
 
 export default MainComponentPresenter

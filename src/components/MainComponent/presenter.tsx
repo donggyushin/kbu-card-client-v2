@@ -27,11 +27,13 @@ const InstallButton = styled.div`
 const MainComponentPresenter: React.FC = () => {
 
     const [pwa, setPwa] = useState(false)
-    let deferredPrompt: any = null;
+    let deferredPrompt: any;
 
     useEffect(() => {
         window.addEventListener('beforeinstallprompt', function (event) {
-            deferredPrompt = event;
+            event.preventDefault();
+            //@ts-ignore
+            window.promptEvent = event;
 
 
         });
@@ -62,16 +64,17 @@ const MainComponentPresenter: React.FC = () => {
 
 
     function addToHomeScreen() {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice
-            .then((choiceResult: any) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt')
-                } else {
-                    console.log('User dismissed the A2HS prompt')
-                }
-                deferredPrompt = null;
-            })
+        //@ts-ignore
+        window.promptEvent.prompt();
+        //@ts-ignore
+        window.promptEvent.userChoice.then((choiceResult: any) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt')
+            } else {
+                console.log('User dismissed the A2HS prompt')
+            }
+            deferredPrompt = null;
+        })
 
     
     }

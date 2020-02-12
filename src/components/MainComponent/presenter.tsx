@@ -32,9 +32,15 @@ const MainComponentPresenter: React.FC = () => {
     useEffect(() => {
         window.addEventListener('beforeinstallprompt', function (event) {
             deferredPrompt = event;
-            showInstallPromotion();
+
 
         });
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('display-mode is standalone');
+            setPwa(false)
+        } else {
+            showInstallPromotion();
+        }
     }, [])
 
     return <Container>

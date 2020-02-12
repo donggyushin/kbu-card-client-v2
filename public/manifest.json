@@ -3,8 +3,8 @@
   "name": "bible bot",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "512x512 64x64 32x32 24x24 16x16",
+      "src": "icon-256.png",
+      "sizes": "256x256",
       "type": "image/x-icon"
     },
     {

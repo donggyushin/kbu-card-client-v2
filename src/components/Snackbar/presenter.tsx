@@ -4,7 +4,13 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-export default function SimpleSnackbar() {
+interface IProps {
+    downloadApp: () => void
+}
+
+const SimpleSnackbar: React.FC<IProps> = ({
+    downloadApp
+}) => {
     const [open, setOpen] = React.useState(true);
 
     const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
@@ -23,13 +29,13 @@ export default function SimpleSnackbar() {
                     horizontal: 'left',
                 }}
                 open={open}
-                autoHideDuration={6000}
+                autoHideDuration={3500}
                 onClose={handleClose}
                 message="하단의 홈 화면에 추가 버튼을 눌러 앱으로 이용해보세요."
                 action={
                     <React.Fragment>
-                        <Button color="secondary" size="small" onClick={handleClose}>
-                            UNDO
+                        <Button color="primary" size="small" onClick={downloadApp}>
+                            YES
             </Button>
                         <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
                             <CloseIcon fontSize="small" />
@@ -40,3 +46,5 @@ export default function SimpleSnackbar() {
         </div>
     );
 }
+
+export default SimpleSnackbar

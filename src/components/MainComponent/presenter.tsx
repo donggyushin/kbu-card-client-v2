@@ -4,7 +4,6 @@ import Navigation from '../NavigationBar'
 import BottomNavigation from '../BottomNavigation'
 import Body from './Body'
 import { Helmet } from 'react-helmet'
-import { COLORS } from '../../consts/colors'
 import SnackBar from '../Snackbar'
 
 const Container = styled.div`
@@ -14,20 +13,9 @@ const Container = styled.div`
     overflow:hidden;
 `
 
-const InstallButton = styled.div`
-    position: absolute;
-    top: 28px;
-    right: 68px;
-    background: ${COLORS.carrot};
-    color: white;
-    padding: 2px 11px;
-    border-radius: 4px;
-    cursor: pointer;
-`
 
 const MainComponentPresenter: React.FC = () => {
 
-    const [pwa, setPwa] = useState(false)
     const [ios, setIos] = useState(false)
 
     useEffect(() => {
@@ -38,15 +26,14 @@ const MainComponentPresenter: React.FC = () => {
 
             if (window.matchMedia('(display-mode: standalone)').matches) {
                 console.log('display-mode is standalone');
-                setPwa(false)
+
             } else {
+                setIos(true)
                 if (isIos()) {
                     if (isSafari()) {
                         //show ios version popup
                         setIos(true)
                     }
-                } else {
-                    showInstallPromotion();
                 }
             }
 
@@ -62,8 +49,7 @@ const MainComponentPresenter: React.FC = () => {
         <Navigation />
         <Body />
         <BottomNavigation />
-        {pwa === true && <InstallButton onClick={addToHomeScreen}>Install</InstallButton>}
-        {ios && <SnackBar />}
+        {ios && <SnackBar downloadApp={addToHomeScreen} />}
     </Container>)
 
     function isIos() {
@@ -84,9 +70,6 @@ const MainComponentPresenter: React.FC = () => {
         return false
     }
 
-    function showInstallPromotion() {
-        setPwa(true)
-    }
 
 
     function addToHomeScreen() {

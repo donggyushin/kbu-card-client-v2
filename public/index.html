@@ -29,9 +29,10 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
     
     <script src="https://kit.fontawesome.com/06b5185406.js" crossorigin="anonymous"></script>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>성서봇 | 한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션 성서봇</title>
     <style type="text/css">
       body {
@@ -39,56 +40,51 @@
         padding: 0;
         font-family: sans-serif;
       }
-      .navbar {
-        background-color: #4169e1;
+      .pwacontainer {
+        width: 100%;
+        padding-top:50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
       }
-      .navbar h3 {
-        display: inline-block;
-        text-align: left;
-        padding: 10px;
-        color: black;
-        text-decoration: none;
+      .pwacontainer__title {
+        font-size: 23px;
+    font-weight: 500;
+    margin-bottom: 21px;
+    letter-spacing: 4.2px;
       }
-      .navbar a {
-        display: inline-block;
-        padding: 10px;
-        color: #fff;
-        text-decoration: none;
-      }
-      .page-info {
-        padding: 10px;
-      }
-      .Current {
-        color: #2e8b57;
-      }
-      .Completed {
-        color: #ff6347;
-        text-decoration: line-through;
+
+      .pwacontainer__desc {
+        font-size: 12px;
+    letter-spacing: 1.2px;
+    margin-bottom: 14px;
       }
     </style>
+    
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      <div class="navbar">
-        <h3>Task Manager</h3>
-        <a href="/">Current Tasks</a>
-        <a href="/completed">Completed Tasks</a>
+      <div class="pwacontainer">
+        <div class="pwacontainer__title">성서봇</div>
+        <div class="pwacontainer__desc">한국성서대학교 대표 모바일 전용 인트라넷 웹 어플리케이션</div>
+        <div class="pwacontainer__loading">LOADING...</div>
       </div>
-      <p class="page-info">
-        Loading...
-      </p>
     </div>
     <script>
-      if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' })
-          .then(function(registration) {
-                console.log('Service Worker Registered');
+       if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('worker.js').then(function(registration) {
+            console.log('Worker registration successful', registration.scope);
+          }, function(err) {
+            console.log('Worker registration failed', err);
+          }).catch(function(err) {
+            console.log(err);
           });
-
-        navigator.serviceWorker.ready.then(function(registration) {
-           console.log('Service Worker Ready');
         });
+      } else {
+        console.log('Service Worker is not supported by browser.');
       }
     </script>
     <!--

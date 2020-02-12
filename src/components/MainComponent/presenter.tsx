@@ -33,14 +33,15 @@ const MainComponentPresenter: React.FC = () => {
             }
 
         });
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            console.log('display-mode is standalone');
 
-        } else {
-            if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('display-mode is standalone');
+
+            } else {
                 setIos(true)
-            }
 
+            }
         }
 
     }, [])

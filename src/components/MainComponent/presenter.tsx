@@ -99,7 +99,6 @@ const MainComponentPresenter: React.FC = () => {
             } else {
                 console.log('User dismissed the A2HS prompt')
             }
-            deferredPrompt = null;
         })
 
     

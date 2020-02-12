@@ -1,6 +1,6 @@
 {
-  "short_name": "성서봇",
-  "name": "성서봇",
+  "short_name": "donggyu bot",
+  "name": "donggyu bot",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +18,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "lang": "en-US",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

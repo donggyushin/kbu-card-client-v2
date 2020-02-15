@@ -42,17 +42,6 @@ interface IDispatchGetChapel {
   sures?: ReducerChapelOneDataType[]
 }
 
-interface IDispatchLogout {
-  type: string
-}
-
-interface IDispatchTurbOnModal {
-  type: string
-  text: string
-  title: string,
-  callBack?: (parameter: any) => void
-}
-
 interface IDispatchForGetProfile {
   type: string
   token?: string
@@ -102,7 +91,7 @@ const App: React.FC = () => {
   const userLoginDispatch = useDispatch<Dispatch<IuserLoginDispatch>>()
 
   // PWA install prompt code
-  const [ios, setIos] = useState(false)
+  const [visible, setVisible] = useState(false)
 
 
   useEffect(() => {
@@ -125,7 +114,7 @@ const App: React.FC = () => {
         console.log('display-mode is standalone');
 
       } else {
-        setIos(true)
+        setVisible(true)
 
       }
 
@@ -136,7 +125,7 @@ const App: React.FC = () => {
         console.log('display-mode is standalone');
 
       } else {
-        setIos(true)
+        setVisible(true)
 
       }
     }
@@ -161,7 +150,7 @@ const App: React.FC = () => {
       {scheduleDetailView && <ScheduleDetail />}
       <AlertModal />
       {loading && <Loading />}
-      {ios && <SnackBar downloadApp={addToHomeScreen} />}
+      {visible && <SnackBar downloadApp={addToHomeScreen} />}
     </Container>
   );
 

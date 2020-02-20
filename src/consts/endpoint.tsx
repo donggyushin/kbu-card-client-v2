@@ -6,5 +6,5 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     // dev code
 } else {
     // production code
-    DONGGYU_END_POINT = 'http://15.165.99.75:4001/api/'
+    DONGGYU_END_POINT = 'https://kbucard.com:4001/api/'
 }

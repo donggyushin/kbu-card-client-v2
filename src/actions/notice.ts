@@ -22,6 +22,7 @@ export const getNoticeWithMinimunId = (minId: number, dispatch: Dispatch<IgetNot
             dispatch({
                 type: LOADING_OFF
             })
+            console.log('notice response: ', res)
             if (res.status === 200) {
                 const datas: ReducerNoticeDataType[] = res.data.data
                 return dispatch({
@@ -42,9 +43,17 @@ export const getNoticeWithMinimunId = (minId: number, dispatch: Dispatch<IgetNot
             }
         })
         .catch(err => {
+
             console.log(`Error occured at actions/notice.ts getNoticeWithMinimunId`)
             console.error(err)
-
+            return dispatch({
+                type: TURN_ON_ALERT,
+                title: "Warning",
+                text: "서버 내부 에러로 공지사항을 불러올 수 없습니다. 홈으로 이동하시겠습니까?",
+                callBack: () => {
+                    window.location.href = '/'
+                }
+            })
         })
 }
 
@@ -54,6 +63,9 @@ interface IgetNoticeNonThunkFunctionDispatch {
     type: string
     datas?: ReducerNoticeDataType[]
     minId?: number
+    title?: string
+    text?: string
+    callBack?: () => void
 }
 
 
@@ -63,6 +75,9 @@ export const getNoticeNonThunkFunction = (dispatch: Dispatch<IgetNoticeNonThunkF
     })
     axios.get(`${END_POINT}information/notice`)
         .then(res => {
+            dispatch({
+                type: LOADING_OFF
+            })
             if (res.status === 200) {
                 const datas: ReducerNoticeDataType[] = res.data.data
                 dispatch({
@@ -70,13 +85,28 @@ export const getNoticeNonThunkFunction = (dispatch: Dispatch<IgetNoticeNonThunkF
                     datas,
                     minId: datas[datas.length - 1].id
                 })
-                dispatch({
-                    type: LOADING_OFF
+
+            } else if (res.status === 500) {
+                return dispatch({
+                    type: TURN_ON_ALERT,
+                    title: "Warning",
+                    text: "서버 내부 에러로 공지사항을 불러올 수 없습니다. 홈으로 이동하시겠습니까?",
+                    callBack: () => {
+                        window.location.href = '/'
+                    }
                 })
             }
         })
         .catch(err => {
             console.log(`Error occured at actions/notice.ts getNoticeNonThunkFunction`)
             console.error(err)
+            return dispatch({
+                type: TURN_ON_ALERT,
+                title: "Warning",
+                text: "서버 내부 에러로 공지사항을 불러올 수 없습니다. 홈으로 이동하시겠습니까?",
+                callBack: () => {
+                    window.location.href = '/'
+                }
+            })
         })
 }

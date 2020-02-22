@@ -100,6 +100,9 @@ export const getNoticeNonThunkFunction = (dispatch: Dispatch<IgetNoticeNonThunkF
         .catch(err => {
             console.log(`Error occured at actions/notice.ts getNoticeNonThunkFunction`)
             console.error(err)
+            dispatch({
+                type: LOADING_OFF
+            })
             return dispatch({
                 type: TURN_ON_ALERT,
                 title: "Warning",

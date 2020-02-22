@@ -258,7 +258,6 @@ export interface ReducerTodayPrayWriterType {
 
 export interface ReducerTodayPrayStudentPrayType {
     prays: string[]
-    _id: string
     name: string
     grade: number
 }
@@ -270,7 +269,6 @@ export interface ReducerTodayPrayType {
     day: number
     ads: string[]
     todayPrayContent: string[]
-    writer: ReducerTodayPrayWriterType
     studentPray: ReducerTodayPrayStudentPrayType[]
 }
 

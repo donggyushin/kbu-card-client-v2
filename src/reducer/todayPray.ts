@@ -4,6 +4,14 @@ import { GET_TODAY_PRAY, INIT_TODAY_PRAY } from "../actions/types.d";
 interface ActionType {
     type: string
     todayPray: ReducerTodayPrayType
+    studentPray: {
+        name: string
+        grade: number
+        prays: string[]
+    }[]
+    ads: string[]
+    todayPrayContent: string[]
+    date: string
 }
 
 const initialState: ReducerTodayPrayType = {
@@ -11,12 +19,6 @@ const initialState: ReducerTodayPrayType = {
     year: 0,
     month: 0,
     day: 0,
-    writer: {
-        _id: "",
-        name: "",
-        email: "",
-        phone: ""
-    },
     todayPrayContent: [],
     studentPray: [],
     ads: []
@@ -39,12 +41,6 @@ function init(state: ReducerTodayPrayType, action: ActionType): ReducerTodayPray
         year: 0,
         month: 0,
         day: 0,
-        writer: {
-            _id: "",
-            name: "",
-            email: "",
-            phone: ""
-        },
         todayPrayContent: [],
         studentPray: [],
         ads: []
@@ -52,9 +48,20 @@ function init(state: ReducerTodayPrayType, action: ActionType): ReducerTodayPray
 }
 
 function getTodayPray(state: ReducerTodayPrayType, action: ActionType): ReducerTodayPrayType {
-    const { todayPray } = action
+    const { studentPray,
+        ads,
+        todayPrayContent,
+        date } = action
+
+    const dateObject = new Date(date)
+
     return {
         ...state,
-        ...todayPray
+        ads,
+        studentPray,
+        todayPrayContent,
+        year: dateObject.getFullYear(),
+        month: dateObject.getMonth(),
+        day: dateObject.getDate()
     }
 }

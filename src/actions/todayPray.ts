@@ -10,6 +10,15 @@ export interface IGetTodayPrayDispatch {
     text?: string
     callBack?: (param: any) => void
     todayPray?: ReducerTodayPrayType
+    studentPray?: {
+        name: string
+        grade: number
+        prays: string[]
+    }[]
+    ads?: string[]
+    todayPrayContent?: string[]
+    date?: string
+
 }
 
 interface IGetTodayPrayData {
@@ -23,37 +32,70 @@ export const getTodayPray = (date: string | number, dispatch: Dispatch<IGetToday
         type: LOADING_ON
     })
     axios.get(`${DONGGYU_END_POINT}todaypray/${date}`)
-        .then(res => res.data)
-        .then(data => {
-            const { ok, error, todayPray }: IGetTodayPrayData = data;
-            if (ok) {
-                dispatch({
+        .then(res => {
+            dispatch({
+                type: LOADING_OFF
+            })
+            if (res.status === 200) {
+                interface IData {
+                    studentPray: {
+                        name: string
+                        grade: number
+                        prays: string[]
+                    }[]
+                    ads: string[]
+                    todayPrayContent: string[]
+                    date: string
+                }
+
+                const { studentPray, ads, todayPrayContent, date } = res.data as IData
+
+                return dispatch({
                     type: GET_TODAY_PRAY,
-                    todayPray
+                    studentPray,
+                    ads,
+                    todayPrayContent,
+                    date
                 })
+
+            } else if (res.status === 204) {
                 dispatch({
-                    type: LOADING_OFF
+                    type: INIT_TODAY_PRAY
+                })
+                return dispatch({
+                    type: TURN_ON_ALERT,
+                    title: "Warning",
+                    text: "아직 업로드되지 않았습니다. 홈으로 이동하시겠습니까?",
+                    callBack: () => {
+                        window.location.href = '/'
+                    }
+                })
+            } else if (res.status === 422) {
+                dispatch({
+                    type: INIT_TODAY_PRAY
+                })
+                return dispatch({
+                    type: TURN_ON_ALERT,
+                    title: "Warning",
+                    text: "유효하지 않은 날짜입니다. 홈으로 이동하시겠습니까?",
+                    callBack: () => {
+                        window.location.href = '/'
+                    }
                 })
             } else {
                 dispatch({
                     type: INIT_TODAY_PRAY
                 })
-                dispatch({
-                    type: LOADING_OFF
+                return dispatch({
+                    type: TURN_ON_ALERT,
+                    title: "Warning",
+                    text: "알수없는 에러 발생. 홈으로 이동하시겠습니까?",
+                    callBack: () => {
+                        window.location.href = '/'
+                    }
                 })
             }
         })
-        .catch(err => {
-            console.log(`Error occured at atctions/todayPray.ts getTodayPray`)
-            console.error(err)
-            return dispatch({
-                type: TURN_ON_ALERT,
-                title: "에러",
-                text: '알수없는 에러 발생. 관리자에게 문의해주세요. 홈으로 이동할까요?',
-                callBack: () => {
-                    window.location.href = '/'
-                }
-            })
-        })
+
 
 }

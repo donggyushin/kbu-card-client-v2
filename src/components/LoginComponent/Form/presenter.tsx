@@ -1,32 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import { TextField, Button } from '@material-ui/core'
-import { BoxShadowObject } from '../../../consts/boxShadow'
-
-const Container = styled.div`
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-`
-
-const Card = styled.div`
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    box-shadow: ${BoxShadowObject.typeOne};
-    border-radius:4px;
-    width: 300px;
-    height: 400px;
-    margin-top:50px;
-`
-
-const TitleText = styled.div`
-    margin-top: 35px;
-    font-weight: 600;
-    margin-bottom: 36px;
-`
-
+import './styles.css'
 
 interface IProps {
     id: string
@@ -42,9 +16,8 @@ const LoginFormPresenter: React.FC<IProps> = ({
     handleInput,
     login
 }) => {
-    return <Container>
-        <Card>
-            <TitleText>성서봇</TitleText>
+    return <div className="login__container">
+        <div className="login__container__card">
             <TextField
                 style={{
                     marginBottom: 20
@@ -68,8 +41,8 @@ const LoginFormPresenter: React.FC<IProps> = ({
             <Button
                 onClick={login}
                 variant="contained" color="primary">로그인</Button>
-        </Card>
-    </Container>
+        </div>
+    </div>
 }
 
 export default LoginFormPresenter

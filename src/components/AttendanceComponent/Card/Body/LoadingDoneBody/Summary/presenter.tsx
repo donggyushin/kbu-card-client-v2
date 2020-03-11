@@ -6,17 +6,17 @@ import Datas from './Datas'
 
 
 const Container = styled.div`
+margin-top:20px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 14% 1fr;
-    overflow-y:scroll;
+    /* grid-template-rows: 14% 1fr; */
     /* border-bottom:1px solid ${COLORS.weakGray}; */
 `
 
 
 const Presenter: React.FC = () => {
 
-    return <Container>
+    return <Container className="summary__container">
         <Categories />
         <Datas />
     </Container>

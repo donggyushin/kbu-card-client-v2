@@ -14,13 +14,15 @@ const Container = styled.div`
 `
 
 const Card = styled.div`
+    margin-top: 18px;
     width: 90%;
-    display: grid;
-    grid-template-rows: 60px 47px 57px;
+    /* display: grid; */
+    /* grid-template-rows: 60px 47px 57px; */
     height: 100%;
 `
 
 const CourseName = styled.div`
+
     display: flex;
     align-items: center;
     font-size: 24px;

@@ -273,8 +273,8 @@ export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dis
                 dispatch({
                     type: LOADING_OFF
                 })
-                const encryptedUserId = encrypt(id)
-                const encryptedPassword = encrypt(pw)
+                const encryptedUserId = id
+                const encryptedPassword = pw
                 localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
                 localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
                 window.location.href = '/'

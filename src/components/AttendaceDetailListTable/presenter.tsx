@@ -66,7 +66,7 @@ const Presenter: React.FC = () => {
     }
 
     if (tableView) {
-        return <Container>
+        return <Container className={"attendance_detail_container"}>
             <Header
                 onclickHeader={onclickHeader}
             />

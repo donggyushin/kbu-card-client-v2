@@ -61,7 +61,6 @@ export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<Icha
         }
     })
         .then(res => {
-
             if (res.status === 200) {
 
                 const { summary, tbody, thead }: IchapelNotThunkFunctionData = res.data.data

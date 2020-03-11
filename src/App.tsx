@@ -175,16 +175,13 @@ const App: React.FC = () => {
     userGetProfileImageNonThunkFunction(jwtToken, imageDispatch)
     chapelNotThunkFunction(jwtToken, getChapelDispatch)
     mileageGetBalanceNormalFunction(getBalanceDispatch)
-
   }
-
   function loginUserWithLocalstorage() {
     const encryptedUserId = localStorage.getItem(ENCRYPTED_USER_ID)
     const encryptedUserPassword = localStorage.getItem(ENCRYPTED_USER_PASSWORD)
     if (encryptedUserId && encryptedUserPassword) {
-      const userId = decrypt(encryptedUserId)
-      const userPassword = decrypt(encryptedUserPassword)
-      loginNonThunk(userId, userPassword, userLoginDispatch)
+
+      loginNonThunk(encryptedUserId, encryptedUserPassword, userLoginDispatch)
     }
   }
 

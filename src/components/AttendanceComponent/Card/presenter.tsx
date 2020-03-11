@@ -18,9 +18,9 @@ const FromBottomToTop = keyframes`
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: 7% 93%;
+    min-height: 100vh;
+    /* display: grid;
+    grid-template-rows: 7% 93%; */
     background:white;
     box-shadow:${BoxShadowObject.typeOne};
     overflow:hidden;
@@ -39,10 +39,10 @@ const FromTopToBottom = keyframes`
 
 const DisappearingContainer = styled.div`
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     top: 100vh;
-    display: grid;
-    grid-template-rows: 7% 93%;
+    /* display: grid;
+    grid-template-rows: 7% 93%; */
     background:white;
     box-shadow:${BoxShadowObject.typeOne};
     overflow:hidden;

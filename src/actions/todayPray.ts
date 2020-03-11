@@ -59,17 +59,17 @@ export const getTodayPray = (date: string | number, dispatch: Dispatch<IGetToday
                 })
 
             } else if (res.status === 204) {
-                dispatch({
+                return dispatch({
                     type: INIT_TODAY_PRAY
                 })
-                return dispatch({
-                    type: TURN_ON_ALERT,
-                    title: "Warning",
-                    text: "아직 업로드되지 않았습니다. 홈으로 이동하시겠습니까?",
-                    callBack: () => {
-                        window.location.href = '/'
-                    }
-                })
+                // return dispatch({
+                //     type: TURN_ON_ALERT,
+                //     title: "Warning",
+                //     text: "아직 업로드되지 않았습니다. 홈으로 이동하시겠습니까?",
+                //     callBack: () => {
+                //         window.location.href = '/'
+                //     }
+                // })
             } else if (res.status === 422) {
                 dispatch({
                     type: INIT_TODAY_PRAY
@@ -77,7 +77,7 @@ export const getTodayPray = (date: string | number, dispatch: Dispatch<IGetToday
                 return dispatch({
                     type: TURN_ON_ALERT,
                     title: "Warning",
-                    text: "유효하지 않은 날짜입니다. 홈으로 이동하시겠습니까?",
+                    text: "유효하지 않은 날짜입니다.",
                     callBack: () => {
                         window.location.href = '/'
                     }

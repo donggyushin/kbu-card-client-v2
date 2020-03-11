@@ -7,14 +7,14 @@ const Container = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     backdrop-filter: blur(1.5px);
     justify-content: center;
 `
 
 const AttendanceComponentPresenter: React.FC = () => {
-    return <Container>
+    return <Container className={"attendance__container"}>
         <Card />
     </Container>
 }

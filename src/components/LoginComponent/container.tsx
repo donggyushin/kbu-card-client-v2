@@ -60,7 +60,6 @@ class LoginComponentContainer extends React.Component<IProps, IState> {
             pw
         } = this.state
         this.props.loginUserThunkFunction(id, pw)
-        console.log('3')
     }
 
     handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {

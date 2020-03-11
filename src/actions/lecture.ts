@@ -26,7 +26,7 @@ interface IfetchLecturesThunkFunctionMeta {
 }
 
 export const fetchLecturesThunkFunction = (jwtToken: string) => (dispatch: Dispatch<IDispatch>) => {
-    axios.get(`${END_POINT}users/information/lecture?semester=20192`, {
+    axios.get(`${END_POINT}users/information/lecture?semester=20201`, {
         headers: {
             'Authorization': jwtToken
         }

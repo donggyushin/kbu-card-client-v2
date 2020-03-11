@@ -30,7 +30,7 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
         type: LOADING_ON
     })
 
-    axios.get(`${END_POINT}users/information/timetable?semester=20192`, {
+    axios.get(`${END_POINT}users/information/timetable?semester=20201`, {
         headers: {
             'Authorization': jwtToken
         }

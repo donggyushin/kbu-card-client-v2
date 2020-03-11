@@ -218,10 +218,8 @@ export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLo
                 dispatch({
                     type: LOADING_OFF
                 })
-                const encryptedUserId = encrypt(id)
-                const encryptedPassword = encrypt(pw)
-                localStorage.setItem(ENCRYPTED_USER_ID, encryptedUserId)
-                localStorage.setItem(ENCRYPTED_USER_PASSWORD, encryptedPassword)
+                localStorage.setItem(ENCRYPTED_USER_ID, id)
+                localStorage.setItem(ENCRYPTED_USER_PASSWORD, pw)
                 window.location.href = '/'
             } else {
                 dispatch({
@@ -241,10 +239,15 @@ export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLo
                 type: LOADING_OFF
             })
             dispatch({
+                type: USER_LOGOUT
+            })
+            dispatch({
                 type: TURN_ON_ALERT,
                 title: "경고",
                 text: "네트워크 에러 발생. 관리자에게 문의해주세요. 한국성서대 컴쏘 일동 -",
-                callBack: undefined
+                callBack: () => {
+                    window.location.href = '/'
+                }
             })
         })
 }

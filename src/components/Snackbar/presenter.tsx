@@ -31,7 +31,7 @@ const SimpleSnackbar: React.FC<IProps> = ({
                 open={open}
                 autoHideDuration={6000}
                 onClose={handleClose}
-                message="하단의 홈 화면에 추가 버튼을 눌러 앱으로 이용해보세요."
+                message={`하단의 "홈 화면에 추가" 버튼을 눌러 앱으로 이용해보세요.`}
                 action={
                     <React.Fragment>
                         <Button color="primary" size="small" onClick={downloadApp}>

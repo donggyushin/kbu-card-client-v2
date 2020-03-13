@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { ReducerStateType } from '../../../types/index.d'
+import './styles.css'
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
 `
 
 const Image = styled.img`
@@ -31,7 +31,10 @@ const Presenter: React.FC<IProps> = ({
     const [counter, setCounter] = useState(0)
     const image: string = useSelector((state: ReducerStateType) => state.mcu.img)
     const exp: number = useSelector((state: ReducerStateType) => state.mcu.exp)
+    const userProfileimageSrc = useSelector((state: ReducerStateType) => state.user.profile)
 
+    const UserReducer = useSelector((state: ReducerStateType) => state.user)
+    const { sid } = UserReducer
 
     useEffect(() => {
         if (counter === 0) {
@@ -43,6 +46,9 @@ const Presenter: React.FC<IProps> = ({
     }, [leftTime])
 
     return <Container>
+        {sid === '201303024' ? <img src={'/chrisHemsworth.jpeg'} alt="" className="qrcode_profile_image" /> : <img src={`data:image/png;base64,${userProfileimageSrc}`} alt="" className="qrcode_profile_image" />}
+
+
         <Image src={`data:image/png;base64, ${image}`} />
         <Timer>{leftTime}</Timer>
     </Container>

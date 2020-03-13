@@ -1,0 +1,23 @@
+.mobile_student_card_container {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile_student_card_container__profile {
+    width: 150px;
+}
+
+.mobile_student_card_container__name {
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.mobile_student_card_container__sid {
+    font-weight: 700;
+}
+
+.mobile_student_card_container__major {
+    font-weight: 700;
+}

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { Dispatch } from 'react'
 import { FETCH_MCU, MCU_LOADING } from './types.d'
 
@@ -27,7 +27,7 @@ export const fetchMcuNonThunkFunction = (jwtToken: string, dispatch: Dispatch<ID
         type: MCU_LOADING
     })
 
-    axios.get(`${END_POINT}auth/msc`, {
+    axios.get(`${END_POINT_UNIV}msc/code`, {
         headers: {
             'Authorization': jwtToken
         }

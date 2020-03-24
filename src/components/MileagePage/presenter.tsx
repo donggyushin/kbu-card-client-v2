@@ -11,6 +11,8 @@ import { verifyToken } from '../../utils/decodeToken'
 import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../../consts/localStorageKeys'
 import { decrypt } from '../../utils/cryptr'
 import { replaceJwtToken, IuserLoginDispatch } from '../../actions/user'
+import Axios from 'axios'
+import { END_POINT_UNIV } from '../../consts/endpoint'
 
 
 const Container = styled.div``
@@ -37,16 +39,22 @@ const Presenter: React.FC = () => {
 
     useEffect(() => {
 
-        if (verifyToken()) {
-            const token = localStorage.getItem('kbucard')
-            if (token) {
-                getMileageNonThunkFunction(token, getMileageNonThunkFunctionDispatch)
 
-            } else {
-                replaceJwtTokenFunc()
-            }
-        } else {
-            replaceJwtTokenFunc()
+        const id = localStorage.getItem("asjdhjsakd")
+        const pw = localStorage.getItem("aslkdjaslkd")
+
+        if (id && pw) {
+            Axios.post(`${END_POINT_UNIV}auth/login`, {
+                id,
+                pw
+            }, {
+                withCredentials: true
+            })
+                .then(res => {
+                    const jwtToken: string = res.headers['authorization']
+                    localStorage.setItem('kbucard', jwtToken)
+                    getMileageNonThunkFunction(jwtToken, getMileageNonThunkFunctionDispatch)
+                })
         }
 
     }, [])

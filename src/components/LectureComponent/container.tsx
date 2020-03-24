@@ -3,8 +3,7 @@ import Presenter from './presenter'
 import { connect } from 'react-redux'
 import { ReducerStateType } from '../../types/index.d'
 import { fetchTimeTableThunkFunction } from '../../actions/timeTable'
-import { logoutThunkFunction, loginNonThunk } from '../../actions/user'
-import { verifyToken } from '../../utils/decodeToken'
+import { logoutThunkFunction } from '../../actions/user'
 import { turnOnAlert } from '../../actions/modal'
 import { updateCurrentLocationRedux } from '../../actions/location'
 import { fetchLectureCodeThunkFunction } from '../../actions/lectureCode'
@@ -13,7 +12,7 @@ import { replaceJwtTokenThunk } from '../../actions/user'
 import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../../consts/localStorageKeys'
 import { decrypt } from '../../utils/cryptr'
 import Axios from 'axios'
-import { END_POINT } from '../../consts/endpoint'
+import { END_POINT_UNIV } from '../../consts/endpoint'
 
 interface IProps {
     fetchTimeTableThunkFunction: (jwtToken: string) => void
@@ -28,75 +27,33 @@ interface IProps {
 class LecturePageContainer extends React.Component<IProps> {
 
     componentDidMount() {
-        let tokenChecked: boolean = verifyToken()
         const { fetchTimeTableThunkFunction } = this.props;
         this.props.updateCurrentLocationRedux('lecture')
 
 
-        if (localStorage.getItem('kbucard')) {
-            if (tokenChecked) {
-                console.log('token checked')
-                const jwtToken: string | null = localStorage.getItem('kbucard')
-                if (jwtToken) {
 
+        const id = localStorage.getItem("asjdhjsakd")
+        const pw = localStorage.getItem("aslkdjaslkd")
+
+        if (id && pw) {
+            Axios.post(`${END_POINT_UNIV}auth/login`, {
+                id,
+                pw
+            }, {
+                withCredentials: true
+            })
+                .then(res => {
+                    const jwtToken: string = res.headers['authorization']
+                    localStorage.setItem('kbucard', jwtToken)
                     fetchTimeTableThunkFunction(jwtToken)
                     this.props.fetchLectureCodeThunkFunction(jwtToken)
                     this.props.fetchLecturesThunkFunction(jwtToken)
-
-                } else {
-                    this.props.turnOnAlert('경고', '로그인 상태가 불안정합니다. 다시 로그인해주세요.')
-                    this.props.logoutThunkFunction()
-                    setTimeout(() => {
-                        window.location.href = '/'
-                    }, 1500);
-                }
-
-            } else {
-                // 토큰이 만료되었다면 만료되었다는 메시지를 띄워준다. 
-
-                const id = localStorage.getItem('asjdhjsakd')
-                const pw = localStorage.getItem('aslkdjaslkd')
-
-                if (id && pw) {
-                    Axios.post(`${END_POINT}auth/login`, {
-                        id,
-                        pw
-                    }, {
-                        withCredentials: true
-                    })
-                        .then(res => {
-                            if (res.status === 200) {
-                                const jwtToken = res.headers['authorization']
-                                localStorage.setItem('kbucard', jwtToken)
-                                fetchTimeTableThunkFunction(jwtToken)
-                                this.props.fetchLectureCodeThunkFunction(jwtToken)
-                                this.props.fetchLecturesThunkFunction(jwtToken)
-
-                            } else {
-                                this.props.turnOnAlert('경고', 'lms 네트워크 상태가 불안정합니다. 이용에 불편을 끼쳐드려 대단히 죄송합니다.')
-                                setTimeout(() => {
-                                    window.location.href = '/'
-                                }, 1500);
-                            }
-                        })
-                        .catch(err => {
-                            this.props.turnOnAlert('경고', 'lms 네트워크 상태가 불안정합니다. 이용에 불편을 끼쳐드려 대단히 죄송합니다.')
-                            setTimeout(() => {
-                                window.location.href = '/'
-                            }, 1500);
-                        })
-                } else {
-                    this.props.turnOnAlert('경고', '로그인 상태가 불안정합니다. 다시 로그인해주세요.')
-                    this.props.logoutThunkFunction()
-                    setTimeout(() => {
-                        window.location.href = '/'
-                    }, 1500);
-                }
-
-            }
-        } else {
-            window.location.href = '/'
+                })
         }
+
+
+
+
     }
 
     render() {

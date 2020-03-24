@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { FETCH_LECTURE_CODE } from './types.d'
 
 interface IDispatchFetchLecutreCode {
@@ -9,12 +9,13 @@ interface IDispatchFetchLecutreCode {
 }
 
 export const fetchLectureCodeThunkFunction = (jwtToken: string) => (dispatch: Dispatch<IDispatchFetchLecutreCode>) => {
-    axios.get(`${END_POINT}users/information/lecture_code?semester=20201`, {
+    axios.get(`${END_POINT_UNIV}users/course_code?semester=20201`, {
         headers: {
             'Authorization': jwtToken
         }
     })
         .then(res => {
+            console.log(res)
             if (res.status === 200) {
                 const lectureCode = res.data.data.data
                 dispatch({

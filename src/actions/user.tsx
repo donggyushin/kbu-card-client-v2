@@ -200,7 +200,7 @@ export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLo
     })
     // return;
 
-    axios.post(`${END_POINT}auth/login`, {
+    axios.post(`${END_POINT_UNIV}auth/login`, {
         id,
         pw
     }, {
@@ -220,7 +220,7 @@ export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLo
                 })
                 localStorage.setItem(ENCRYPTED_USER_ID, id)
                 localStorage.setItem(ENCRYPTED_USER_PASSWORD, pw)
-                window.location.href = '/'
+                // window.location.href = '/'
             } else {
                 dispatch({
                     type: LOADING_OFF

@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import axios from 'axios'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { TIME_TABLE_FETCH, LOADING_ON, LOADING_OFF, SET_COLOR_SET } from './types.d'
 
 interface IDispatch {
@@ -13,8 +13,8 @@ interface IDispatch {
 }
 
 interface IfetchTimeTableThunkFunctionData {
-    thead: string[]
-    tbody: string[][][]
+    head: string[]
+    body: string[][][]
 }
 
 interface IFirstAndEndTime {
@@ -30,7 +30,7 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
         type: LOADING_ON
     })
 
-    axios.get(`${END_POINT}users/information/timetable?semester=20201`, {
+    axios.get(`${END_POINT_UNIV}users/timetable?semester=20201`, {
         headers: {
             'Authorization': jwtToken
         }
@@ -38,9 +38,10 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
         .then(res => {
 
             if (res.status === 200) {
-                const { tbody, thead }: IfetchTimeTableThunkFunctionData = res.data.data
-                const { startTime, endTime } = getStartTimeAndEndTime(tbody)
-                const colorSet = setColorSetToEachClass(tbody)
+
+                const { body, head }: IfetchTimeTableThunkFunctionData = res.data.data
+                const { startTime, endTime } = getStartTimeAndEndTime(body)
+                const colorSet = setColorSetToEachClass(body)
 
 
                 dispatch({
@@ -51,8 +52,8 @@ export const fetchTimeTableThunkFunction = (jwtToken: string) => (dispatch: Disp
 
                 dispatch({
                     type: TIME_TABLE_FETCH,
-                    thead,
-                    tbody,
+                    thead: head,
+                    tbody: body,
                     startTime,
                     endTime
                 })
@@ -104,6 +105,7 @@ function getStartTimeAndEndTime(schedule: string[][][]): IFirstAndEndTime {
     const endClassesEndTimes: number[] = []
     let firstTime: number = 0
     let endTime: number = 0
+
     schedule.map(row => {
         firstClasses.push(row[0])
         endClasses.push(row[row.length - 1])

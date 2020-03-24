@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { FETCH_LECTURES, LOADING_OFF } from './types.d'
 import { Dispatch } from 'react'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 
 interface IDispatch {
     type: string
@@ -26,7 +26,7 @@ interface IfetchLecturesThunkFunctionMeta {
 }
 
 export const fetchLecturesThunkFunction = (jwtToken: string) => (dispatch: Dispatch<IDispatch>) => {
-    axios.get(`${END_POINT}users/information/lecture?semester=20201`, {
+    axios.get(`${END_POINT_UNIV}users/course?semester=20201`, {
         headers: {
             'Authorization': jwtToken
         }

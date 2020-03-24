@@ -21,6 +21,8 @@ import { Helmet } from 'react-helmet'
 import { decrypt } from './utils/cryptr'
 import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from './consts/localStorageKeys';
 import SnackBar from './components/Snackbar';
+import Axios from 'axios';
+import { END_POINT_UNIV } from './consts/endpoint';
 
 interface containerProps {
   lightMode: boolean
@@ -100,11 +102,31 @@ const App: React.FC = () => {
     //   if (verifyToken()) {
     //     getInitialDatas()
     //   } else {
-    //     loginUserWithLocalstorage()
+
     //   }
     // }
 
-    getInitialDatas()
+    // loginUserWithLocalstorage()
+    // getInitialDatas()
+    const id = localStorage.getItem("asjdhjsakd")
+    const pw = localStorage.getItem("aslkdjaslkd")
+
+    if (id && pw) {
+      Axios.post(`${END_POINT_UNIV}auth/login`, {
+        id,
+        pw
+      }, {
+        withCredentials: true
+      })
+        .then(res => {
+          const jwtToken: string = res.headers['authorization']
+          localStorage.setItem('kbucard', jwtToken)
+          userGetProfileNonThunkFunction(jwtToken, getProfileDispatch)
+          userGetProfileImageNonThunkFunction(jwtToken, imageDispatch)
+          chapelNotThunkFunction(jwtToken, getChapelDispatch)
+          mileageGetBalanceNormalFunction(getBalanceDispatch)
+        })
+    }
 
 
     window.addEventListener('beforeinstallprompt', function (event) {

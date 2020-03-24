@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
+import { END_POINT_UNIV } from '../consts/endpoint'
 import { Dispatch } from 'react'
 import { CHAPEL_GET, SORING_CHAPEL, CHAPEL_UPDATE_CURRENT } from './types.d'
 import { ReducerChapelOneDataType } from '../types/index.d'

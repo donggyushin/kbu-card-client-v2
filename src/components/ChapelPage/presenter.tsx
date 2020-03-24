@@ -29,9 +29,9 @@ const Presenter: React.FC = () => {
             current: 'chapel'
         })
 
-        if (localStorage.getItem('kbucard')) {
-            replaceJwtTokenFunc()
-        }
+        // if (localStorage.getItem('kbucard')) {
+        //     replaceJwtTokenFunc()
+        // }
 
     }, [])
 

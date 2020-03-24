@@ -9,6 +9,8 @@ import { ReducerStateType } from '../../../../../../types/index.d'
 import { replaceJwtToken } from '../../../../../../actions/user'
 import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../../../../../../consts/localStorageKeys'
 import { decrypt } from '../../../../../../utils/cryptr'
+import Axios from 'axios'
+import { END_POINT_UNIV } from '../../../../../../consts/endpoint'
 
 const Container = styled.div`
     display:flex;
@@ -43,15 +45,23 @@ const Presenter: React.FC = () => {
     const loading: boolean = useSelector((state: ReducerStateType) => state.mcu.loading)
 
     const clickButton = () => {
-        const jwttoken: string | null = localStorage.getItem('kbucard')
-        if (jwttoken) {
-            if (verifyToken()) {
-                fetchMcuNonThunkFunction(jwttoken, mscDispatch)
-            } else {
 
-                // 토큰을 교체한다. 교체한 토큰으로 다시 큐알코드를 호출한다. 
-                replaceTokenAndReFetchQrCode()
-            }
+
+        const id = localStorage.getItem("asjdhjsakd")
+        const pw = localStorage.getItem("aslkdjaslkd")
+
+        if (id && pw) {
+            Axios.post(`${END_POINT_UNIV}auth/login`, {
+                id,
+                pw
+            }, {
+                withCredentials: true
+            })
+                .then(res => {
+                    const jwtToken: string = res.headers['authorization']
+                    localStorage.setItem('kbucard', jwtToken)
+                    fetchMcuNonThunkFunction(jwtToken, mscDispatch)
+                })
         } else {
             modalDispatch({
                 type: TURN_ON_ALERT,
@@ -60,6 +70,8 @@ const Presenter: React.FC = () => {
                 callBack: goHome
             })
         }
+
+
     }
 
 

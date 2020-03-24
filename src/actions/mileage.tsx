@@ -28,27 +28,27 @@ interface IgetMileageNonThunkFunctionDispatch {
 }
 
 interface IgetMileageNonThunkFunctionData {
-    thead: string[]
-    tbody: string[][]
+    head: string[]
+    body: string[][]
 }
 
 export const getMileageNonThunkFunction = (jwtToken: string, dispatch: Dispatch<IgetMileageNonThunkFunctionDispatch>) => {
     dispatch({
         type: LOADING_ON
     })
-    axios.get(`${END_POINT}users/information/statement`, {
+    axios.get(`${END_POINT_UNIV}users/statement`, {
         headers: {
             'Authorization': jwtToken
         }
     })
         .then(res => {
             if (res.status === 200) {
-                const { tbody, thead }: IgetMileageNonThunkFunctionData = res.data.data
-                const allDatas = sortDatas(tbody)
+                const { body, head }: IgetMileageNonThunkFunctionData = res.data.data
+                const allDatas = sortDatas(body)
                 dispatch({
                     type: GET_MILEAGE,
-                    thead,
-                    tbody,
+                    thead: head,
+                    tbody: body,
                     datas: allDatas.datas,
                     inDatas: allDatas.inDatas,
                     outDatas: allDatas.outDatas

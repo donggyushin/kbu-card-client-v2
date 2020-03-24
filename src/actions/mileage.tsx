@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { MILEAGE_GET_BALANCE, LOADING_ON, GET_MILEAGE, LOADING_OFF, PUT_MILEAGE_CURRENT } from './types.d'
 import { ReducerMileageDataType } from '../types/index.d'
 
@@ -111,7 +111,7 @@ interface ImileageGetBalanceNormalFunctionData {
 }
 
 export const mileageGetBalanceNormalFunction = (dispatch: Dispatch<ImileageGetBalanceThunkFunctionD>) => {
-    axios.get(`${END_POINT}users/information/balance`, {
+    axios.get(`${END_POINT_UNIV}users/balance`, {
         headers: {
             'Authorization': localStorage.getItem('kbucard')
         }

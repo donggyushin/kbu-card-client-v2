@@ -76,15 +76,15 @@ function userLogout(state: ReducerUserType, action: ActionType): ReducerUserType
 function userLogin(state: ReducerUserType, action: ActionType): ReducerUserType {
 
     const { token, jwtToken } = action
-    const decoded: any = jwt.decode(token)
-    const { sid, cid, exp } = decoded
     window.localStorage.setItem('kbucard', jwtToken)
+
+
 
     return {
         ...state,
         isLoggedIn: true,
-        sid,
-        cid,
-        exp
+        sid: "",
+        cid: "",
+        exp: 0
     }
 }

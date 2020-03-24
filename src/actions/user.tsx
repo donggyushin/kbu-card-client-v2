@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { USER_LOGOUT, USER_LOGIN, LOADING_OFF, USER_GET_PROFILE, USER_GET_IMAGE, TURN_ON_ALERT, LOADING_ON } from "./types.d";
 import axios from 'axios'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { encrypt } from '../utils/cryptr'
 import { ENCRYPTED_USER_ID, ENCRYPTED_USER_PASSWORD } from '../consts/localStorageKeys'
 
@@ -15,7 +15,7 @@ interface IImageData {
 }
 
 export const userGetProfileImageNonThunkFunction = (jwtToken: string, dispatch: Dispatch<IImageDispatch>) => {
-    axios.get(`${END_POINT}users/profiles/image`, {
+    axios.get(`${END_POINT_UNIV}users/photo`, {
         headers: {
             'Authorization': jwtToken
         }
@@ -92,7 +92,7 @@ export const userGetProfileThunkFunction = (jwtToken: string) => (dispatch: Disp
 }
 
 export const userGetProfileNonThunkFunction = (jwtToken: string, dispatch: Dispatch<IDispatch>) => {
-    axios.get(`${END_POINT}users/profiles/profile`, {
+    axios.get(`${END_POINT_UNIV}users/profile`, {
         headers: {
             'Authorization': jwtToken
         }
@@ -252,27 +252,31 @@ export const loginNonThunk = (id: string, pw: string, dispatch: Dispatch<IuserLo
         })
 }
 
+
 export const loginUserThunkFunction = (id: string, pw: string) => (dispatch: Dispatch<IDispatch>) => {
     dispatch({
         type: LOADING_ON
     })
 
-    axios.post(`${END_POINT}auth/login`, {
+    axios.post(`${END_POINT_UNIV}auth/login`, {
         id,
         pw
     }, {
         withCredentials: true
     })
         .then(res => {
+            console.log("res: ", res)
             if (res.status === 200) {
 
                 const jwtToken: string = res.headers['authorization']
                 const token: string = jwtToken.split(' ')[1]
+
                 dispatch({
                     type: USER_LOGIN,
                     token,
                     jwtToken
                 })
+
                 dispatch({
                     type: LOADING_OFF
                 })

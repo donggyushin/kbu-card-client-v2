@@ -96,13 +96,15 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getMenu(new Date().getTime(), cafeteriaGetMenuDispatch)
-    if (localStorage.getItem('kbucard')) {
-      if (verifyToken()) {
-        getInitialDatas()
-      } else {
-        loginUserWithLocalstorage()
-      }
-    }
+    // if (localStorage.getItem('kbucard')) {
+    //   if (verifyToken()) {
+    //     getInitialDatas()
+    //   } else {
+    //     loginUserWithLocalstorage()
+    //   }
+    // }
+
+    getInitialDatas()
 
 
     window.addEventListener('beforeinstallprompt', function (event) {

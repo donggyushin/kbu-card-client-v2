@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { Dispatch } from 'react'
 import { CHAPEL_GET, SORING_CHAPEL, CHAPEL_UPDATE_CURRENT } from './types.d'
 import { ReducerChapelOneDataType } from '../types/index.d'
@@ -45,8 +45,8 @@ interface ISummary {
 
 interface IchapelNotThunkFunctionData {
     summary: ISummary,
-    thead: string[]
-    tbody: string[][]
+    head: string[]
+    body: string[][]
 }
 
 interface IchapelNotThunkFunctionMeta {
@@ -55,16 +55,16 @@ interface IchapelNotThunkFunctionMeta {
 }
 
 export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<IchapelNotThunkFunctionDispatch>) => {
-    axios.get(`${END_POINT}users/information/chapel`, {
+    axios.get(`${END_POINT_UNIV}users/chapel`, {
         headers: {
             'Authorization': jwtToken
         }
     })
         .then(res => {
             if (res.status === 200) {
+                const { summary, body, head }: IchapelNotThunkFunctionData = res.data.data
 
-                const { summary, tbody, thead }: IchapelNotThunkFunctionData = res.data.data
-                const { selectable, selected }: IchapelNotThunkFunctionMeta = res.data.meta.select
+                const { selectable, selected }: IchapelNotThunkFunctionMeta = res.data.meta
                 const {
                     주중수업일수,
                     규정일수,
@@ -73,7 +73,7 @@ export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<Icha
                     확정
                 } = summary
 
-                sortChapels(tbody, dispatch)
+                sortChapels(body, dispatch)
 
 
                 const daysOfWeek = parseInt(주중수업일수)
@@ -89,8 +89,8 @@ export const chapelNotThunkFunction = (jwtToken: string, dispatch: Dispatch<Icha
                     late,
                     attendance,
                     sure,
-                    tbody,
-                    thead,
+                    tbody: body,
+                    thead: head,
                     selected,
                     selectable
                 })

@@ -44,13 +44,13 @@ const Presenter: React.FC<IProps> = ({ data }) => {
             {data.title}
         </Title>
         <Desc>
-            {data.description}...
+            {data.author}
         </Desc>
         <CreatorAndDate>
             <Text style={{
                 marginRight: 7
-            }}>{data.author}</Text>
-            <Text>{data.created_time_str}</Text>
+            }}>{data.created_time_str}</Text>
+            {/* <Text>{data.created_time_str}</Text> */}
         </CreatorAndDate>
     </Container>
 

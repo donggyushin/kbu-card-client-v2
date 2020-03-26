@@ -60,6 +60,7 @@ const Presenter: React.FC = () => {
                 .then(res => {
                     const jwtToken: string = res.headers['authorization']
                     localStorage.setItem('kbucard', jwtToken)
+
                     fetchMcuNonThunkFunction(jwtToken, mscDispatch)
                 })
         } else {

@@ -9,15 +9,16 @@ interface IDispatchFetchLecutreCode {
 }
 
 export const fetchLectureCodeThunkFunction = (jwtToken: string) => (dispatch: Dispatch<IDispatchFetchLecutreCode>) => {
-    axios.get(`${END_POINT_UNIV}users/course_code?semester=20201`, {
+    axios.get(`${END_POINT_UNIV}users/course-code?semester=20201`, {
         headers: {
             'Authorization': jwtToken
         }
     })
         .then(res => {
             console.log(res)
+
             if (res.status === 200) {
-                const lectureCode = res.data.data.data
+                const lectureCode = res.data.data.courses
                 dispatch({
                     type: FETCH_LECTURE_CODE,
                     lectureCode

@@ -27,7 +27,7 @@ export const fetchMcuNonThunkFunction = (jwtToken: string, dispatch: Dispatch<ID
         type: MCU_LOADING
     })
 
-    axios.get(`${END_POINT_UNIV}msc/code`, {
+    axios.post(`${END_POINT_UNIV}msc/code`, {
         headers: {
             'Authorization': jwtToken
         }

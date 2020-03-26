@@ -9,6 +9,8 @@ import { verifyToken } from '../../../../utils/decodeToken'
 import { logoutNonThunkFunction } from '../../../../actions/user'
 import { turnOnAlertNonThunkFunction } from '../../../../actions/modal'
 import { Redirect } from 'react-router-dom'
+import Axios from 'axios'
+import { END_POINT_UNIV } from '../../../../consts/endpoint'
 
 const Container = styled.div``
 
@@ -46,19 +48,21 @@ const AttendanceCardBodyPresenter: React.FC = () => {
     const modalDispatch = useDispatch<Dispatch<IModalDispatch>>()
 
     useEffect(() => {
-        if (verified) {
-            if (jwtToken) {
+
+        const id = localStorage.getItem("asjdhjsakd")
+        const pw = localStorage.getItem("aslkdjaslkd")
+
+        if (id && pw) {
+            Axios.post(`${END_POINT_UNIV}auth/login`, {
+                id,
+                pw
+            }, {
+                withCredentials: true
+            }).then(res => {
+                const jwtToken = res.headers['authorization']
+                localStorage.setItem('kbucard', jwtToken)
                 fetchAttendanceInfoNonThunkFunction(lmsCode, jwtToken, attendanceDispatch)
-            } else {
-                // 로그인을 다시 해달라고 하고 로그아웃 시키고 메인 페이지로 보낸다. 
-                logoutNonThunkFunction(userDispatch)
-                turnOnAlertNonThunkFunction('경고', '세션이 만료되었습니다. 로그인을 다시 해주세요', modalDispatch)
-                setTimeout(() => {
-                    redirectGoHome()
-                }, 1500);
-
-            }
-
+            })
         } else {
             // 로그인을 다시 해달라고 하고 로그아웃 시키고 메인 페이지로 보낸다. 
             logoutNonThunkFunction(userDispatch)

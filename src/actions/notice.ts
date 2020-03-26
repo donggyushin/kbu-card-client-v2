@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from "react";
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { ReducerNoticeDataType } from '../types/index.d'
 import { GET_NOTICES, LOADING_ON, LOADING_OFF, APPEND_NEW_NOTICES, TURN_ON_ALERT } from './types.d';
 
@@ -17,14 +17,26 @@ export const getNoticeWithMinimunId = (minId: number, dispatch: Dispatch<IgetNot
     dispatch({
         type: LOADING_ON
     })
-    axios.get(`${END_POINT}information/notice?max_id=${minId - 1}`)
+    axios.get(`${END_POINT_UNIV}info/notice?max_id=${minId - 1}`)
         .then(res => {
             dispatch({
                 type: LOADING_OFF
             })
-            console.log('notice response: ', res)
+
             if (res.status === 200) {
-                const datas: ReducerNoticeDataType[] = res.data.data
+                const originalDatas = res.data.data.body as []
+
+                const datas = originalDatas.map(originalData => {
+                    return {
+                        id: originalData[0],
+                        title: originalData[1],
+                        author: originalData[2],
+                        description: "",
+                        url: originalData[5],
+                        tag: originalData[4],
+                        created_time_str: originalData[2]
+                    }
+                }) as ReducerNoticeDataType[]
                 return dispatch({
                     type: APPEND_NEW_NOTICES,
                     datas,
@@ -73,13 +85,27 @@ export const getNoticeNonThunkFunction = (dispatch: Dispatch<IgetNoticeNonThunkF
     dispatch({
         type: LOADING_ON
     })
-    axios.get(`${END_POINT}information/notice`)
+    axios.get(`${END_POINT_UNIV}info/notice`)
         .then(res => {
             dispatch({
                 type: LOADING_OFF
             })
             if (res.status === 200) {
-                const datas: ReducerNoticeDataType[] = res.data.data
+
+                const originalDatas = res.data.data.body as []
+                console.log(originalDatas)
+                const datas = originalDatas.map(originalData => {
+                    return {
+                        id: originalData[0],
+                        title: originalData[1],
+                        author: originalData[3],
+                        description: "",
+                        url: originalData[5],
+                        tag: originalData[4],
+                        created_time_str: originalData[2]
+                    }
+                }) as ReducerNoticeDataType[]
+
                 dispatch({
                     type: GET_NOTICES,
                     datas,

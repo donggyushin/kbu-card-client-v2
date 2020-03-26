@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { END_POINT } from '../consts/endpoint'
+import { END_POINT, END_POINT_UNIV } from '../consts/endpoint'
 import { Dispatch } from 'react'
 import { ReducerAttendanceExtraType, ReducerAttendanceSummaryType, ReducerAttendanceDetailType } from '../types/index.d'
 import { FETCH_ATTENDANCE, SORT_ATTENDANCES, PUT_ATTENDANCE_CURRENT } from './types.d'
@@ -36,6 +36,10 @@ interface ISummary {
     일반결석: string
     지각: string
     기타: string
+    강좌번호: string
+    분반번호: string
+    강좌명: string
+    이름: string
 }
 interface IExtra {
     강좌번호: string
@@ -46,27 +50,27 @@ interface IExtra {
 
 interface IfetchAttendanceInfoNonThunkFunctionData {
     summary: ISummary
-    thead: string[]
-    tbody: string[][]
-    extra: IExtra
+    head: string[]
+    body: string[][]
+    // extra: IExtra
 }
 
 export const fetchAttendanceInfoNonThunkFunction = (lmsCode: string, jwtToken: string, dispatch: Dispatch<IfetchAttendanceInfoNonThunkFunctionDispatch>) => {
-    axios.get(`${END_POINT}users/information/attendance/${lmsCode}`, {
+    axios.get(`${END_POINT_UNIV}users/attendance/${lmsCode}`, {
         headers: {
             'Authorization': jwtToken
         }
     })
         .then(res => {
             if (res.status === 200) {
+                console.log(res)
                 const {
                     summary,
-                    thead,
-                    tbody,
-                    extra
+                    head,
+                    body
                 }: IfetchAttendanceInfoNonThunkFunctionData = res.data.data
 
-                sortAttendancesInfo(tbody, dispatch)
+                sortAttendancesInfo(body, dispatch)
 
                 const convertedSummary: ReducerAttendanceSummaryType = {
                     absence: parseInt(summary.일반결석),
@@ -75,18 +79,20 @@ export const fetchAttendanceInfoNonThunkFunction = (lmsCode: string, jwtToken: s
                     etc: parseInt(summary.기타)
                 }
 
+
+
                 const convertedExtra: ReducerAttendanceExtraType = {
-                    lectureCode: extra.강좌번호,
-                    classCode: extra.분반번호,
-                    className: extra.강좌명,
-                    studentName: extra.이름
+                    lectureCode: summary.강좌번호,
+                    classCode: summary.분반번호,
+                    className: summary.강좌명,
+                    studentName: summary.이름
                 }
 
                 dispatch({
                     type: FETCH_ATTENDANCE,
                     summary: convertedSummary,
-                    tbody,
-                    thead,
+                    tbody: body,
+                    thead: head,
                     extra: convertedExtra
                 })
 

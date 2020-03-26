@@ -16,8 +16,8 @@ interface ISelect {
 }
 
 interface IfetchLecturesThunkFunctionData {
-    thead: string[]
-    tbody: string[][]
+    head: string[]
+    body: string[][]
 
 }
 
@@ -33,12 +33,12 @@ export const fetchLecturesThunkFunction = (jwtToken: string) => (dispatch: Dispa
     })
         .then(res => {
             if (res.status === 200) {
-                const { thead, tbody }: IfetchLecturesThunkFunctionData = res.data.data
+                const { head, body }: IfetchLecturesThunkFunctionData = res.data.data
                 const { select }: IfetchLecturesThunkFunctionMeta = res.data.meta
                 dispatch({
                     type: FETCH_LECTURES,
-                    thead,
-                    tbody,
+                    thead: head,
+                    tbody: body,
                     select
                 })
                 dispatch({

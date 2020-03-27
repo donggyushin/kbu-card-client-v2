@@ -12,6 +12,7 @@ const Container = styled.div`
 
 const Image = styled.img`
     width:300px;
+    margin-top:30px;
 `
 
 const Timer = styled.div`
@@ -47,7 +48,13 @@ const Presenter: React.FC<IProps> = ({
 
     return <Container>
         {sid === '201303024' ? <img src={'/chrisHemsworth.jpeg'} alt="" className="qrcode_profile_image" /> : <img src={`data:image/png;base64,${userProfileimageSrc}`} alt="" className="qrcode_profile_image" />}
+        <div className="qrcode__name">
+            {UserReducer.name}
+        </div>
 
+        <div className="qrcode__student_number">
+            {UserReducer.sid}
+        </div>
 
         <Image src={`data:image/png;base64, ${image}`} />
         <Timer>{leftTime}</Timer>

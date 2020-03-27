@@ -27,36 +27,40 @@ export const fetchMcuNonThunkFunction = (jwtToken: string, dispatch: Dispatch<ID
         type: MCU_LOADING
     })
 
-    axios.post(`${END_POINT_UNIV}msc/code`, {
+    console.log(jwtToken)
+    console.log(`${END_POINT_UNIV}msc/code`)
+
+    axios.post(`${END_POINT_UNIV}msc/code`, {}, {
         headers: {
-            'Authorization': jwtToken
+            "Authorization": jwtToken
         }
+    }).then(res => {
+        console.log('response from fetch mcu: ', res)
+        if (res.status === 200) {
+            const {
+                img,
+                token
+            }: IfetchMcuNonThunkFunctionData = res.data.data
+            const {
+                iat,
+                exp
+            }: IfetchMcuNonThunkFunctionMeta = res.data.meta
+
+            dispatch({
+                type: FETCH_MCU,
+                img,
+                token,
+                iat,
+                exp
+            })
+
+        }
+
     })
-        .then(res => {
-            console.log('response from fetch mcu: ', res)
-            if (res.status === 200) {
-                const {
-                    img,
-                    token
-                }: IfetchMcuNonThunkFunctionData = res.data.data
-                const {
-                    iat,
-                    exp
-                }: IfetchMcuNonThunkFunctionMeta = res.data.meta
-
-                dispatch({
-                    type: FETCH_MCU,
-                    img,
-                    token,
-                    iat,
-                    exp
-                })
-
-            }
-
-        })
         .catch(err => {
             console.log(`Error occured at actions/mcu.ts fetchMcuNonThunkFunction`)
             console.error(err)
         })
+
+
 }
